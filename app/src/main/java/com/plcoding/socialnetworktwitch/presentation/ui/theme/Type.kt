@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.ui.theme
+package com.plcoding.socialnetworktwitch.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
