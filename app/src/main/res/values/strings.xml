@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SocialNetworkTwitch</string>
+    <string name="login">Login</string>
+    <string name="password_hint">Password</string>
+    <string name="login_hint">Username / E-Mail</string>
+    <string name="password_visible_content_description">Hide password</string>
+    <string name="password_hidden_content_description">Show password</string>
+    <string name="dont_have_an_account_yet">Don\'t have an account yet?</string>
+    <string name="sign_up">Sign up!</string>
 </resources>
