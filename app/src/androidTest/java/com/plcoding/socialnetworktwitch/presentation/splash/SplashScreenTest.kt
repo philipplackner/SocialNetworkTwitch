@@ -35,17 +35,20 @@ class SplashScreenTest {
     @RelaxedMockK
     lateinit var navController: NavController
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
     }
 
     @Test
-    fun splashScreen_displaysAndDisappears() {
+    fun splashScreen_displaysAndDisappears() = testDispatcher.runBlockingTest {
         composeTestRule.setContent {
             SocialNetworkTwitchTheme {
                 SplashScreen(
                     navController = navController,
+                    dispatcher = testDispatcher
                 )
             }
         }
@@ -53,5 +56,12 @@ class SplashScreenTest {
         composeTestRule
             .onNodeWithContentDescription("Logo")
             .assertExists()
+
+        advanceTimeBy(Constants.SPLASH_SCREEN_DURATION)
+
+        verify {
+            navController.popBackStack()
+            navController.navigate(Screen.LoginScreen.route)
+        }
     }
 }

@@ -15,13 +15,12 @@ import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.presentation.util.Screen
 import com.plcoding.socialnetworktwitch.util.Constants
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @Composable
 fun SplashScreen(
-    navController: NavController
+    navController: NavController,
+    dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) {
     val scale = remember {
         Animatable(0f)
@@ -30,18 +29,20 @@ fun SplashScreen(
         OvershootInterpolator(2f)
     }
     LaunchedEffect(key1 = true) {
-        scale.animateTo(
-            targetValue = 0.5f,
-            animationSpec = tween(
-                durationMillis = 500,
-                easing = {
-                    overshootInterpolator.getInterpolation(it)
-                }
+        withContext(dispatcher) {
+            scale.animateTo(
+                targetValue = 0.5f,
+                animationSpec = tween(
+                    durationMillis = 500,
+                    easing = {
+                        overshootInterpolator.getInterpolation(it)
+                    }
+                )
             )
-        )
-        delay(Constants.SPLASH_SCREEN_DURATION)
-        navController.popBackStack()
-        navController.navigate(Screen.LoginScreen.route)
+            delay(Constants.SPLASH_SCREEN_DURATION)
+            navController.popBackStack()
+            navController.navigate(Screen.LoginScreen.route)
+        }
     }
     Box(
         modifier = Modifier.fillMaxSize(),

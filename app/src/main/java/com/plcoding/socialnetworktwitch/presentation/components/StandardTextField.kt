@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
@@ -40,7 +41,7 @@ fun StandardTextField(
     TextField(
         value = text,
         onValueChange = {
-            if(it.length <= maxLength) {
+            if (it.length <= maxLength) {
                 onValueChange(it)
             }
         },
@@ -62,15 +63,22 @@ fun StandardTextField(
         singleLine = true,
         trailingIcon = {
             if (isPasswordToggleDisplayed) {
-                IconButton(onClick = {
-                    isPasswordVisible = !isPasswordVisible
-                }) {
+                IconButton(
+                    onClick = {
+                        isPasswordVisible = !isPasswordVisible
+                    },
+                    modifier = Modifier
+                        .semantics {
+                            testTag = "password_toggle"
+                        }
+                ) {
                     Icon(
                         imageVector = if (isPasswordVisible) {
                             Icons.Filled.VisibilityOff
                         } else {
                             Icons.Filled.Visibility
                         },
+                        tint = Color.White,
                         contentDescription = if (isPasswordVisible) {
                             stringResource(id = R.string.password_visible_content_description)
                         } else {
