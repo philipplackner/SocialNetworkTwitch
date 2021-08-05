@@ -1,16 +1,14 @@
 package com.plcoding.socialnetworktwitch.presentation.login
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
@@ -21,7 +19,6 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceMedium
-import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceSmall
 
 @Composable
 fun LoginScreen(
@@ -54,6 +51,7 @@ fun LoginScreen(
                 onValueChange = {
                     viewModel.setUsernameText(it)
                 },
+                error = viewModel.usernameError.value,
                 hint = stringResource(id = R.string.login_hint)
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -63,8 +61,24 @@ fun LoginScreen(
                     viewModel.setPasswordText(it)
                 },
                 hint = stringResource(id = R.string.password_hint),
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                error = viewModel.passwordError.value,
+                showPasswordToggle = viewModel.showPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowPassword(it)
+                }
             )
+            Spacer(modifier = Modifier.height(SpaceMedium))
+            Button(
+                onClick = { },
+                modifier = Modifier
+                    .align(Alignment.End)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.login),
+                    color = MaterialTheme.colors.onPrimary
+                )
+            }
         }
         Text(
             text = buildAnnotatedString {
