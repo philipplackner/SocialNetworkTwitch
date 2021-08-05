@@ -1,5 +1,6 @@
 package com.plcoding.socialnetworktwitch.presentation.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -19,6 +20,7 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceMedium
+import com.plcoding.socialnetworktwitch.presentation.util.Screen
 
 @Composable
 fun LoginScreen(
@@ -70,7 +72,9 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(
-                onClick = { },
+                onClick = {
+                    navController.navigate(Screen.MainFeedScreen.route)
+                },
                 modifier = Modifier
                     .align(Alignment.End)
             ) {
@@ -96,6 +100,11 @@ fun LoginScreen(
             style = MaterialTheme.typography.body1,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
+                .clickable {
+                    navController.navigate(
+                        Screen.RegisterScreen.route
+                    )
+                }
         )
     }
 

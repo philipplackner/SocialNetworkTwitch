@@ -7,4 +7,16 @@
     <string name="password_hidden_content_description">Show password</string>
     <string name="dont_have_an_account_yet">Don\'t have an account yet?</string>
     <string name="sign_up">Sign up!</string>
+    <string name="email">E-Mail</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_in">Sign in!</string>
+    <string name="username">Username</string>
+    <string name="unlike">Unlike</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
+    <string name="read_more">Read more</string>
+    <string name="liked_by_x_people">Liked by %d people</string>
+    <string name="x_comments">%d comments</string>
 </resources>
