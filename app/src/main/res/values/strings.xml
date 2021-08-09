@@ -19,4 +19,8 @@
     <string name="read_more">Read more</string>
     <string name="liked_by_x_people">Liked by %d people</string>
     <string name="x_comments">%d comments</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="activity">Activity</string>
+    <string name="profile">Profile</string>
 </resources>
