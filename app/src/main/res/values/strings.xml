@@ -23,4 +23,5 @@
     <string name="chat">Chat</string>
     <string name="activity">Activity</string>
     <string name="profile">Profile</string>
+    <string name="make_post">Make post</string>
 </resources>

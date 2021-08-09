@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.socialnetworktwitch.presentation.activity.ActivityScreen
 import com.plcoding.socialnetworktwitch.presentation.chat.ChatScreen
+import com.plcoding.socialnetworktwitch.presentation.create_post.CreatePostScreen
 import com.plcoding.socialnetworktwitch.presentation.main_feed.MainFeedScreen
 import com.plcoding.socialnetworktwitch.presentation.login.LoginScreen
 import com.plcoding.socialnetworktwitch.presentation.profile.ProfileScreen
@@ -43,6 +44,9 @@ fun Navigation(navController: NavHostController) {
         }
         composable(Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController)
+        }
+        composable(Screen.CreatePostScreen.route) {
+            CreatePostScreen(navController = navController)
         }
     }
 }

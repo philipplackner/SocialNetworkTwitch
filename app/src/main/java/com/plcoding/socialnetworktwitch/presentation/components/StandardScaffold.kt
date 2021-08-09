@@ -4,16 +4,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Message
-import androidx.compose.material.icons.outlined.Doorbell
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Message
-import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
@@ -38,9 +38,10 @@ fun StandardScaffold(
             icon = Icons.Outlined.Message,
             contentDescription = "Message"
         ),
+        BottomNavItem(route = ""),
         BottomNavItem(
             route = Screen.ActivityScreen.route,
-            icon = Icons.Outlined.Doorbell,
+            icon = Icons.Outlined.Notifications,
             contentDescription = "Activity"
         ),
         BottomNavItem(
@@ -49,11 +50,12 @@ fun StandardScaffold(
             contentDescription = "Profile"
         ),
     ),
+    onFabClick: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     Scaffold(
         bottomBar = {
-            if(showBottomBar) {
+            if (showBottomBar) {
                 BottomAppBar(
                     modifier = Modifier.fillMaxWidth(),
                     backgroundColor = MaterialTheme.colors.surface,
@@ -67,14 +69,32 @@ fun StandardScaffold(
                                 contentDescription = bottomNavItem.contentDescription,
                                 selected = bottomNavItem.route == navController.currentDestination?.route,
                                 alertCount = bottomNavItem.alertCount,
+                                enabled = bottomNavItem.icon != null
                             ) {
-                                navController.navigate(bottomNavItem.route)
+                                if(navController.currentDestination?.route != bottomNavItem.route) {
+                                    navController.navigate(bottomNavItem.route)
+                                }
                             }
                         }
                     }
                 }
             }
         },
+        floatingActionButton = {
+            if(showBottomBar) {
+                FloatingActionButton(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    onClick = onFabClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(id = R.string.make_post)
+                    )
+                }
+            }
+        },
+        isFloatingActionButtonDocked = true,
+        floatingActionButtonPosition = FabPosition.Center,
         modifier = modifier
     ) {
         content()
