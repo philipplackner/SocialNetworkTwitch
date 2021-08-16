@@ -31,10 +31,6 @@ Happ/src/main/java/com/plcoding/socialnetworktwitch/domain/models/Post.kt,d\b\d
 Tapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/login/LoginScreen.kt,7\a\7acee9b884d4099f0b4364edfbc3350c7bfb1e73
 
 Oapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/MainActivity.kt,8\7\87e61f0ba42c0e57b2125b8569a27974dd1f8c7e
-ã
-[app/src/main/java/com/plcoding/socialnetworktwitch/presentation/main_feed/MainFeedScreen.kt,e\c\ecd2b7610e0f04c9f5db09de81442199df1c03ff
-Ç
-Rapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/components/Post.kt,0\e\0e8018520ec78ff07ce5179c028a0060802dbff6
 ä
 Zapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/register/RegisterScreen.kt,c\6\c6fd3f9ce4763c995e39eeab2ea37637920652c3
 ì
@@ -43,5 +39,3 @@ capp/src/main/java/com/plcoding/socialnetworktwitch/presentation/components/Stan
 ^app/src/main/java/com/plcoding/socialnetworktwitch/presentation/components/StandardScaffold.kt,c\a\ca74f8a931c7ecd482b8588c1e14f64a8c6fd4bf
 ç
 ]app/src/main/java/com/plcoding/socialnetworktwitch/presentation/components/StandardToolbar.kt,4\a\4a96294ed8843a328ad1f09cf9263de8ef5bf82a
-Ä
-Papp/src/main/java/com/plcoding/socialnetworktwitch/presentation/ui/theme/Type.kt,f\2\f28dc19b4ea346ef0523779c027776f74b629813

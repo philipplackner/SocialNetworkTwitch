@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -40,17 +39,21 @@ import com.plcoding.socialnetworktwitch.util.Constants
 @Composable
 fun Post(
     post: Post,
+    modifier: Modifier = Modifier,
+    showProfileImage: Boolean = true,
     onPostClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(SpaceMedium)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(y = ProfilePictureSize / 2f)
+                .offset(y = if (showProfileImage) {
+                    ProfilePictureSizeMedium / 2f
+                } else 0.dp)
                 .clip(MaterialTheme.shapes.medium)
                 .shadow(5.dp)
                 .background(MediumGray)
@@ -87,9 +90,11 @@ fun Post(
                 Text(
                     text = buildAnnotatedString {
                         append(post.description)
-                        withStyle(SpanStyle(
-                            color = HintGray,
-                        )) {
+                        withStyle(
+                            SpanStyle(
+                                color = HintGray,
+                            )
+                        ) {
                             append(
                                 LocalContext.current.getString(
                                     R.string.read_more
@@ -128,15 +133,16 @@ fun Post(
                 }
             }
         }
-        Image(
-            painterResource(id = R.drawable.philipp),
-            contentDescription = "Profile picture",
-            modifier = Modifier
-                .size(ProfilePictureSize)
-                .clip(CircleShape)
-                .align(Alignment.TopCenter)
-        )
-
+        if (showProfileImage) {
+            Image(
+                painterResource(id = R.drawable.philipp),
+                contentDescription = "Profile picture",
+                modifier = Modifier
+                    .size(ProfilePictureSizeMedium)
+                    .clip(CircleShape)
+                    .align(Alignment.TopCenter)
+            )
+        }
     }
 }
 

@@ -31,4 +31,12 @@
     <string name="your_post">your post</string>
     <string name="your_activity">Your activity</string>
     <string name="your_profile">Your profile</string>
+    <string name="banner_image">Banner</string>
+    <string name="profile_image">Profile image</string>
+    <string name="edit">Edit</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="posts">Posts</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="follow">Follow</string>
 </resources>

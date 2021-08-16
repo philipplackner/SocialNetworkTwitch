@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/SocialNetworkTwitch/app/src/main/res/drawable/ic_github_icon_1.xml" value="0.19722222222222222" />
+        <entry key="..\:/AndroidStudioProjects/SocialNetworkTwitch/app/src/main/res/drawable/ic_instagram_glyph_1.xml" value="0.19722222222222222" />
+        <entry key="..\:/AndroidStudioProjects/SocialNetworkTwitch/app/src/main/res/drawable/ic_linkedin_icon_1.xml" value="0.19722222222222222" />
         <entry key="..\:/AndroidStudioProjects/SocialNetworkTwitch/app/src/main/res/drawable/ic_logo.xml" value="0.31296296296296294" />
         <entry key="..\:/AndroidStudioProjects/SocialNetworkTwitch/app/src/main/res/drawable/splash_screen.xml" value="0.31296296296296294" />
       </map>
