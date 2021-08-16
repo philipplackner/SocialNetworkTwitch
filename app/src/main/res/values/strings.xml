@@ -26,4 +26,9 @@
     <string name="make_post">Make post</string>
     <string name="back">Navigate back</string>
     <string name="your_feed">Your feed</string>
+    <string name="liked">liked</string>
+    <string name="commented_on">commented on</string>
+    <string name="your_post">your post</string>
+    <string name="your_activity">Your activity</string>
+    <string name="your_profile">Your profile</string>
 </resources>
