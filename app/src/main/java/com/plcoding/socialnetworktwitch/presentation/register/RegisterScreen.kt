@@ -17,9 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.R.string.login
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
-import com.plcoding.socialnetworktwitch.presentation.login.LoginViewModel
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceMedium
 
@@ -76,7 +74,7 @@ fun RegisterScreen(
                 hint = stringResource(id = R.string.password_hint),
                 keyboardType = KeyboardType.Password,
                 error = viewModel.passwordError.value,
-                showPasswordToggle = viewModel.showPassword.value,
+                isPasswordVisible = viewModel.showPassword.value,
                 onPasswordToggleClick = {
                     viewModel.setShowPassword(it)
                 }

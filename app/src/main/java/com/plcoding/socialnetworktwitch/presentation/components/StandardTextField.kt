@@ -8,9 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -32,7 +29,7 @@ fun StandardTextField(
     error: String = "",
     keyboardType: KeyboardType = KeyboardType.Text,
     isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
-    showPasswordToggle: Boolean = false,
+    isPasswordVisible: Boolean = false,
     onPasswordToggleClick: (Boolean) -> Unit = {},
     onValueChange: (String) -> Unit
 ) {
@@ -57,7 +54,7 @@ fun StandardTextField(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
-            visualTransformation = if (!showPasswordToggle && isPasswordToggleDisplayed) {
+            visualTransformation = if (!isPasswordVisible && isPasswordToggleDisplayed) {
                 PasswordVisualTransformation()
             } else {
                 VisualTransformation.None
@@ -67,7 +64,7 @@ fun StandardTextField(
                 if (isPasswordToggleDisplayed) {
                     IconButton(
                         onClick = {
-                            onPasswordToggleClick(!showPasswordToggle)
+                            onPasswordToggleClick(!isPasswordVisible)
                         },
                         modifier = Modifier
                             .semantics {
@@ -75,13 +72,13 @@ fun StandardTextField(
                             }
                     ) {
                         Icon(
-                            imageVector = if (showPasswordToggle) {
+                            imageVector = if (isPasswordVisible) {
                                 Icons.Filled.VisibilityOff
                             } else {
                                 Icons.Filled.Visibility
                             },
                             tint = Color.White,
-                            contentDescription = if (showPasswordToggle) {
+                            contentDescription = if (isPasswordVisible) {
                                 stringResource(id = R.string.password_visible_content_description)
                             } else {
                                 stringResource(id = R.string.password_hidden_content_description)
