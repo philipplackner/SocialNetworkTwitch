@@ -35,10 +35,9 @@ import com.plcoding.socialnetworktwitch.presentation.profile.components.BannerSe
 import com.plcoding.socialnetworktwitch.presentation.profile.components.ProfileHeaderSection
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.ProfilePictureSizeLarge
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceMedium
+import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.presentation.util.Screen
-import com.plcoding.socialnetworktwitch.presentation.util.toDp
 import com.plcoding.socialnetworktwitch.presentation.util.toPx
-import kotlin.math.exp
 
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -46,9 +45,10 @@ fun ProfileScreen(navController: NavController) {
     var toolbarOffsetY by remember {
         mutableStateOf(0f)
     }
-    var totalToolbarOffsetY by remember {
-        mutableStateOf(0f)
-    }
+    val iconHorizontalCenterLength =
+        (LocalConfiguration.current.screenWidthDp.dp.toPx() / 4f -
+                (ProfilePictureSizeLarge / 4f).toPx() -
+                SpaceSmall.toPx()) / 2f
     val iconSizeExpanded = 35.dp
     val toolbarHeightCollapsed = 75.dp
     val imageCollapsedOffsetY = remember {
@@ -150,10 +150,19 @@ fun ProfileScreen(navController: NavController) {
                             maximumValue = bannerHeight
                         )
                     ),
-                iconModifier = Modifier
+                leftIconModifier = Modifier
                     .graphicsLayer {
                         translationY = (1f - expandedRatio) *
                             -iconCollapsedOffsetY.toPx()
+                        translationX = (1f - expandedRatio) *
+                                iconHorizontalCenterLength
+                    },
+                rightIconModifier = Modifier
+                    .graphicsLayer {
+                        translationY = (1f - expandedRatio) *
+                                -iconCollapsedOffsetY.toPx()
+                        translationX = (1f - expandedRatio) *
+                                -iconHorizontalCenterLength
                     }
             )
             Image(
