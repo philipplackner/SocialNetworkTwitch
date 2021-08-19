@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -41,15 +42,20 @@ import kotlin.math.exp
 
 @Composable
 fun ProfileScreen(navController: NavController) {
+    val lazyListState = rememberLazyListState()
     var toolbarOffsetY by remember {
         mutableStateOf(0f)
     }
-
+    var totalToolbarOffsetY by remember {
+        mutableStateOf(0f)
+    }
+    val iconSizeExpanded = 35.dp
     val toolbarHeightCollapsed = 75.dp
-    // 75dp 50dp
-    // (75dp - 50dp) / 2
     val imageCollapsedOffsetY = remember {
         (toolbarHeightCollapsed - ProfilePictureSizeLarge / 2f) / 2f
+    }
+    val iconCollapsedOffsetY = remember {
+        (toolbarHeightCollapsed - iconSizeExpanded) / 2f
     }
     val bannerHeight = (LocalConfiguration.current.screenWidthDp / 2.5f).dp
     val toolbarHeightExpanded = remember {
@@ -65,6 +71,9 @@ fun ProfileScreen(navController: NavController) {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
+                if(delta > 0f && lazyListState.firstVisibleItemIndex != 0) {
+                    return Offset.Zero
+                }
                 val newOffset = toolbarOffsetY + delta
                 toolbarOffsetY = newOffset.coerceIn(
                     minimumValue = -maxOffset.toPx(),
@@ -85,6 +94,7 @@ fun ProfileScreen(navController: NavController) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
+            state = lazyListState
         ) {
             item {
                 Spacer(modifier = Modifier.height(
@@ -139,7 +149,12 @@ fun ProfileScreen(navController: NavController) {
                             minimumValue = toolbarHeightCollapsed,
                             maximumValue = bannerHeight
                         )
-                    )
+                    ),
+                iconModifier = Modifier
+                    .graphicsLayer {
+                        translationY = (1f - expandedRatio) *
+                            -iconCollapsedOffsetY.toPx()
+                    }
             )
             Image(
                 painter = painterResource(id = R.drawable.philipp),
