@@ -1,11 +1,9 @@
 package com.plcoding.socialnetworktwitch.presentation.profile
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,7 +16,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -37,25 +35,44 @@ import com.plcoding.socialnetworktwitch.presentation.profile.components.ProfileH
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.ProfilePictureSizeLarge
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.presentation.util.Screen
+import com.plcoding.socialnetworktwitch.presentation.util.toDp
+import com.plcoding.socialnetworktwitch.presentation.util.toPx
+import kotlin.math.exp
 
 @Composable
 fun ProfileScreen(navController: NavController) {
     var toolbarOffsetY by remember {
         mutableStateOf(0f)
     }
-    val toolbarHeightCollapsed = 56.dp
+
+    val toolbarHeightCollapsed = 75.dp
+    // 75dp 50dp
+    // (75dp - 50dp) / 2
+    val imageCollapsedOffsetY = remember {
+        (toolbarHeightCollapsed - ProfilePictureSizeLarge / 2f) / 2f
+    }
     val bannerHeight = (LocalConfiguration.current.screenWidthDp / 2.5f).dp
     val toolbarHeightExpanded = remember {
         bannerHeight + ProfilePictureSizeLarge
+    }
+    val maxOffset = remember {
+        toolbarHeightExpanded - toolbarHeightCollapsed
+    }
+    var expandedRatio by remember {
+        mutableStateOf(1f)
     }
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
                 val newOffset = toolbarOffsetY + delta
-
-
-                return super.onPreScroll(available, source)
+                toolbarOffsetY = newOffset.coerceIn(
+                    minimumValue = -maxOffset.toPx(),
+                    maximumValue = 0f
+                )
+                expandedRatio = ((toolbarOffsetY + maxOffset.toPx()) / maxOffset.toPx())
+                println("EXPANDED RATIO: $expandedRatio")
+                return Offset.Zero
             }
         }
     }
@@ -116,7 +133,13 @@ fun ProfileScreen(navController: NavController) {
                 .align(Alignment.TopCenter)
         ) {
             BannerSection(
-                modifier = Modifier.height(bannerHeight)
+                modifier = Modifier
+                    .height(
+                        (bannerHeight * expandedRatio).coerceIn(
+                            minimumValue = toolbarHeightCollapsed,
+                            maximumValue = bannerHeight
+                        )
+                    )
             )
             Image(
                 painter = painterResource(id = R.drawable.philipp),
@@ -124,7 +147,15 @@ fun ProfileScreen(navController: NavController) {
                 modifier = Modifier
                     .align(CenterHorizontally)
                     .graphicsLayer {
-                        translationY = -ProfilePictureSizeLarge.toPx() / 2f
+                        translationY = -ProfilePictureSizeLarge.toPx() / 2f -
+                                (1f - expandedRatio) * imageCollapsedOffsetY.toPx()
+                        transformOrigin = TransformOrigin(
+                            pivotFractionX = 0.5f,
+                            pivotFractionY = 0f
+                        )
+                        val scale = 0.5f + expandedRatio * 0.5f
+                        scaleX = scale
+                        scaleY = scale
                     }
                     .size(ProfilePictureSizeLarge)
                     .clip(CircleShape)
