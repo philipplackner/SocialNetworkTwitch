@@ -3,12 +3,11 @@ package com.plcoding.socialnetworktwitch.presentation.util
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.plcoding.socialnetworktwitch.domain.models.Post
+import com.plcoding.socialnetworktwitch.presentation.edit_profile.EditProfileScreen
 import com.plcoding.socialnetworktwitch.presentation.activity.ActivityScreen
 import com.plcoding.socialnetworktwitch.presentation.chat.ChatScreen
 import com.plcoding.socialnetworktwitch.presentation.create_post.CreatePostScreen
@@ -23,7 +22,7 @@ import com.plcoding.socialnetworktwitch.presentation.splash.SplashScreen
 fun Navigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.ProfileScreen.route,
+        startDestination = Screen.EditProfileScreen.route,
         modifier = Modifier.fillMaxSize()
     ) {
         composable(Screen.SplashScreen.route) {
@@ -46,6 +45,9 @@ fun Navigation(navController: NavHostController) {
         }
         composable(Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController)
+        }
+        composable(Screen.EditProfileScreen.route) {
+            EditProfileScreen(navController = navController)
         }
         composable(Screen.CreatePostScreen.route) {
             CreatePostScreen(navController = navController)
