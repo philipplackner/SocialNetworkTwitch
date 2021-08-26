@@ -1,6 +1,7 @@
 package com.plcoding.socialnetworktwitch.presentation.util
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -16,13 +17,15 @@ import com.plcoding.socialnetworktwitch.presentation.login.LoginScreen
 import com.plcoding.socialnetworktwitch.presentation.post_detail.PostDetailScreen
 import com.plcoding.socialnetworktwitch.presentation.profile.ProfileScreen
 import com.plcoding.socialnetworktwitch.presentation.register.RegisterScreen
+import com.plcoding.socialnetworktwitch.presentation.search.SearchScreen
 import com.plcoding.socialnetworktwitch.presentation.splash.SplashScreen
 
+@ExperimentalMaterialApi
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.EditProfileScreen.route,
+        startDestination = Screen.LoginScreen.route,
         modifier = Modifier.fillMaxSize()
     ) {
         composable(Screen.SplashScreen.route) {
@@ -51,6 +54,9 @@ fun Navigation(navController: NavHostController) {
         }
         composable(Screen.CreatePostScreen.route) {
             CreatePostScreen(navController = navController)
+        }
+        composable(Screen.SearchScreen.route) {
+            SearchScreen(navController = navController)
         }
         composable(Screen.PostDetailScreen.route) {
             PostDetailScreen(

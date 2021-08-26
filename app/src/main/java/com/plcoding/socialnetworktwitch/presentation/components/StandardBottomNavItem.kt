@@ -29,8 +29,8 @@ import com.plcoding.socialnetworktwitch.presentation.ui.theme.SpaceSmall
 @Composable
 @Throws(IllegalArgumentException::class)
 fun RowScope.StandardBottomNavItem(
-    icon: ImageVector? = null,
     modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
     contentDescription: String? = null,
     selected: Boolean = false,
     alertCount: Int? = null,
