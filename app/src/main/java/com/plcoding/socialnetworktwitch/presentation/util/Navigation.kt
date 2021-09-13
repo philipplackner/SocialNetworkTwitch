@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.plcoding.socialnetworktwitch.domain.models.Post
+import com.plcoding.socialnetworktwitch.presentation.PersonListScreen
 import com.plcoding.socialnetworktwitch.presentation.edit_profile.EditProfileScreen
 import com.plcoding.socialnetworktwitch.presentation.activity.ActivityScreen
 import com.plcoding.socialnetworktwitch.presentation.chat.ChatScreen
@@ -74,6 +75,9 @@ fun Navigation(navController: NavHostController) {
                     commentCount = 7
                 )
             )
+        }
+        composable(Screen.PersonListScreen.route) {
+            PersonListScreen(navController = navController)
         }
     }
 }

@@ -53,4 +53,6 @@
     <string name="choose_image">Choose image</string>
     <string name="post">Post</string>
     <string name="description">Description</string>
+    <string name="liked_by">Liked by</string>
+    <string name="followed_you">followed you</string>
 </resources>
