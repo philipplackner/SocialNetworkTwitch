@@ -13,8 +13,6 @@ Papp/src/main/java/com/plcoding/socialnetworktwitch/presentation/util/TestTags.k
 Wapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/login/LoginViewModel.kt,5\e\5e3b454019990f59da7012988a72a1cdde98b55d
 ö
 japp/src/androidTest/java/com/plcoding/socialnetworktwitch/presentation/components/StandardTextFieldTest.kt,c\d\cd867fd69dd8272c12850e84e44b47b0b2c89cb0
-ç
-]app/src/main/java/com/plcoding/socialnetworktwitch/presentation/register/RegisterViewModel.kt,b\0\b0ec30abcacdbee3dce6a64dc7328d80ac356855
 Å
 Qapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/ui/theme/Shape.kt,f\c\fcfd3d07d283e1766e5b99ffb7f29958d52fec66
 Ç
@@ -45,8 +43,6 @@ Papp/src/main/java/com/plcoding/socialnetworktwitch/domain/util/DateFormatUtil.k
 capp/src/main/java/com/plcoding/socialnetworktwitch/presentation/profile/components/ProfileNumber.kt,3\8\38ed9e58f037ea070da0291c24d3bb510c6807aa
 Ñ
 Tapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/login/LoginScreen.kt,7\a\7acee9b884d4099f0b4364edfbc3350c7bfb1e73
-ä
-Zapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/register/RegisterScreen.kt,c\6\c6fd3f9ce4763c995e39eeab2ea37637920652c3
 ö
 japp/src/main/java/com/plcoding/socialnetworktwitch/presentation/profile/components/ProfileHeaderSection.kt,0\7\0785cc52cf727d692be5dbb86ad89b47c6ee3228
 í
@@ -57,8 +53,6 @@ Oapp/src/main/java/com/plcoding/socialnetworktwitch/presentation/util/UnitExt.kt
 capp/src/main/java/com/plcoding/socialnetworktwitch/presentation/profile/components/BannerSection.kt,f\c\fce38d2744eb935bace537c7ee64ef454298135d
 ã
 [app/src/main/java/com/plcoding/socialnetworktwitch/presentation/main_feed/MainFeedScreen.kt,e\c\ecd2b7610e0f04c9f5db09de81442199df1c03ff
-t
-Dapp/src/main/java/com/plcoding/socialnetworktwitch/util/Constants.kt,6\5\65e5826c2dcf206d68891a7cf727b3d38bc3f2ef
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 Å
