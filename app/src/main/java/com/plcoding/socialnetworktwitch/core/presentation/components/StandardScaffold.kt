@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.presentation.components
+package com.plcoding.socialnetworktwitch.core.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.BottomNavItem
 import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.presentation.components.StandardBottomNavItem
 
 
 @Composable
@@ -21,6 +22,7 @@ fun StandardScaffold(
     navController: NavController,
     modifier: Modifier = Modifier,
     showBottomBar: Boolean = true,
+    state: ScaffoldState,
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
             route = Screen.MainFeedScreen.route,
@@ -74,6 +76,7 @@ fun StandardScaffold(
                 }
             }
         },
+        scaffoldState = state,
         floatingActionButton = {
             if (showBottomBar) {
                 FloatingActionButton(

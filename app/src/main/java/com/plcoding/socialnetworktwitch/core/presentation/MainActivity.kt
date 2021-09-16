@@ -7,11 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.plcoding.socialnetworktwitch.presentation.components.StandardScaffold
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardScaffold
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SocialNetworkTwitchTheme
 import com.plcoding.socialnetworktwitch.core.presentation.components.Navigation
 import com.plcoding.socialnetworktwitch.core.util.Screen
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val scaffoldState = rememberScaffoldState()
                     StandardScaffold(
                         navController = navController,
                         showBottomBar = navBackStackEntry?.destination?.route in listOf(
@@ -38,12 +40,13 @@ class MainActivity : ComponentActivity() {
                             Screen.ActivityScreen.route,
                             Screen.ProfileScreen.route,
                         ),
+                        state = scaffoldState,
                         modifier = Modifier.fillMaxSize(),
                         onFabClick = {
                             navController.navigate(Screen.CreatePostScreen.route)
                         }
                     ) {
-                        Navigation(navController)
+                        Navigation(navController, scaffoldState)
                     }
                 }
             }
