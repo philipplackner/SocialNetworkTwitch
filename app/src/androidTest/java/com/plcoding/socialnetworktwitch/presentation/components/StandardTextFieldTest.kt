@@ -12,17 +12,12 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.plcoding.socialnetworktwitch.presentation.MainActivity
-import com.plcoding.socialnetworktwitch.presentation.login.LoginScreen
-import com.plcoding.socialnetworktwitch.presentation.util.TestTags
-import com.plcoding.socialnetworktwitch.presentation.util.TestTags.PASSWORD_TOGGLE
-import com.plcoding.socialnetworktwitch.presentation.util.TestTags.STANDARD_TEXT_FIELD
-import com.plcoding.socialnetworktwitch.util.Constants
-import org.junit.Before
+import com.plcoding.socialnetworktwitch.core.presentation.MainActivity
+import com.plcoding.socialnetworktwitch.core.util.TestTags.PASSWORD_TOGGLE
+import com.plcoding.socialnetworktwitch.core.util.TestTags.STANDARD_TEXT_FIELD
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.math.exp
 
 
 @RunWith(AndroidJUnit4::class)
