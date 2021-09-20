@@ -95,7 +95,7 @@ fun EditProfileScreen(
                     text = viewModel.usernameState.value.text,
                     hint = stringResource(id = R.string.username),
                     error = when (viewModel.usernameState.value.error) {
-                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.this_field_cant_be_empty)
+                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.error_field_empty)
                         else -> ""
                     },
                     leadingIcon = Icons.Default.Person,
@@ -112,7 +112,7 @@ fun EditProfileScreen(
                     text = viewModel.githubTextFieldState.value.text,
                     hint = stringResource(id = R.string.github_profile_url),
                     error = when (viewModel.githubTextFieldState.value.error) {
-                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.this_field_cant_be_empty)
+                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.error_field_empty)
                         else -> ""
                     },
                     leadingIcon = ImageVector.vectorResource(id = R.drawable.ic_github_icon_1),
@@ -129,7 +129,7 @@ fun EditProfileScreen(
                     text = viewModel.instagramTextFieldState.value.text,
                     hint = stringResource(id = R.string.instagram_profile_url),
                     error = when (viewModel.instagramTextFieldState.value.error) {
-                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.this_field_cant_be_empty)
+                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.error_field_empty)
                         else -> ""
                     },
                     leadingIcon = ImageVector.vectorResource(id = R.drawable.ic_instagram_glyph_1),
@@ -146,7 +146,7 @@ fun EditProfileScreen(
                     text = viewModel.linkedInTextFieldState.value.text,
                     hint = stringResource(id = R.string.linked_in_profile_url),
                     error = when (viewModel.linkedInTextFieldState.value.error) {
-                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.this_field_cant_be_empty)
+                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.error_field_empty)
                         else -> ""
                     },
                     leadingIcon = ImageVector.vectorResource(id = R.drawable.ic_linkedin_icon_1),
@@ -163,7 +163,7 @@ fun EditProfileScreen(
                     text = viewModel.bioState.value.text,
                     hint = stringResource(id = R.string.your_bio),
                     error = when (viewModel.bioState.value.error) {
-                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.this_field_cant_be_empty)
+                        is EditProfileError.FieldEmpty -> stringResource(id = R.string.error_field_empty)
                         else -> ""
                     },
                     singleLine = false,

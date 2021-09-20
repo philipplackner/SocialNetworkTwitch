@@ -55,7 +55,7 @@
     <string name="description">Description</string>
     <string name="liked_by">Liked by</string>
     <string name="followed_you">followed you</string>
-    <string name="this_field_cant_be_empty">This field can\'t be empty</string>
+    <string name="error_field_empty">This field can\'t be empty</string>
     <string name="not_a_valid_email">This is not a valid email</string>
     <string name="input_too_short">The minimum length is %d</string>
     <string name="invalid_password">The password needs to contain at least one uppercase letter and one number</string>

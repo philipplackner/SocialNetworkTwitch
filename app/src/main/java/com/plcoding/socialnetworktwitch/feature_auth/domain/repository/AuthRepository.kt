@@ -12,4 +12,9 @@ interface AuthRepository {
         username: String,
         password: String
     ): SimpleResource
+
+    suspend fun login(
+        email: String,
+        password: String
+    ): SimpleResource
 }
