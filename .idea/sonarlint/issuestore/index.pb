@@ -9,10 +9,6 @@ A
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 @
 local.properties,0\7\0712df971a99ac4d2fccb8e0fb19f377f3374cca
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 
 Qapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/Activity.kt,b\0\b0da2a1e5310366bba04e6cd856eb18491477540
 Œ
@@ -85,8 +81,6 @@ iapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation
 Vapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/ui/theme/Shape.kt,5\d\5dfeadab3745b5ee8cee54351e85b85c0592abc7
 Ž
 ^app/src/main/java/com/plcoding/socialnetworktwitch/feature_splash/presentation/SplashScreen.kt,c\c\cc8929dbe3555b62f8a591db2e10e8d3f0c52848
-‘
-aapp/src/androidTest/java/com/plcoding/socialnetworktwitch/presentation/splash/SplashScreenTest.kt,d\b\db2840b3a3ad8b74d360c8f91a4074436f274b5c
 ˜
 happ/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/components/StandardBottomNavItem.kt,d\b\db1e86df0af76f8a7778dd1a4e256f6bb4e08a58
 ”

@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.plcoding.socialnetworktwitch"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -65,10 +65,11 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Compose dependencies
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-beta01"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha12'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
