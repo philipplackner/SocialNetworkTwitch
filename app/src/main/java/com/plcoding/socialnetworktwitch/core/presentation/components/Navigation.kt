@@ -20,7 +20,7 @@ import com.plcoding.socialnetworktwitch.feature_post.presentation.post_detail.Po
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.ProfileScreen
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.register.RegisterScreen
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.search.SearchScreen
-import com.plcoding.socialnetworktwitch.feature_splash.presentation.SplashScreen
+import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashScreen
 import com.plcoding.socialnetworktwitch.core.util.Screen
 
 @ExperimentalMaterialApi
@@ -31,7 +31,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.LoginScreen.route,
+        startDestination = Screen.SplashScreen.route,
         modifier = Modifier.fillMaxSize()
     ) {
         composable(Screen.SplashScreen.route) {

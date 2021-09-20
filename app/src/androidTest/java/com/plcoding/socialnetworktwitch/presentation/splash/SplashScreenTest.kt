@@ -4,7 +4,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.NavController
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.plcoding.socialnetworktwitch.feature_splash.presentation.SplashScreen
+import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashScreen
 import com.plcoding.socialnetworktwitch.core.presentation.MainActivity
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SocialNetworkTwitchTheme
 import com.plcoding.socialnetworktwitch.core.util.Screen

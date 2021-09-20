@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.states.PasswordTextFieldState
 import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
+import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.RegisterUseCase
@@ -111,10 +112,6 @@ class RegisterViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    sealed class UiEvent {
-        data class SnackbarEvent(val uiText: UiText): UiEvent()
     }
 
 }

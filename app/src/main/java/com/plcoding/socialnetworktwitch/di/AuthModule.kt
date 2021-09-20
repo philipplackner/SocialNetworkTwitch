@@ -4,12 +4,14 @@ import android.content.SharedPreferences
 import com.plcoding.socialnetworktwitch.feature_auth.data.remote.AuthApi
 import com.plcoding.socialnetworktwitch.feature_auth.data.repository.AuthRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_auth.domain.repository.AuthRepository
+import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.AuthenticateUseCase
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.LoginUseCase
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.RegisterUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -20,9 +22,10 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(): AuthApi {
+    fun provideAuthApi(client: OkHttpClient): AuthApi {
         return Retrofit.Builder()
             .baseUrl(AuthApi.BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AuthApi::class.java)
@@ -44,5 +47,11 @@ object AuthModule {
     @Singleton
     fun provideLoginUseCase(repository: AuthRepository): LoginUseCase {
         return LoginUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationUseCase(repository: AuthRepository): AuthenticateUseCase {
+        return AuthenticateUseCase(repository)
     }
 }

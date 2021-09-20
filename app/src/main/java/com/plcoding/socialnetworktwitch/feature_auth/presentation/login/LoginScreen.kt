@@ -23,6 +23,7 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
+import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.util.AuthError
@@ -42,12 +43,12 @@ fun LoginScreen(
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
-                is LoginViewModel.UiEvent.SnackbarEvent -> {
+                is UiEvent.SnackbarEvent -> {
                      scaffoldState.snackbarHostState.showSnackbar(
                          message = event.uiText.asString(context)
                      )
                 }
-                is LoginViewModel.UiEvent.Navigate -> {
+                is UiEvent.Navigate -> {
                     navController.navigate(event.route)
                 }
             }

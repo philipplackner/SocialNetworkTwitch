@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
+import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.UiText
@@ -84,10 +85,5 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    sealed class UiEvent {
-        data class SnackbarEvent(val uiText: UiText): UiEvent()
-        data class Navigate(val route: String): UiEvent()
     }
 }

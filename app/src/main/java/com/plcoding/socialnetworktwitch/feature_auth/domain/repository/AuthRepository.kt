@@ -17,4 +17,6 @@ interface AuthRepository {
         email: String,
         password: String
     ): SimpleResource
+
+    suspend fun authenticate(): SimpleResource
 }
