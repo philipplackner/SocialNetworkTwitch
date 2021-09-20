@@ -45,8 +45,6 @@ happ/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation
 tapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/edit_profile/EditProfileViewModel.kt,6\b\6ba954293d6f04f5e0ba5a6b5f1dd10fd767ccc5
 u
 Eapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Error.kt,2\e\2eeddb0adcfcbd4bde98dae2111e9c12661d11c6
-ò
-happ/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedScreen.kt,b\9\b935f34de16e20a79d2d238b21ec836f8895b317
 è
 _app/src/main/java/com/plcoding/socialnetworktwitch/core/domain/states/PasswordTextFieldState.kt,b\e\be922aeeaeed029e1f78d8a530c6040002091d48
 ú
