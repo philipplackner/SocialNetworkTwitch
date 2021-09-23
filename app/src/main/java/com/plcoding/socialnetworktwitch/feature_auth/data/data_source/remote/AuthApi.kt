@@ -1,9 +1,9 @@
 package com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote
 
 import com.plcoding.socialnetworktwitch.core.data.dto.response.BasicApiResponse
-import com.plcoding.socialnetworktwitch.feature_auth.data.dto.request.CreateAccountRequest
-import com.plcoding.socialnetworktwitch.feature_auth.data.dto.request.LoginRequest
-import com.plcoding.socialnetworktwitch.feature_auth.data.dto.response.AuthResponse
+import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.request.CreateAccountRequest
+import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.request.LoginRequest
+import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.response.AuthResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

@@ -1,13 +1,17 @@
 package com.plcoding.socialnetworktwitch.di
 
+import android.content.Context
+import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_post.data.repository.PostRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
+import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.CreatePostUseCase
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.GetPostsForFollowsUseCase
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -31,15 +35,20 @@ object PostModule {
 
     @Provides
     @Singleton
-    fun providePostRepository(api: PostApi): PostRepository {
-        return PostRepositoryImpl(api)
+    fun providePostRepository(
+        api: PostApi,
+        gson: Gson,
+        @ApplicationContext appContext: Context
+    ): PostRepository {
+        return PostRepositoryImpl(api, gson, appContext)
     }
 
     @Provides
     @Singleton
     fun providePostUseCases(repository: PostRepository): PostUseCases {
         return PostUseCases(
-            getPostsForFollowsUseCase = GetPostsForFollowsUseCase(repository)
+            getPostsForFollowsUseCase = GetPostsForFollowsUseCase(repository),
+            createPostUseCase = CreatePostUseCase(repository)
         )
     }
 }

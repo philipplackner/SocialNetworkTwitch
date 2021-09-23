@@ -63,4 +63,5 @@
     <string name="error_couldnt_reach_server">\"Oops! Couldn\'t reach server. Check your internet connection.\"</string>
     <string name="oops_something_went_wrong">\"Oops! Something went wrong. Please try again.\"</string>
     <string name="success_registration">Successfully registered an account. You can login now.</string>
+    <string name="error_file_not_found">Oops! The file couldn\'t be found.</string>
 </resources>
