@@ -9,6 +9,7 @@ import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldStat
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,10 @@ class CreatePostViewModel @Inject constructor(
             }
             is CreatePostEvent.PickImage -> {
                 _chosenImageUri.value = event.uri
+            }
+            is CreatePostEvent.CropImage -> {
+                _chosenImageUri.value = event.uri
+                println("URI IS ${event.uri}")
             }
             is CreatePostEvent.PostImage -> {
                 chosenImageUri.value?.let { uri ->

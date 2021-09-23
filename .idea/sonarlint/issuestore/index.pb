@@ -5,8 +5,6 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
-?
-settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 @
 local.properties,0\7\0712df971a99ac4d2fccb8e0fb19f377f3374cca
 Å
@@ -97,8 +95,6 @@ Mapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/User.kt,
 bapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/components/UserProfileItem.kt,8\9\897f0dcc2125a9dfacf09a08978973fddfb1b113
 v
 Fapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Screen.kt,7\a\7a89fc3314e27d16d11f193725b43b6ed9ba8af3
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 ò
 happ/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/data/dto/request/CreateAccountRequest.kt,3\3\33aae125fda52dc499a2bda0774436fb753bd776
 Ñ
@@ -149,8 +145,6 @@ Tapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/util/UiEve
 fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/splash/SplashViewModel.kt,b\d\bd845f569a0884a1da454a605008754affcf27dc
 s
 Capp/src/main/java/com/plcoding/socialnetworktwitch/di/AuthModule.kt,a\9\a9b13da4db29f5aeca14fb126acf5021eb880d31
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 y
 Iapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Constants.kt,2\1\21c7254d2b5fbf719a2e67d240e31453eceda8e9
 ë

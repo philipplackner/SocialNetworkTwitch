@@ -99,6 +99,9 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    // uCrop
+    implementation 'com.github.yalantis:ucrop:2.2.6'
+
     // Local Unit Tests
     implementation "androidx.test:core:1.4.0"
     testImplementation "junit:junit:4.13.2"

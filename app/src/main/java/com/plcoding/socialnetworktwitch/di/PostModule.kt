@@ -38,9 +38,8 @@ object PostModule {
     fun providePostRepository(
         api: PostApi,
         gson: Gson,
-        @ApplicationContext appContext: Context
     ): PostRepository {
-        return PostRepositoryImpl(api, gson, appContext)
+        return PostRepositoryImpl(api, gson)
     }
 
     @Provides
