@@ -1,10 +1,8 @@
-package com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote
+package com.plcoding.socialnetworktwitch.feature_post.data.remote
 
 import com.plcoding.socialnetworktwitch.core.data.dto.response.BasicApiResponse
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
-import com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote.request.CreatePostRequest
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface PostApi {

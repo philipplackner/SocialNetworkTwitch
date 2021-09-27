@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.util.Constants
-import com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote.PostApi
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
 import retrofit2.HttpException
 import java.io.IOException
 

@@ -1,7 +1,5 @@
 package com.plcoding.socialnetworktwitch.feature_post.data.repository
 
-import android.content.ContentResolver
-import android.content.Context
 import android.net.Uri
 import androidx.core.net.toFile
 import androidx.paging.Pager
@@ -10,24 +8,18 @@ import androidx.paging.PagingData
 import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
-import com.plcoding.socialnetworktwitch.core.domain.util.getFileName
 import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.core.util.UiText
-import com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote.PostApi
-import com.plcoding.socialnetworktwitch.feature_post.data.data_source.remote.request.CreatePostRequest
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.request.CreatePostRequest
 import com.plcoding.socialnetworktwitch.feature_post.data.paging.PostSource
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.IOException
 
 class PostRepositoryImpl(

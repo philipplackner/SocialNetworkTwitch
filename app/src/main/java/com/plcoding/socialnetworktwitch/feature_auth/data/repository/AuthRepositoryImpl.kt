@@ -6,9 +6,9 @@ import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.core.util.UiText
-import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.request.CreateAccountRequest
-import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.request.LoginRequest
-import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.AuthApi
+import com.plcoding.socialnetworktwitch.feature_auth.data.remote.request.CreateAccountRequest
+import com.plcoding.socialnetworktwitch.feature_auth.data.remote.request.LoginRequest
+import com.plcoding.socialnetworktwitch.feature_auth.data.remote.AuthApi
 import com.plcoding.socialnetworktwitch.feature_auth.domain.repository.AuthRepository
 import retrofit2.HttpException
 import java.io.IOException

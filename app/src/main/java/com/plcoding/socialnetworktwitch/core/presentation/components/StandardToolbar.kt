@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.presentation.components
+package com.plcoding.socialnetworktwitch.core.presentation.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Icon
@@ -18,8 +18,8 @@ import com.plcoding.socialnetworktwitch.R
 
 @Composable
 fun StandardToolbar(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit = {},
     showBackArrow: Boolean = false,
     navActions: @Composable RowScope.() -> Unit = {},
     title: @Composable () -> Unit = {},
@@ -30,7 +30,7 @@ fun StandardToolbar(
         navigationIcon = if(showBackArrow) {
             {
                 IconButton(onClick = {
-                    navController.navigateUp()
+                    onNavigateUp()
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,

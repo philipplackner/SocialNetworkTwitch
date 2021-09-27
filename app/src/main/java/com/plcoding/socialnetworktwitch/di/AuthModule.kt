@@ -1,7 +1,7 @@
 package com.plcoding.socialnetworktwitch.di
 
 import android.content.SharedPreferences
-import com.plcoding.socialnetworktwitch.feature_auth.data.data_source.remote.AuthApi
+import com.plcoding.socialnetworktwitch.feature_auth.data.remote.AuthApi
 import com.plcoding.socialnetworktwitch.feature_auth.data.repository.AuthRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_auth.domain.repository.AuthRepository
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.AuthenticateUseCase

@@ -35,7 +35,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
-import com.plcoding.socialnetworktwitch.presentation.components.StandardToolbar
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.components.Chip
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
@@ -46,7 +46,8 @@ import kotlin.random.Random
 
 @Composable
 fun EditProfileScreen(
-    navController: NavController,
+    onNavigate: (String) -> Unit = {},
+    onNavigateUp: () -> Unit = {},
     viewModel: EditProfileViewModel = hiltViewModel(),
     profilePictureSize: Dp = ProfilePictureSizeLarge
 ) {
@@ -54,7 +55,7 @@ fun EditProfileScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
+            onNavigateUp = onNavigateUp,
             showBackArrow = true,
             navActions = {
                 IconButton(onClick = {}) {

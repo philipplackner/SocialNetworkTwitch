@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -20,12 +22,15 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.domain.models.User
@@ -35,12 +40,20 @@ import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.com
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
+import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
+import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.toPx
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@ExperimentalCoilApi
 @Composable
 fun ProfileScreen(
-    navController: NavController,
+    onNavigate: (String) -> Unit = {},
+    onNavigateUp: () -> Unit = {},
+    scaffoldState: ScaffoldState,
     profilePictureSize: Dp = ProfilePictureSizeLarge,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -66,6 +79,9 @@ fun ProfileScreen(
     val maxOffset = remember {
         toolbarHeightExpanded - toolbarHeightCollapsed
     }
+
+    val state = viewModel.state.value
+
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -84,6 +100,20 @@ fun ProfileScreen(
         }
     }
 
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when(event) {
+                is UiEvent.ShowSnackbar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.uiText.asString(context)
+                    )
+                }
+            }
+        }
+
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -100,18 +130,23 @@ fun ProfileScreen(
                 ))
             }
             item {
-                ProfileHeaderSection(
-                    user = User(
-                        profilePictureUrl = "",
-                        username = "Philipp Lackner",
-                        description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed\n" +
-                                "diam nonumy eirmod tempor invidunt ut labore et dolore \n" +
-                                "magna aliquyam erat, sed diam voluptua",
-                        followerCount = 234,
-                        followingCount = 534,
-                        postCount = 65
+                state.profile?.let { profile ->
+                    ProfileHeaderSection(
+                        user = User(
+                            userId = profile.userId,
+                            profilePictureUrl = profile.profilePictureUrl,
+                            username = profile.username,
+                            description = profile.bio,
+                            followerCount = profile.followerCount,
+                            followingCount = profile.followingCount,
+                            postCount = profile.postCount
+                        ),
+                        isOwnProfile = profile.isOwnProfile,
+                        onEditClick = {
+                            onNavigate(Screen.EditProfileScreen.route)
+                        }
                     )
-                )
+                }
             }
             items(20) {
                 Spacer(
@@ -131,7 +166,7 @@ fun ProfileScreen(
                     ),
                     showProfileImage = false,
                     onPostClick = {
-                        navController.navigate(Screen.PostDetailScreen.route)
+                        onNavigate(Screen.PostDetailScreen.route)
                     },
                 )
             }
@@ -140,53 +175,62 @@ fun ProfileScreen(
             modifier = Modifier
                 .align(Alignment.TopCenter)
         ) {
-            BannerSection(
-                modifier = Modifier
-                    .height(
-                        (bannerHeight * toolbarState.expandedRatio).coerceIn(
-                            minimumValue = toolbarHeightCollapsed,
-                            maximumValue = bannerHeight
-                        )
+            state.profile?.let { profile ->
+                BannerSection(
+                    modifier = Modifier
+                        .height(
+                            (bannerHeight * toolbarState.expandedRatio).coerceIn(
+                                minimumValue = toolbarHeightCollapsed,
+                                maximumValue = bannerHeight
+                            )
+                        ),
+                    leftIconModifier = Modifier
+                        .graphicsLayer {
+                            translationY = (1f - toolbarState.expandedRatio) *
+                                    -iconCollapsedOffsetY.toPx()
+                            translationX = (1f - toolbarState.expandedRatio) *
+                                    iconHorizontalCenterLength
+                        },
+                    rightIconModifier = Modifier
+                        .graphicsLayer {
+                            translationY = (1f - toolbarState.expandedRatio) *
+                                    -iconCollapsedOffsetY.toPx()
+                            translationX = (1f - toolbarState.expandedRatio) *
+                                    -iconHorizontalCenterLength
+                        },
+                    topSkillUrls = profile.topSkillUrls,
+                    shouldShowGitHub = profile.gitHubUrl != null,
+                    shouldShowInstagram = profile.instagramUrl != null,
+                    shouldShowLinkedIn = profile.linkedInUrl != null,
+                    bannerUrl = profile.bannerUrl
+                )
+                Image(
+                    painter = rememberImagePainter(
+                        data = profile.profilePictureUrl
                     ),
-                leftIconModifier = Modifier
-                    .graphicsLayer {
-                        translationY = (1f - toolbarState.expandedRatio) *
-                            -iconCollapsedOffsetY.toPx()
-                        translationX = (1f - toolbarState.expandedRatio) *
-                                iconHorizontalCenterLength
-                    },
-                rightIconModifier = Modifier
-                    .graphicsLayer {
-                        translationY = (1f - toolbarState.expandedRatio) *
-                                -iconCollapsedOffsetY.toPx()
-                        translationX = (1f - toolbarState.expandedRatio) *
-                                -iconHorizontalCenterLength
-                    }
-            )
-            Image(
-                painter = painterResource(id = R.drawable.philipp),
-                contentDescription = stringResource(id = R.string.profile_image),
-                modifier = Modifier
-                    .align(CenterHorizontally)
-                    .graphicsLayer {
-                        translationY = -profilePictureSize.toPx() / 2f -
-                                (1f - toolbarState.expandedRatio) * imageCollapsedOffsetY.toPx()
-                        transformOrigin = TransformOrigin(
-                            pivotFractionX = 0.5f,
-                            pivotFractionY = 0f
+                    contentDescription = stringResource(id = R.string.profile_image),
+                    modifier = Modifier
+                        .align(CenterHorizontally)
+                        .graphicsLayer {
+                            translationY = -profilePictureSize.toPx() / 2f -
+                                    (1f - toolbarState.expandedRatio) * imageCollapsedOffsetY.toPx()
+                            transformOrigin = TransformOrigin(
+                                pivotFractionX = 0.5f,
+                                pivotFractionY = 0f
+                            )
+                            val scale = 0.5f + toolbarState.expandedRatio * 0.5f
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        .size(profilePictureSize)
+                        .clip(CircleShape)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colors.onSurface,
+                            shape = CircleShape
                         )
-                        val scale = 0.5f + toolbarState.expandedRatio * 0.5f
-                        scaleX = scale
-                        scaleY = scale
-                    }
-                    .size(profilePictureSize)
-                    .clip(CircleShape)
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colors.onSurface,
-                        shape = CircleShape
-                    )
-            )
+                )
+            }
         }
     }
 

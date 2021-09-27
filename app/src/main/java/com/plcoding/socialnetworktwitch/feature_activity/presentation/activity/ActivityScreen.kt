@@ -15,13 +15,14 @@ import com.plcoding.socialnetworktwitch.core.domain.models.Activity
 import com.plcoding.socialnetworktwitch.feature_activity.domain.ActivityAction
 import com.plcoding.socialnetworktwitch.core.util.DateFormatUtil
 import com.plcoding.socialnetworktwitch.feature_activity.presentation.activity.components.ActivityItem
-import com.plcoding.socialnetworktwitch.presentation.components.StandardToolbar
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 import kotlin.random.Random
 
 @Composable
 fun ActivityScreen(
-    navController: NavController,
+    onNavigate: (String) -> Unit = {},
+    onNavigateUp: () -> Unit = {},
     viewModel: ActivityViewModel = hiltViewModel()
 ) {
     Column(
@@ -29,7 +30,7 @@ fun ActivityScreen(
             .fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
+            onNavigateUp = onNavigateUp,
             title = {
                 Text(
                     text = stringResource(id = R.string.your_activity),

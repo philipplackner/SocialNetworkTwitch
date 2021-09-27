@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.presentation.components.StandardToolbar
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.components.UserProfileItem
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.IconSizeMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
@@ -21,13 +21,14 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 @ExperimentalMaterialApi
 @Composable
 fun PersonListScreen(
-    navController: NavController
+    onNavigate: (String) -> Unit = {},
+    onNavigateUp: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
+            onNavigateUp = onNavigateUp,
             showBackArrow = true,
             title = {
                 Text(
@@ -44,6 +45,7 @@ fun PersonListScreen(
             items(10) {
                 UserProfileItem(
                     user = User(
+                        userId = "6127d2001241f332c88eb9a2",
                         profilePictureUrl = "",
                         username = "Philipp Lackner",
                         description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed\n" +

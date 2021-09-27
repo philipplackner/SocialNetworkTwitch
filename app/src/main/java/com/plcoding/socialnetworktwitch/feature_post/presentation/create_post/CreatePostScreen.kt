@@ -6,15 +6,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -31,14 +30,24 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.CropActivityResultContract
+import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
+import com.plcoding.socialnetworktwitch.core.presentation.util.asString
+import com.plcoding.socialnetworktwitch.feature_post.presentation.util.PostConstants
 import com.plcoding.socialnetworktwitch.feature_post.presentation.util.PostDescriptionError
 import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
-import com.plcoding.socialnetworktwitch.presentation.components.StandardToolbar
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 @ExperimentalCoilApi
 @Composable
 fun CreatePostScreen(
-    navController: NavController,
+    onNavigateUp: () -> Unit = {},
+    onNavigate: (String) -> Unit = {},
+    scaffoldState: ScaffoldState,
     viewModel: CreatePostViewModel = hiltViewModel()
 ) {
     val imageUri = viewModel.chosenImageUri.value
@@ -54,11 +63,30 @@ fun CreatePostScreen(
         cropActivityLauncher.launch(it)
     }
 
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is UiEvent.ShowSnackbar -> {
+                    GlobalScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            message = event.uiText.asString(context)
+                        )
+                    }
+                }
+                is UiEvent.NavigateUp -> {
+                    onNavigateUp()
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
+            onNavigateUp = onNavigateUp,
             showBackArrow = true,
             title = {
                 Text(
@@ -117,6 +145,7 @@ fun CreatePostScreen(
                 },
                 singleLine = false,
                 maxLines = 5,
+                maxLength = PostConstants.MAX_POST_DESCRIPTION_LENGTH,
                 onValueChange = {
                     viewModel.onEvent(
                         CreatePostEvent.EnterDescription(it)
@@ -128,14 +157,24 @@ fun CreatePostScreen(
                 onClick = {
                     viewModel.onEvent(CreatePostEvent.PostImage)
                 },
-                modifier = Modifier.align(Alignment.End)
+                enabled = !viewModel.isLoading.value,
+                modifier = Modifier.align(Alignment.End),
             ) {
                 Text(
                     text = stringResource(id = R.string.post),
                     color = MaterialTheme.colors.onPrimary
                 )
                 Spacer(modifier = Modifier.width(SpaceSmall))
-                Icon(imageVector = Icons.Default.Send, contentDescription = null)
+                if (viewModel.isLoading.value) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .align(CenterVertically)
+                    )
+                } else {
+                    Icon(imageVector = Icons.Default.Send, contentDescription = null)
+                }
             }
         }
     }

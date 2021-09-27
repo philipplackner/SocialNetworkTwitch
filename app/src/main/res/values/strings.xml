@@ -65,4 +65,7 @@
     <string name="success_registration">Successfully registered an account. You can login now.</string>
     <string name="error_file_not_found">Oops! The file couldn\'t be found.</string>
     <string name="post_image">Post image</string>
+    <string name="post_created">Successfully created post</string>
+    <string name="error_description_blank">The description can\'t be empty</string>
+    <string name="error_no_image_picked">Please pick a photo</string>
 </resources>
