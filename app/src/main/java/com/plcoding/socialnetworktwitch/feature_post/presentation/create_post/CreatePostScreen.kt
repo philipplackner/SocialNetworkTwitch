@@ -53,7 +53,7 @@ fun CreatePostScreen(
     val imageUri = viewModel.chosenImageUri.value
 
     val cropActivityLauncher = rememberLauncherForActivityResult(
-        contract = CropActivityResultContract()
+        contract = CropActivityResultContract(16f, 9f)
     ) {
         viewModel.onEvent(CreatePostEvent.CropImage(it))
     }

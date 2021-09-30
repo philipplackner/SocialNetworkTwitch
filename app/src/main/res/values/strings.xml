@@ -68,4 +68,8 @@
     <string name="post_created">Successfully created post</string>
     <string name="error_description_blank">The description can\'t be empty</string>
     <string name="error_no_image_picked">Please pick a photo</string>
+    <string name="error_couldnt_load_profile">Oops! Couldn\'t load profile.</string>
+    <string name="error_couldnt_load_skills">Oops! Couldn\'t load skills</string>
+    <string name="error_username_empty">The username can\'t be empty.</string>
+    <string name="updated_profile">Successfully updated profile</string>
 </resources>

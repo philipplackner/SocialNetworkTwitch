@@ -23,12 +23,10 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
@@ -44,9 +42,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.toPx
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @ExperimentalCoilApi
 @Composable
@@ -143,7 +139,7 @@ fun ProfileScreen(
                         ),
                         isOwnProfile = profile.isOwnProfile,
                         onEditClick = {
-                            onNavigate(Screen.EditProfileScreen.route)
+                            onNavigate(Screen.EditProfileScreen.route + "/${profile.userId}")
                         }
                     )
                 }
@@ -198,7 +194,7 @@ fun ProfileScreen(
                             translationX = (1f - toolbarState.expandedRatio) *
                                     -iconHorizontalCenterLength
                         },
-                    topSkillUrls = profile.topSkillUrls,
+                    topSkills = profile.topSkills,
                     shouldShowGitHub = profile.gitHubUrl != null,
                     shouldShowInstagram = profile.instagramUrl != null,
                     shouldShowLinkedIn = profile.linkedInUrl != null,

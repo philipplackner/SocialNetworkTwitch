@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.util.toPx
+import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Skill
 
 @ExperimentalCoilApi
 @Composable
@@ -30,7 +30,7 @@ fun BannerSection(
     leftIconModifier: Modifier = Modifier,
     rightIconModifier: Modifier = Modifier,
     bannerUrl: String? = null,
-    topSkillUrls: List<String> = emptyList(),
+    topSkills: List<Skill> = emptyList(),
     shouldShowGitHub: Boolean = false,
     shouldShowInstagram: Boolean = false,
     shouldShowLinkedIn: Boolean = false,
@@ -72,11 +72,11 @@ fun BannerSection(
                 .align(Alignment.BottomStart)
                 .padding(SpaceSmall)
         ) {
-            topSkillUrls.forEach { skillUrl ->
+            topSkills.forEach { skillUrl ->
                 Spacer(modifier = Modifier.width(SpaceSmall))
                 Image(
                     painter = rememberImagePainter(
-                        data = skillUrl,
+                        data = skillUrl.imageUrl,
                         builder = {
                             crossfade(true)
                         }
