@@ -10,12 +10,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
+import coil.ImageLoaderFactory
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import coil.decode.SvgDecoder
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.util.toPx
@@ -72,11 +76,16 @@ fun BannerSection(
                 .align(Alignment.BottomStart)
                 .padding(SpaceSmall)
         ) {
-            topSkills.forEach { skillUrl ->
+            topSkills.forEach { skill ->
                 Spacer(modifier = Modifier.width(SpaceSmall))
                 Image(
                     painter = rememberImagePainter(
-                        data = skillUrl.imageUrl,
+                        data = skill.imageUrl,
+                        imageLoader = ImageLoader.Builder(LocalContext.current)
+                            .componentRegistry {
+                                add(SvgDecoder(LocalContext.current))
+                            }
+                            .build(),
                         builder = {
                             crossfade(true)
                         }
@@ -93,7 +102,7 @@ fun BannerSection(
                 .align(Alignment.BottomEnd)
                 .padding(SpaceSmall)
         ) {
-            if(shouldShowGitHub) {
+            if (shouldShowGitHub) {
                 IconButton(
                     onClick = onGitHubClick,
                     modifier = Modifier.size(iconSize)
@@ -105,7 +114,7 @@ fun BannerSection(
                     )
                 }
             }
-            if(shouldShowInstagram) {
+            if (shouldShowInstagram) {
                 IconButton(
                     onClick = onInstagramClick,
                     modifier = Modifier.size(iconSize)
@@ -117,7 +126,7 @@ fun BannerSection(
                     )
                 }
             }
-            if(shouldShowLinkedIn) {
+            if (shouldShowLinkedIn) {
                 IconButton(
                     onClick = onLinkedInClick,
                     modifier = Modifier.size(iconSize)

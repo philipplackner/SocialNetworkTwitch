@@ -82,14 +82,16 @@ fun ProfileScreen(
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
-                if(delta > 0f && lazyListState.firstVisibleItemIndex != 0) {
+                if (delta > 0f && lazyListState.firstVisibleItemIndex != 0) {
                     return Offset.Zero
                 }
                 val newOffset = viewModel.toolbarState.value.toolbarOffsetY + delta
-                viewModel.setToolbarOffsetY(newOffset.coerceIn(
-                    minimumValue = -maxOffset.toPx(),
-                    maximumValue = 0f
-                ))
+                viewModel.setToolbarOffsetY(
+                    newOffset.coerceIn(
+                        minimumValue = -maxOffset.toPx(),
+                        maximumValue = 0f
+                    )
+                )
                 viewModel.setExpandedRatio((viewModel.toolbarState.value.toolbarOffsetY + maxOffset.toPx()) / maxOffset.toPx())
                 return Offset.Zero
             }
@@ -99,7 +101,7 @@ fun ProfileScreen(
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.uiText.asString(context)
@@ -121,9 +123,11 @@ fun ProfileScreen(
             state = lazyListState
         ) {
             item {
-                Spacer(modifier = Modifier.height(
-                    toolbarHeightExpanded - profilePictureSize / 2f
-                ))
+                Spacer(
+                    modifier = Modifier.height(
+                        toolbarHeightExpanded - profilePictureSize / 2f
+                    )
+                )
             }
             item {
                 state.profile?.let { profile ->
@@ -194,10 +198,12 @@ fun ProfileScreen(
                             translationX = (1f - toolbarState.expandedRatio) *
                                     -iconHorizontalCenterLength
                         },
-                    topSkills = profile.topSkills,
-                    shouldShowGitHub = profile.gitHubUrl != null,
-                    shouldShowInstagram = profile.instagramUrl != null,
-                    shouldShowLinkedIn = profile.linkedInUrl != null,
+                    topSkills = profile.topSkills.also {
+                        println("TOP SKILLS: $it")
+                    },
+                    shouldShowGitHub = profile.gitHubUrl != null && profile.gitHubUrl.isNotBlank(),
+                    shouldShowInstagram = profile.instagramUrl != null && profile.instagramUrl.isNotBlank(),
+                    shouldShowLinkedIn = profile.linkedInUrl != null && profile.linkedInUrl.isNotBlank(),
                     bannerUrl = profile.bannerUrl
                 )
                 Image(

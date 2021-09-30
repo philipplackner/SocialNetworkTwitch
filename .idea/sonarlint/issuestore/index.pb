@@ -123,8 +123,6 @@ capp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/domain/reposito
 Yapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/util/ContentResolverExt.kt,a\3\a38f8876fcc1f872b30ff1c63cbf9fcff76338ab
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 õ
 kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedViewModel.kt,a\6\a64db2f8805ec6cd24261a2d224b0e7a5c866be4
 è
