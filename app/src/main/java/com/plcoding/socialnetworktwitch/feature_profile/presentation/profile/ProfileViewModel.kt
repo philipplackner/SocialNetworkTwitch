@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.cachedIn
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
@@ -13,6 +14,7 @@ import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.ProfileU
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +32,10 @@ class ProfileViewModel @Inject constructor(
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    val posts = profileUseCases.getPostsForProfile(
+        savedStateHandle.get<String>("userId") ?: ""
+    ).cachedIn(viewModelScope)
 
     fun setExpandedRatio(ratio: Float) {
         _toolbarState.value = _toolbarState.value.copy(expandedRatio = ratio)
@@ -69,6 +75,10 @@ class ProfileViewModel @Inject constructor(
                     ))
                 }
             }
+        }
+        viewModelScope.launch {
+            val posts = profileUseCases.getPostsForProfile(userId)
+
         }
     }
 }

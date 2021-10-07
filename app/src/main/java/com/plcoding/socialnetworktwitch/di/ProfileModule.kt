@@ -1,6 +1,7 @@
 package com.plcoding.socialnetworktwitch.di
 
 import com.google.gson.Gson
+import com.plcoding.socialnetworktwitch.core.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.ProfileApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.repository.ProfileRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
@@ -31,8 +32,8 @@ object ProfileModule {
 
     @Provides
     @Singleton
-    fun provideProfileRepository(api: ProfileApi, gson: Gson): ProfileRepository {
-        return ProfileRepositoryImpl(api, gson)
+    fun provideProfileRepository(profileApi: ProfileApi, postApi: PostApi, gson: Gson): ProfileRepository {
+        return ProfileRepositoryImpl(profileApi, postApi, gson)
     }
 
     @Provides
@@ -42,7 +43,8 @@ object ProfileModule {
             getProfile = GetProfileUseCase(repository),
             getSkills = GetSkillsUseCase(repository),
             updateProfile = UpdateProfileUseCase(repository),
-            setSkillSelected = SetSkillSelectedUseCase()
+            setSkillSelected = SetSkillSelectedUseCase(),
+            getPostsForProfile = GetPostsForProfileUseCase(repository)
         )
     }
 }

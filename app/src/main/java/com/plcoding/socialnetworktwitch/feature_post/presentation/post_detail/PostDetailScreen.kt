@@ -17,11 +17,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Comment
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
-import com.plcoding.socialnetworktwitch.presentation.components.ActionRow
+import com.plcoding.socialnetworktwitch.core.presentation.components.ActionRow
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 

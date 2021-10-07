@@ -1,7 +1,7 @@
 package com.plcoding.socialnetworktwitch.di
 
 import com.google.gson.Gson
-import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
+import com.plcoding.socialnetworktwitch.core.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_post.data.repository.PostRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.CreatePostUseCase

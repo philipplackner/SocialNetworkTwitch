@@ -50,6 +50,7 @@ class AuthRepositoryImpl(
             val response = api.login(request)
             if(response.successful) {
                 response.data?.token?.let { token ->
+                    println("Saved token")
                     sharedPreferences.edit()
                         .putString(Constants.KEY_JWT_TOKEN, token)
                         .apply()

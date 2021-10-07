@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.presentation.components
+package com.plcoding.socialnetworktwitch.core.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,11 +32,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 import com.plcoding.socialnetworktwitch.core.util.Constants
 
+@ExperimentalCoilApi
 @Composable
 fun Post(
     post: Post,
@@ -51,9 +55,11 @@ fun Post(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(y = if (showProfileImage) {
-                    ProfilePictureSizeMedium / 2f
-                } else 0.dp)
+                .offset(
+                    y = if (showProfileImage) {
+                        ProfilePictureSizeMedium / 2f
+                    } else 0.dp
+                )
                 .clip(MaterialTheme.shapes.medium)
                 .shadow(5.dp)
                 .background(MediumGray)
@@ -62,8 +68,31 @@ fun Post(
                 }
         ) {
             Image(
-                painterResource(id = R.drawable.kermit),
-                contentDescription = "Post image"
+                painter = rememberImagePainter(
+                    data = post.imageUrl,
+                    builder = {
+                        crossfade(true)
+                        listener(
+                            onStart = { _ ->
+                                println("START LOADING IMAGE")
+                            },
+                            onSuccess = { _, _ ->
+                                println("SUCCESS LOADING IMAGE")
+                            },
+                            onCancel = {
+                                println("REQUEST CANCELED")
+                            },
+                            onError = { _, t ->
+                                println("ERROR LOADING IMAGE")
+                                t.printStackTrace()
+                            }
+                        )
+                        error(R.drawable.channelart)
+                        placeholder(R.drawable.kermit)
+                    }
+                ),
+                contentDescription = "Post image",
+                contentScale = ContentScale.Crop
             )
             Column(
                 modifier = Modifier
@@ -135,7 +164,12 @@ fun Post(
         }
         if (showProfileImage) {
             Image(
-                painterResource(id = R.drawable.philipp),
+                painter = rememberImagePainter(
+                    data = post.profilePictureUrl,
+                    builder = {
+                        crossfade(true)
+                    }
+                ),
                 contentDescription = "Profile picture",
                 modifier = Modifier
                     .size(ProfilePictureSizeMedium)
