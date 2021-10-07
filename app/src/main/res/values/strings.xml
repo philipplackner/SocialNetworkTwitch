@@ -72,4 +72,6 @@
     <string name="error_couldnt_load_skills">Oops! Couldn\'t load skills</string>
     <string name="error_username_empty">The username can\'t be empty.</string>
     <string name="updated_profile">Successfully updated profile</string>
+    <string name="error_max_skills_selected">You can only have %s top skills at a time</string>
+    <string name="error_invalid_github_url">This is not valid GitHub url</string>
 </resources>

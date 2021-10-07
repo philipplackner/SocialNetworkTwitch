@@ -47,6 +47,7 @@ import kotlinx.coroutines.flow.collectLatest
 @ExperimentalCoilApi
 @Composable
 fun ProfileScreen(
+    userId: String,
     onNavigate: (String) -> Unit = {},
     onNavigateUp: () -> Unit = {},
     scaffoldState: ScaffoldState,
@@ -100,6 +101,7 @@ fun ProfileScreen(
 
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
+        viewModel.getProfile(userId)
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is UiEvent.ShowSnackbar -> {
@@ -198,9 +200,7 @@ fun ProfileScreen(
                             translationX = (1f - toolbarState.expandedRatio) *
                                     -iconHorizontalCenterLength
                         },
-                    topSkills = profile.topSkills.also {
-                        println("TOP SKILLS: $it")
-                    },
+                    topSkills = profile.topSkills,
                     shouldShowGitHub = profile.gitHubUrl != null && profile.gitHubUrl.isNotBlank(),
                     shouldShowInstagram = profile.instagramUrl != null && profile.instagramUrl.isNotBlank(),
                     shouldShowLinkedIn = profile.linkedInUrl != null && profile.linkedInUrl.isNotBlank(),

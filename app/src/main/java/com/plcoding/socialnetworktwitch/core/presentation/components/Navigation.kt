@@ -86,6 +86,7 @@ fun Navigation(
             )
         ) {
             ProfileScreen(
+                userId = it.arguments?.getString("userId") ?: "",
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
                 scaffoldState = scaffoldState

@@ -20,10 +20,12 @@ import coil.ImageLoaderFactory
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
+import coil.util.CoilUtils
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.util.toPx
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Skill
+import okhttp3.OkHttpClient
 
 @ExperimentalCoilApi
 @Composable
@@ -85,10 +87,7 @@ fun BannerSection(
                             .componentRegistry {
                                 add(SvgDecoder(LocalContext.current))
                             }
-                            .build(),
-                        builder = {
-                            crossfade(true)
-                        }
+                            .build()
                     ),
                     contentDescription = null,
                     modifier = Modifier.height(iconSize)

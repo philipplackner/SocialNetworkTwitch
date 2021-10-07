@@ -4,10 +4,7 @@ import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.ProfileApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.repository.ProfileRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
-import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.GetProfileUseCase
-import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.GetSkillsUseCase
-import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.ProfileUseCases
-import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.UpdateProfileUseCase
+import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,7 +41,8 @@ object ProfileModule {
         return ProfileUseCases(
             getProfile = GetProfileUseCase(repository),
             getSkills = GetSkillsUseCase(repository),
-            updateProfile = UpdateProfileUseCase(repository)
+            updateProfile = UpdateProfileUseCase(repository),
+            setSkillSelected = SetSkillSelectedUseCase()
         )
     }
 }
