@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
@@ -36,12 +37,7 @@ class MainActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     StandardScaffold(
                         navController = navController,
-                        showBottomBar = navBackStackEntry?.destination?.route in listOf(
-                            Screen.MainFeedScreen.route,
-                            Screen.ChatScreen.route,
-                            Screen.ActivityScreen.route,
-                            Screen.ProfileScreen.route,
-                        ),
+                        showBottomBar = shouldShowBottomBar(navBackStackEntry),
                         state = scaffoldState,
                         modifier = Modifier.fillMaxSize(),
                         onFabClick = {
@@ -53,5 +49,16 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
+        val doesRouteMatch = backStackEntry?.destination?.route in listOf(
+            Screen.MainFeedScreen.route,
+            Screen.ChatScreen.route,
+            Screen.ActivityScreen.route
+        )
+        val isOwnProfile = backStackEntry?.destination?.route == "${Screen.ProfileScreen.route}?userId={userId}" &&
+                backStackEntry.arguments?.getString("userId") == null
+        return doesRouteMatch || isOwnProfile
     }
 }

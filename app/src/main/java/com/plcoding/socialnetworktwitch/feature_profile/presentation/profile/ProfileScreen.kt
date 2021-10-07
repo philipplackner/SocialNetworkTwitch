@@ -49,10 +49,10 @@ import kotlinx.coroutines.flow.collectLatest
 @ExperimentalCoilApi
 @Composable
 fun ProfileScreen(
-    userId: String,
+    scaffoldState: ScaffoldState,
+    userId: String? = null,
     onNavigate: (String) -> Unit = {},
     onNavigateUp: () -> Unit = {},
-    scaffoldState: ScaffoldState,
     profilePictureSize: Dp = ProfilePictureSizeLarge,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {

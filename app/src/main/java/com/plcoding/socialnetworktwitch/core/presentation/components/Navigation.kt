@@ -85,8 +85,9 @@ fun Navigation(
                 }
             )
         ) {
+            println("Profile screen route: ${it.destination.route}")
             ProfileScreen(
-                userId = it.arguments?.getString("userId") ?: "",
+                userId = it.arguments?.getString("userId"),
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
                 scaffoldState = scaffoldState

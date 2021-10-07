@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.cachedIn
+import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCases: ProfileUseCases,
+    private val getOwnUserId: GetOwnUserIdUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -34,7 +36,7 @@ class ProfileViewModel @Inject constructor(
     val eventFlow = _eventFlow.asSharedFlow()
 
     val posts = profileUseCases.getPostsForProfile(
-        savedStateHandle.get<String>("userId") ?: ""
+        savedStateHandle.get<String>("userId") ?: getOwnUserId()
     ).cachedIn(viewModelScope)
 
     fun setExpandedRatio(ratio: Float) {
@@ -53,12 +55,14 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getProfile(userId: String) {
+    fun getProfile(userId: String?) {
         viewModelScope.launch {
             _state.value = state.value.copy(
                 isLoading = true
             )
-            val result = profileUseCases.getProfile(userId)
+            val result = profileUseCases.getProfile(
+                userId ?: getOwnUserId()
+            )
             when(result) {
                 is Resource.Success -> {
                     _state.value = state.value.copy(
@@ -75,10 +79,6 @@ class ProfileViewModel @Inject constructor(
                     ))
                 }
             }
-        }
-        viewModelScope.launch {
-            val posts = profileUseCases.getPostsForProfile(userId)
-
         }
     }
 }

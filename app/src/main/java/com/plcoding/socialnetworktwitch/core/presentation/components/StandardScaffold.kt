@@ -34,7 +34,7 @@ fun StandardScaffold(
             icon = Icons.Outlined.Message,
             contentDescription = "Message"
         ),
-        BottomNavItem(route = ""),
+        BottomNavItem(route = "-"),
         BottomNavItem(
             route = Screen.ActivityScreen.route,
             icon = Icons.Outlined.Notifications,
@@ -63,7 +63,7 @@ fun StandardScaffold(
                             StandardBottomNavItem(
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
-                                selected = bottomNavItem.route == navController.currentDestination?.route,
+                                selected = navController.currentDestination?.route?.startsWith(bottomNavItem.route) == true,
                                 alertCount = bottomNavItem.alertCount,
                                 enabled = bottomNavItem.icon != null
                             ) {
