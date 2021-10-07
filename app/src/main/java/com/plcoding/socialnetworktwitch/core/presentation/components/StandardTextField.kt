@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.presentation.components
+package com.plcoding.socialnetworktwitch.core.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,14 +24,13 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.IconSizeMedium
 import com.plcoding.socialnetworktwitch.core.util.TestTags
 
-var i = 0
 
 @Composable
 fun StandardTextField(
     modifier: Modifier = Modifier,
     text: String = "",
     hint: String = "",
-    maxLength: Int = 40,
+    maxLength: Int = 400,
     error: String = "",
     style: TextStyle = TextStyle(
         color = MaterialTheme.colors.onBackground

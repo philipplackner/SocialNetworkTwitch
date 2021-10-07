@@ -151,6 +151,7 @@ class EditProfileViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     _eventFlow.emit(UiEvent.ShowSnackbar(UiText.StringResource(R.string.updated_profile)))
+                    _eventFlow.emit(UiEvent.NavigateUp)
                 }
                 is Resource.Error -> {
                     _eventFlow.emit(UiEvent.ShowSnackbar(result.uiText ?: UiText.unknownError()))
@@ -219,9 +220,6 @@ class EditProfileViewModel @Inject constructor(
             }
             is EditProfileEvent.UpdateProfile -> {
                 updateProfile()
-                viewModelScope.launch {
-                    _eventFlow.emit(UiEvent.NavigateUp)
-                }
             }
         }
     }

@@ -13,6 +13,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.plcoding.socialnetworktwitch.core.presentation.MainActivity
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.util.TestTags.PASSWORD_TOGGLE
 import com.plcoding.socialnetworktwitch.core.util.TestTags.STANDARD_TEXT_FIELD
 import org.junit.Rule

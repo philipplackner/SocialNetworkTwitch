@@ -14,10 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.components.UserProfileItem
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.IconSizeMedium

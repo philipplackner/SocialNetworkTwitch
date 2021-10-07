@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent

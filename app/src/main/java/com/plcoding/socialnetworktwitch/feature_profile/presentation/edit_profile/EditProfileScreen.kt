@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,26 +28,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.presentation.components.StandardTextField
+import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.components.Chip
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
-import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
 import com.plcoding.socialnetworktwitch.core.presentation.util.CropActivityResultContract
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
-import com.plcoding.socialnetworktwitch.feature_post.presentation.create_post.CreatePostEvent
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.util.EditProfileError
 import kotlinx.coroutines.flow.collectLatest
-import kotlin.random.Random
 
 @ExperimentalCoilApi
 @Composable
