@@ -4,16 +4,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.plcoding.socialnetworktwitch.core.domain.models.Post
-import com.plcoding.socialnetworktwitch.core.util.Constants
-import com.plcoding.socialnetworktwitch.feature_post.data.paging.PostSource
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel

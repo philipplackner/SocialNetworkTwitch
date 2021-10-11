@@ -14,6 +14,7 @@ import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.feature_activity.data.paging.ActivitySource
 import com.plcoding.socialnetworktwitch.feature_post.data.paging.PostSource
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.ProfileApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.request.FollowUpdateRequest
@@ -122,7 +123,7 @@ class ProfileRepositoryImpl(
     }
 
     override fun getPostsPaged(userId: String): Flow<PagingData<Post>> {
-        return Pager(PagingConfig(pageSize = Constants.PAGE_SIZE_POSTS)) {
+        return Pager(PagingConfig(pageSize = Constants.DEFAULT_PAGE_SIZE)) {
             PostSource(postApi, PostSource.Source.Profile(userId))
         }.flow
     }

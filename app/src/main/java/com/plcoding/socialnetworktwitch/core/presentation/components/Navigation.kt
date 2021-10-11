@@ -14,7 +14,7 @@ import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PersonListScreen
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.EditProfileScreen
-import com.plcoding.socialnetworktwitch.feature_activity.presentation.activity.ActivityScreen
+import com.plcoding.socialnetworktwitch.feature_activity.presentation.ActivityScreen
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.chat.ChatScreen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.create_post.CreatePostScreen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.main_feed.MainFeedScreen

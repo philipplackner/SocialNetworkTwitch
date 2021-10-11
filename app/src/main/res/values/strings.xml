@@ -76,4 +76,5 @@
     <string name="error_invalid_github_url">This is not valid GitHub url</string>
     <string name="error_invalid_instagram_url">This is not a valid Instagram url</string>
     <string name="error_invalid_linked_in_url">This is not a valid LinkedIn url</string>
+    <string name="your_comment">your comment</string>
 </resources>

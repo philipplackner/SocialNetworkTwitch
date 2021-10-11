@@ -21,12 +21,12 @@ class PostSource(
             val posts = when(source) {
                 is Source.Follows -> api.getPostsForFollows(
                     page = nextPage,
-                    pageSize = Constants.PAGE_SIZE_POSTS
+                    pageSize = Constants.DEFAULT_PAGE_SIZE
                 )
                 is Source.Profile -> api.getPostsForProfile(
                     userId = source.userId,
                     page = nextPage,
-                    pageSize = Constants.PAGE_SIZE_POSTS
+                    pageSize = Constants.DEFAULT_PAGE_SIZE
                 )
             }
             LoadResult.Page(

@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.presentation.components
+package com.plcoding.socialnetworktwitch.core.presentation.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.BottomNavItem
 import com.plcoding.socialnetworktwitch.core.util.Screen
-import com.plcoding.socialnetworktwitch.presentation.components.StandardBottomNavItem
 
 
 @Composable

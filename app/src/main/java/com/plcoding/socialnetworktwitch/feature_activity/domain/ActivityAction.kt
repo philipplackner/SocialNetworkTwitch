@@ -1,7 +1,8 @@
 package com.plcoding.socialnetworktwitch.feature_activity.domain
 
-sealed class ActivityAction {
-    object LikedPost : ActivityAction()
-    object CommentedOnPost : ActivityAction()
-    object FollowedYou : ActivityAction()
+sealed class ActivityType(val type: Int) {
+    object LikedPost : ActivityType(0)
+    object LikedComment : ActivityType(1)
+    object CommentedOnPost : ActivityType(2)
+    object FollowedUser : ActivityType(3)
 }
