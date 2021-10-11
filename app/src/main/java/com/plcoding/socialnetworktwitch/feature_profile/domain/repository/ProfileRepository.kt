@@ -3,6 +3,7 @@ package com.plcoding.socialnetworktwitch.feature_profile.domain.repository
 import android.net.Uri
 import androidx.paging.PagingData
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
+import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Profile
@@ -23,4 +24,10 @@ interface ProfileRepository {
     ): SimpleResource
 
     suspend fun getSkills(): Resource<List<Skill>>
+
+    suspend fun searchUser(query: String): Resource<List<UserItem>>
+
+    suspend fun followUser(userId: String): SimpleResource
+
+    suspend fun unfollowUser(userId: String): SimpleResource
 }

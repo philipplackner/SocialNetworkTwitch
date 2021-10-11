@@ -22,6 +22,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 fun ProfileHeaderSection(
     user: User,
     modifier: Modifier = Modifier,
+    isFollowing: Boolean = true,
     isOwnProfile: Boolean = true,
     onEditClick: () -> Unit = {}
 ) {
@@ -71,6 +72,10 @@ fun ProfileHeaderSection(
             Spacer(modifier = Modifier.height(SpaceLarge))
         }
 
-        ProfileStats(user = user, isOwnProfile = isOwnProfile)
+        ProfileStats(
+            user = user,
+            isOwnProfile = isOwnProfile,
+            isFollowing = isFollowing
+        )
     }
 }

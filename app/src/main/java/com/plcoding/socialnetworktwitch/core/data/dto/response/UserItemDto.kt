@@ -1,9 +1,8 @@
-package com.plcoding.socialnetworktwitch.feature_profile.data.remote.response
+package com.plcoding.socialnetworktwitch.core.data.dto.response
 
-import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.feature_profile.domain.model.UserItem
+import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 
-data class UserResponseItem(
+data class UserItemDto(
     val userId: String,
     val username: String,
     val profilePictureUrl: String,

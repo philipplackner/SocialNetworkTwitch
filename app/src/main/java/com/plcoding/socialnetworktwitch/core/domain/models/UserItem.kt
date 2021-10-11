@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.feature_profile.domain.model
+package com.plcoding.socialnetworktwitch.core.domain.models
 
 data class UserItem(
     val userId: String,
