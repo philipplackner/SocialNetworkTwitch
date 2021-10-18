@@ -71,6 +71,7 @@ fun MainFeedScreen(
                 items(posts) { post ->
                     Post(
                         post = com.plcoding.socialnetworktwitch.core.domain.models.Post(
+                            id = post?.id ?: "",
                             username = post?.username ?: "",
                             imageUrl = post?.imageUrl ?: "",
                             profilePictureUrl = post?.profilePictureUrl ?: "",
@@ -79,7 +80,7 @@ fun MainFeedScreen(
                             commentCount = post?.commentCount ?: 0
                         ),
                         onPostClick = {
-                            onNavigate(Screen.PostDetailScreen.route)
+                            onNavigate(Screen.PostDetailScreen.route + "/${post?.id}")
                         }
                     )
                 }

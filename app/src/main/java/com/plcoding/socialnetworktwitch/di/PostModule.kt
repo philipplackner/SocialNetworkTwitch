@@ -4,9 +4,7 @@ import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.core.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_post.data.repository.PostRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
-import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.CreatePostUseCase
-import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.GetPostsForFollowsUseCase
-import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
+import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +43,9 @@ object PostModule {
     fun providePostUseCases(repository: PostRepository): PostUseCases {
         return PostUseCases(
             getPostsForFollowsUseCase = GetPostsForFollowsUseCase(repository),
-            createPostUseCase = CreatePostUseCase(repository)
+            createPostUseCase = CreatePostUseCase(repository),
+            getPostDetails = GetPostDetailsUseCase(repository),
+            getCommentsForPost = GetCommentsForPostUseCase(repository)
         )
     }
 }
