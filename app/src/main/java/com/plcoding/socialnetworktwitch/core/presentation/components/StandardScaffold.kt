@@ -15,7 +15,6 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.BottomNavItem
 import com.plcoding.socialnetworktwitch.core.util.Screen
 
-
 @Composable
 fun StandardScaffold(
     navController: NavController,
