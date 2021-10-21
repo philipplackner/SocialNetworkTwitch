@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.plcoding.data.util.ParentType
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
@@ -48,7 +49,12 @@ class PostDetailViewModel @Inject constructor(
     fun onEvent(event: PostDetailEvent) {
         when(event) {
             is PostDetailEvent.LikePost -> {
-
+                val isLiked = state.value.post?.isLiked == true
+                toggleLikeForParent(
+                    parentId = state.value.post?.id ?: return,
+                    parentType = ParentType.Post.type,
+                    isLiked = isLiked
+                )
             }
             is PostDetailEvent.Comment -> {
                 createComment(
@@ -57,7 +63,14 @@ class PostDetailViewModel @Inject constructor(
                 )
             }
             is PostDetailEvent.LikeComment -> {
-
+                val isLiked = state.value.comments.find {
+                    it.id == event.commentId
+                }?.isLiked == true
+                toggleLikeForParent(
+                    parentId = event.commentId,
+                    parentType = ParentType.Comment.type,
+                    isLiked = isLiked
+                )
             }
             is PostDetailEvent.SharePost -> {
 
@@ -71,12 +84,66 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
+    private fun toggleLikeForParent(
+        parentId: String,
+        parentType: Int,
+        isLiked: Boolean
+    ) {
+        viewModelScope.launch {
+            when(parentType) {
+                ParentType.Post.type -> {
+                    _state.value = state.value.copy(
+                        post = state.value.post?.copy(
+                            isLiked = !isLiked
+                        )
+                    )
+                }
+                ParentType.Comment.type -> {
+                    _state.value = state.value.copy(
+                        comments = state.value.comments.map {
+                            if(it.id == parentId) {
+                                it.copy(isLiked = !isLiked)
+                            } else it
+                        }
+                    )
+                }
+            }
+            val result = postUseCases.toggleLikeForParent(
+                parentId = parentId,
+                parentType = parentType,
+                isLiked = isLiked
+            )
+            when(result) {
+                is Resource.Success -> Unit
+                is Resource.Error -> {
+                    when(parentType) {
+                        ParentType.Post.type -> {
+                            _state.value = state.value.copy(
+                                post = state.value.post?.copy(
+                                    isLiked = isLiked
+                                )
+                            )
+                        }
+                        ParentType.Comment.type -> {
+                            _state.value = state.value.copy(
+                                comments = state.value.comments.map {
+                                    if(it.id == parentId) {
+                                        it.copy(isLiked = isLiked)
+                                    } else it
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun createComment(postId: String, comment: String) {
         viewModelScope.launch {
             _commentState.value = commentState.value.copy(
                 isLoading = true
             )
-            delay(3000L)
             val result = postUseCases.createComment(
                 postId = postId,
                 comment = comment

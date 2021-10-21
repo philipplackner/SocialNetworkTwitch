@@ -179,8 +179,6 @@ eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation
 Qapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/UserItem.kt,3\f\3fa5ba74f582021d57d0bf04d7297457dcef0a68
 í
 bapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/components/UserProfileItem.kt,8\9\897f0dcc2125a9dfacf09a08978973fddfb1b113
-ô
-iapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/search/SearchViewModel.kt,6\f\6f06accc784333a56a0a11d412ac3eca0dd658a4
 Å
 Qapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/Activity.kt,b\0\b0da2a1e5310366bba04e6cd856eb18491477540
 å
@@ -223,8 +221,6 @@ kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/data/reposit
 kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedViewModel.kt,a\6\a64db2f8805ec6cd24261a2d224b0e7a5c866be4
 ü
 oapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/create_post/CreatePostViewModel.kt,9\3\939ae3dddb241eed2667a1d115db237f577b931d
-á
-Wapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/components/Post.kt,3\8\385ff18eef9a7b91707837c65c5e1c7d9d333d98
 à
 Xapp/src/main/java/com/plcoding/socialnetworktwitch/core/data/dto/response/UserItemDto.kt,4\8\480179db4acf919537ac645d7dd8f9b83dbe80c4
 é
@@ -233,18 +229,8 @@ Xapp/src/main/java/com/plcoding/socialnetworktwitch/core/data/dto/response/UserI
 lapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/use_case/GetCommentsForPostUseCase.kt,4\a\4a74bb5a5b089ee68ef2a118744651558213d90b
 ò
 happ/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/use_case/GetPostDetailsUseCase.kt,8\a\8a714b98352e966f1c57a3f2fb942e33d1c970c7
-}
-Mapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/Post.kt,0\a\0af30828de6703f8c8533da4acefa107bf63af4d
-ò
-happ/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileScreen.kt,6\7\67c60b7d0cefe4d6ffb81356570896fefb8b892e
-õ
-kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/post_detail/PostDetailState.kt,4\7\47a4d4c4c06d7d77baebc0af5325e838132345dc
 í
 bapp/src/main/java/com/plcoding/socialnetworktwitch/feature_activity/data/remote/dto/ActivityDto.kt,c\d\cdfdc64d3c3ee9b2ef227bdeb966a84d2eb30f98
-ò
-happ/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedScreen.kt,b\9\b935f34de16e20a79d2d238b21ec836f8895b317
-Ä
-Papp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/models/Comment.kt,0\0\0027a949a94976edcc228b5188ff79789badfb13
 ç
 ]app/src/main/java/com/plcoding/socialnetworktwitch/feature_post/data/remote/dto/CommentDto.kt,5\0\50584bf5e387ce2e6b726ea84b68a7bcfc154dfc
 è

@@ -18,6 +18,7 @@ import com.plcoding.socialnetworktwitch.feature_post.data.remote.request.CreateP
 import com.plcoding.socialnetworktwitch.feature_activity.data.paging.ActivitySource
 import com.plcoding.socialnetworktwitch.feature_post.data.paging.PostSource
 import com.plcoding.socialnetworktwitch.feature_post.data.remote.request.CreateCommentRequest
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.request.LikeUpdateRequest
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.request.FollowUpdateRequest
 import kotlinx.coroutines.flow.Flow
@@ -119,6 +120,56 @@ class PostRepositoryImpl(
                     comment = comment,
                     postId = postId,
                 )
+            )
+            if(response.successful) {
+                Resource.Success(response.data)
+            } else {
+                response.message?.let { msg ->
+                    Resource.Error(UiText.DynamicString(msg))
+                } ?: Resource.Error(UiText.StringResource(R.string.error_unknown))
+            }
+        } catch(e: IOException) {
+            Resource.Error(
+                uiText = UiText.StringResource(R.string.error_couldnt_reach_server)
+            )
+        } catch(e: HttpException) {
+            Resource.Error(
+                uiText = UiText.StringResource(R.string.oops_something_went_wrong)
+            )
+        }
+    }
+
+    override suspend fun likeParent(parentId: String, parentType: Int): SimpleResource {
+        return try {
+            val response = api.likeParent(
+                LikeUpdateRequest(
+                    parentId = parentId,
+                    parentType = parentType
+                )
+            )
+            if(response.successful) {
+                Resource.Success(response.data)
+            } else {
+                response.message?.let { msg ->
+                    Resource.Error(UiText.DynamicString(msg))
+                } ?: Resource.Error(UiText.StringResource(R.string.error_unknown))
+            }
+        } catch(e: IOException) {
+            Resource.Error(
+                uiText = UiText.StringResource(R.string.error_couldnt_reach_server)
+            )
+        } catch(e: HttpException) {
+            Resource.Error(
+                uiText = UiText.StringResource(R.string.oops_something_went_wrong)
+            )
+        }
+    }
+
+    override suspend fun unlikeParent(parentId: String, parentType: Int): SimpleResource {
+        return try {
+            val response = api.unlikeParent(
+                parentId = parentId,
+                parentType = parentType
             )
             if(response.successful) {
                 Resource.Success(response.data)

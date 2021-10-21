@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,8 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.domain.models.Comment
-import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.presentation.components.ActionRow
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
@@ -116,10 +112,10 @@ fun PostDetailScreen(
                                         .padding(SpaceLarge)
                                 ) {
                                     ActionRow(
-                                        username = "Philipp Lackner",
+                                        username = state.post.username,
                                         modifier = Modifier.fillMaxWidth(),
-                                        onLikeClick = { isLiked ->
-
+                                        onLikeClick = {
+                                            viewModel.onEvent(PostDetailEvent.LikePost)
                                         },
                                         onCommentClick = {
 
@@ -127,9 +123,10 @@ fun PostDetailScreen(
                                         onShareClick = {
 
                                         },
-                                        onUsernameClick = { username ->
+                                        onUsernameClick = {
 
-                                        }
+                                        },
+                                        isLiked = state.post.isLiked
                                     )
                                     Spacer(modifier = Modifier.height(SpaceSmall))
                                     Text(
@@ -178,7 +175,10 @@ fun PostDetailScreen(
                             horizontal = SpaceLarge,
                             vertical = SpaceSmall
                         ),
-                    comment = comment
+                    comment = comment,
+                    onLikeClick = {
+                        viewModel.onEvent(PostDetailEvent.LikeComment(comment.id))
+                    }
                 )
             }
         }
