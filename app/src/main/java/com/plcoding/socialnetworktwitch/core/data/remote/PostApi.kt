@@ -4,6 +4,7 @@ import com.plcoding.socialnetworktwitch.core.data.dto.response.BasicApiResponse
 import com.plcoding.socialnetworktwitch.core.domain.models.Comment
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.feature_post.data.remote.dto.CommentDto
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.request.CreateCommentRequest
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
@@ -39,6 +40,10 @@ interface PostApi {
         @Query("postId") postId: String
     ): List<CommentDto>
 
+    @POST("/api/comment/create")
+    suspend fun createComment(
+        @Body request: CreateCommentRequest
+    ): BasicApiResponse<Unit>
 
     companion object {
         const val BASE_URL = "http://192.168.0.2:8001/"

@@ -131,6 +131,7 @@ fun Navigation(
             )
         ) {
             PostDetailScreen(
+                scaffoldState = scaffoldState,
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate
             )
