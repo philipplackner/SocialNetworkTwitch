@@ -1,7 +1,7 @@
-package com.plcoding.socialnetworktwitch.feature_profile.domain.use_case
+package com.plcoding.socialnetworktwitch.core.domain.use_case
 
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 
 class ToggleFollowStateForUserUseCase(
     private val repository: ProfileRepository

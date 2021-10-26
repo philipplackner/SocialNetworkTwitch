@@ -16,17 +16,19 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.User
+import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun UserProfileItem(
-    user: User,
+    user: UserItem,
     modifier: Modifier = Modifier,
     actionIcon: @Composable () -> Unit = {},
     onItemClick: () -> Unit = {},
-    onActionItemClick: () -> Unit = {}
+    onActionItemClick: () -> Unit = {},
+    ownUserId: String = ""
 ) {
     Card(
         modifier = modifier,
@@ -59,8 +61,8 @@ fun UserProfileItem(
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(0.8f)
                     .padding(horizontal = SpaceSmall)
+                    .weight(1f)
             ) {
                 Text(
                     text = user.username,
@@ -70,18 +72,19 @@ fun UserProfileItem(
                 )
                 Spacer(modifier = Modifier.height(SpaceSmall))
                 Text(
-                    text = user.description,
+                    text = user.bio,
                     style = MaterialTheme.typography.body2,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )
             }
-            IconButton(
-                onClick = onActionItemClick,
-                modifier = Modifier.size(IconSizeMedium)
-
-            ) {
-                actionIcon()
+            if(user.userId != ownUserId) {
+                IconButton(
+                    onClick = onActionItemClick,
+                    modifier = Modifier.size(IconSizeMedium)
+                ) {
+                    actionIcon()
+                }
             }
         }
     }

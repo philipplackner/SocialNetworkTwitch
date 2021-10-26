@@ -1,6 +1,7 @@
 package com.plcoding.socialnetworktwitch.feature_post.presentation.post_detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -26,7 +27,8 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 fun Comment(
     modifier: Modifier = Modifier,
     comment: Comment,
-    onLikeClick: (Boolean) -> Unit = {}
+    onLikeClick: (Boolean) -> Unit = {},
+    onLikedByClick: () -> Unit = {}
 ) {
     Card(
         modifier = modifier,
@@ -92,6 +94,9 @@ fun Comment(
                         style = MaterialTheme.typography.body2,
                         color = MaterialTheme.colors.onBackground,
                         modifier = Modifier.fillMaxWidth()
+                            .clickable {
+                                onLikedByClick()
+                            }
                     )
                 }
                 Spacer(modifier = Modifier.width(SpaceMedium))

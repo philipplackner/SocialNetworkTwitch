@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.feature_profile.domain.repository
+package com.plcoding.socialnetworktwitch.core.domain.repository
 
 import android.net.Uri
 import androidx.paging.PagingData

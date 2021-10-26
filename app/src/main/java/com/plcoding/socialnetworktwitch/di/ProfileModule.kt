@@ -1,10 +1,12 @@
 package com.plcoding.socialnetworktwitch.di
 
 import com.google.gson.Gson
-import com.plcoding.socialnetworktwitch.core.data.remote.PostApi
+import com.plcoding.socialnetworktwitch.core.domain.use_case.ToggleFollowStateForUserUseCase
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.ProfileApi
-import com.plcoding.socialnetworktwitch.feature_profile.data.repository.ProfileRepositoryImpl
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.data.repository.ProfileRepositoryImpl
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -48,5 +50,11 @@ object ProfileModule {
             searchUser = SearchUserUseCase(repository),
             toggleFollowStateForUser = ToggleFollowStateForUserUseCase(repository)
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideToggleFollowForUserUseCase(repository: ProfileRepository): ToggleFollowStateForUserUseCase {
+        return ToggleFollowStateForUserUseCase(repository)
     }
 }

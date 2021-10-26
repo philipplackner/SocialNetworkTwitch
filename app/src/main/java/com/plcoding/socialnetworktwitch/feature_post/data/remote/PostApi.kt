@@ -1,6 +1,7 @@
-package com.plcoding.socialnetworktwitch.core.data.remote
+package com.plcoding.socialnetworktwitch.feature_post.data.remote
 
 import com.plcoding.socialnetworktwitch.core.data.dto.response.BasicApiResponse
+import com.plcoding.socialnetworktwitch.core.data.dto.response.UserItemDto
 import com.plcoding.socialnetworktwitch.core.domain.models.Comment
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.feature_post.data.remote.dto.CommentDto
@@ -56,6 +57,11 @@ interface PostApi {
         @Query("parentId") parentId: String,
         @Query("parentType") parentType: Int
     ): BasicApiResponse<Unit>
+
+    @GET("/api/like/parent")
+    suspend fun getLikesForParent(
+        @Query("parentId") parentId: String
+    ): List<UserItemDto>
 
     companion object {
         const val BASE_URL = "http://192.168.0.2:8001/"

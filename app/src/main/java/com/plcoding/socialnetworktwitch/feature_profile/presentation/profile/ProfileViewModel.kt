@@ -7,14 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.cachedIn
+import com.plcoding.data.util.ParentType
 import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
+import com.plcoding.socialnetworktwitch.core.util.Event
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
+import com.plcoding.socialnetworktwitch.feature_post.presentation.main_feed.MainFeedEvent
+import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
 import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.ProfileUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCases: ProfileUseCases,
+    private val postUseCases: PostUseCases,
     private val getOwnUserId: GetOwnUserIdUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -32,7 +39,7 @@ class ProfileViewModel @Inject constructor(
     private val _state = mutableStateOf(ProfileState())
     val state: State<ProfileState> = _state
 
-    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    private val _eventFlow = MutableSharedFlow<Event>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     val posts = profileUseCases.getPostsForProfile(
@@ -51,6 +58,36 @@ class ProfileViewModel @Inject constructor(
         when(event) {
             is ProfileEvent.GetProfile -> {
 
+            }
+            is ProfileEvent.LikePost -> {
+                viewModelScope.launch {
+                    toggleLikeForParent(
+                        parentId = event.postId,
+                        isLiked = false
+                    )
+                }
+
+            }
+        }
+    }
+
+    private fun toggleLikeForParent(
+        parentId: String,
+        isLiked: Boolean
+    ) {
+        viewModelScope.launch {
+            val result = postUseCases.toggleLikeForParent(
+                parentId = parentId,
+                parentType = ParentType.Post.type,
+                isLiked = isLiked
+            )
+            when(result) {
+                is Resource.Success -> {
+                    _eventFlow.emit(PostEvent.OnLiked)
+                }
+                is Resource.Error -> {
+
+                }
             }
         }
     }

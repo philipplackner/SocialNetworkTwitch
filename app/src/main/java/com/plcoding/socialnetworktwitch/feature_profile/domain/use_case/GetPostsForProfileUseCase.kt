@@ -2,7 +2,7 @@ package com.plcoding.socialnetworktwitch.feature_profile.domain.use_case
 
 import androidx.paging.PagingData
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetPostsForProfileUseCase(

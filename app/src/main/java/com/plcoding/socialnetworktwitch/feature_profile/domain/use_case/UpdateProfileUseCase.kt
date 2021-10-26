@@ -1,13 +1,12 @@
 package com.plcoding.socialnetworktwitch.feature_profile.domain.use_case
 
 import android.net.Uri
-import android.util.Patterns
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.core.util.UiText
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.UpdateProfileData
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 import com.plcoding.socialnetworktwitch.feature_profile.domain.util.ProfileConstants
 
 class UpdateProfileUseCase(

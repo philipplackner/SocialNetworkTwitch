@@ -2,7 +2,7 @@ package com.plcoding.socialnetworktwitch.feature_profile.domain.use_case
 
 import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.util.Resource
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 
 class SearchUserUseCase(
     private val repository: ProfileRepository

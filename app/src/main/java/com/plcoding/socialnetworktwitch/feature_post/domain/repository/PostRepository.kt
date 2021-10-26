@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.paging.PagingData
 import com.plcoding.socialnetworktwitch.core.domain.models.Comment
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
+import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
@@ -25,4 +26,6 @@ interface PostRepository {
     suspend fun likeParent(parentId: String, parentType: Int): SimpleResource
 
     suspend fun unlikeParent(parentId: String, parentType: Int): SimpleResource
+
+    suspend fun getLikesForParent(parentId: String): Resource<List<UserItem>>
 }

@@ -2,7 +2,6 @@ package com.plcoding.socialnetworktwitch.feature_post.domain.use_case
 
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
 
 class ToggleLikeForParentUseCase(
     private val repository: PostRepository

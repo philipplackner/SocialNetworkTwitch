@@ -1,5 +1,7 @@
 package com.plcoding.socialnetworktwitch.feature_profile.domain.use_case
 
+import com.plcoding.socialnetworktwitch.core.domain.use_case.ToggleFollowStateForUserUseCase
+
 data class ProfileUseCases(
     val getProfile: GetProfileUseCase,
     val updateProfile: UpdateProfileUseCase,

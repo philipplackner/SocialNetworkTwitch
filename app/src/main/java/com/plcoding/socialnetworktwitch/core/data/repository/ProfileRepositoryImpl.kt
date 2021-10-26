@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.feature_profile.data.repository
+package com.plcoding.socialnetworktwitch.core.data.repository
 
 import android.net.Uri
 import androidx.core.net.toFile
@@ -7,21 +7,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.data.remote.PostApi
+import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.SimpleResource
 import com.plcoding.socialnetworktwitch.core.util.UiText
-import com.plcoding.socialnetworktwitch.feature_activity.data.paging.ActivitySource
 import com.plcoding.socialnetworktwitch.feature_post.data.paging.PostSource
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.ProfileApi
 import com.plcoding.socialnetworktwitch.feature_profile.data.remote.request.FollowUpdateRequest
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Profile
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Skill
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.UpdateProfileData
-import com.plcoding.socialnetworktwitch.feature_profile.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

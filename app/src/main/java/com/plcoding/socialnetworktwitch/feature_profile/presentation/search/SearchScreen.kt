@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.User
+import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.components.UserProfileItem
@@ -25,6 +27,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
 import com.plcoding.socialnetworktwitch.core.util.Screen
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun SearchScreen(
@@ -72,15 +75,7 @@ fun SearchScreen(
                 ) {
                     items(state.userItems) { user ->
                         UserProfileItem(
-                            user = User(
-                                userId = user.userId,
-                                profilePictureUrl = user.profilePictureUrl,
-                                username = user.username,
-                                description = user.bio,
-                                followerCount = 0,
-                                followingCount = 0,
-                                postCount = 0
-                            ),
+                            user = user,
                             actionIcon = {
                                 IconButton(
                                     onClick = {

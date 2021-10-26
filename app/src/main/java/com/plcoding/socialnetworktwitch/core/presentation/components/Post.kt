@@ -76,27 +76,14 @@ fun Post(
                     data = post.imageUrl,
                     builder = {
                         crossfade(true)
-                        listener(
-                            onStart = { _ ->
-                                println("START LOADING IMAGE")
-                            },
-                            onSuccess = { _, _ ->
-                                println("SUCCESS LOADING IMAGE")
-                            },
-                            onCancel = {
-                                println("REQUEST CANCELED")
-                            },
-                            onError = { _, t ->
-                                println("ERROR LOADING IMAGE")
-                                t.printStackTrace()
-                            }
-                        )
                         error(R.drawable.channelart)
                         placeholder(R.drawable.kermit)
                     }
                 ),
                 contentDescription = "Post image",
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
+                    .aspectRatio(16f/9f)
             )
             Column(
                 modifier = Modifier
@@ -121,7 +108,7 @@ fun Post(
                             )
                         ) {
                             append(
-                                LocalContext.current.getString(
+                                " " + LocalContext.current.getString(
                                     R.string.read_more
                                 )
                             )
