@@ -23,21 +23,24 @@ class UpdateProfileUseCase(
                 uiText = UiText.StringResource(R.string.error_username_empty)
             )
         }
-        val isValidGithubUrl = ProfileConstants.GITHUB_PROFILE_REGEX.matches(updateProfileData.gitHubUrl)
+        val isValidGithubUrl = updateProfileData.gitHubUrl.isBlank() ||
+                ProfileConstants.GITHUB_PROFILE_REGEX.matches(updateProfileData.gitHubUrl)
         if (!isValidGithubUrl) {
             return Resource.Error(
                 uiText = UiText.StringResource(R.string.error_invalid_github_url)
             )
         }
 
-        val isValidInstagramUrl = ProfileConstants.INSTAGRAM_PROFILE_REGEX.matches(updateProfileData.instagramUrl)
+        val isValidInstagramUrl = updateProfileData.instagramUrl.isBlank() ||
+                ProfileConstants.INSTAGRAM_PROFILE_REGEX.matches(updateProfileData.instagramUrl)
         if (!isValidInstagramUrl) {
             return Resource.Error(
                 uiText = UiText.StringResource(R.string.error_invalid_instagram_url)
             )
         }
 
-        val isValidLinkedUrl = ProfileConstants.LINKED_IN_PROFILE_REGEX.matches(updateProfileData.linkedInUrl)
+        val isValidLinkedUrl = updateProfileData.linkedInUrl.isBlank() ||
+                ProfileConstants.LINKED_IN_PROFILE_REGEX.matches(updateProfileData.linkedInUrl)
         if (!isValidLinkedUrl) {
             return Resource.Error(
                 uiText = UiText.StringResource(R.string.error_invalid_linked_in_url)

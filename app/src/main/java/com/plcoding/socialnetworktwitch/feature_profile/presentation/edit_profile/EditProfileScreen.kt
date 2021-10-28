@@ -69,11 +69,17 @@ fun EditProfileScreen(
     val profilePictureGalleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) {
+        if(it == null) {
+            return@rememberLauncherForActivityResult
+        }
         cropProfilePictureLauncher.launch(it)
     }
     val bannerImageGalleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) {
+        if(it == null) {
+            return@rememberLauncherForActivityResult
+        }
         cropBannerImageLauncher.launch(it)
     }
 

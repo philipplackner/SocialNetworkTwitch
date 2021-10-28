@@ -39,6 +39,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.components.Post
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.BannerSection
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.ProfileHeaderSection
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeLarge
+import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
@@ -165,10 +166,7 @@ fun ProfileScreen(
                 if(i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
                     viewModel.loadNextPosts()
                 }
-                Spacer(
-                    modifier = Modifier
-                        .height(SpaceMedium)
-                )
+
                 Post(
                     post = post,
                     showProfileImage = false,
@@ -179,6 +177,9 @@ fun ProfileScreen(
                         viewModel.onEvent(ProfileEvent.LikePost(post.id))
                     }
                 )
+            }
+            item {
+                Spacer(modifier = Modifier.height(90.dp))
             }
         }
         Column(
