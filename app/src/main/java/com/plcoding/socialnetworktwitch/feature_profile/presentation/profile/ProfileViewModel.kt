@@ -13,9 +13,7 @@ import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.core.presentation.PagingState
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
-import com.plcoding.socialnetworktwitch.core.util.Event
-import com.plcoding.socialnetworktwitch.core.util.Resource
-import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.core.util.*
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import com.plcoding.socialnetworktwitch.feature_post.presentation.main_feed.MainFeedEvent
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
@@ -34,7 +32,8 @@ class ProfileViewModel @Inject constructor(
     private val profileUseCases: ProfileUseCases,
     private val postUseCases: PostUseCases,
     private val getOwnUserId: GetOwnUserIdUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val postLiker: PostLiker
 ) : ViewModel() {
 
     private val _toolbarState = mutableStateOf(ProfileToolbarState())
@@ -46,9 +45,33 @@ class ProfileViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<Event>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private var page = 0
     private val _pagingState = mutableStateOf<PagingState<Post>>(PagingState())
     val pagingState: State<PagingState<Post>> = _pagingState
+
+    private val paginator = DefaultPaginator(
+        onLoadUpdated = { isLoading ->
+            _pagingState.value = pagingState.value.copy(
+                isLoading = isLoading
+            )
+        },
+        onRequest = { page ->
+            val userId = savedStateHandle.get<String>("userId") ?: getOwnUserId()
+            profileUseCases.getPostsForProfile(
+                userId = userId,
+                page = page
+            )
+        },
+        onSuccess = { posts ->
+            _pagingState.value = pagingState.value.copy(
+                items = pagingState.value.items + posts,
+                endReached = posts.isEmpty(),
+                isLoading = false
+            )
+        },
+        onError = { uiText ->
+            _eventFlow.emit(UiEvent.ShowSnackbar(uiText))
+        }
+    )
 
     fun setExpandedRatio(ratio: Float) {
         _toolbarState.value = _toolbarState.value.copy(expandedRatio = ratio)
@@ -63,7 +86,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onEvent(event: ProfileEvent) {
-        when(event) {
+        when (event) {
             is ProfileEvent.GetProfile -> {
 
             }
@@ -73,41 +96,13 @@ class ProfileViewModel @Inject constructor(
                         parentId = event.postId
                     )
                 }
-
             }
         }
     }
 
     fun loadNextPosts() {
         viewModelScope.launch {
-            _pagingState.value = pagingState.value.copy(
-                isLoading = true
-            )
-            val userId = savedStateHandle.get<String>("userId") ?: getOwnUserId()
-            val result = profileUseCases.getPostsForProfile(
-                userId = userId,
-                page = page
-            )
-            when(result) {
-                is Resource.Success -> {
-                    val posts = result.data ?: emptyList()
-                    _pagingState.value = pagingState.value.copy(
-                        items = pagingState.value.items + posts,
-                        endReached = posts.isEmpty(),
-                        isLoading = false
-                    )
-                    page++
-                    Timber.d("Paging state changed to ${pagingState.value}")
-                }
-                is Resource.Error -> {
-                    _eventFlow.emit(
-                        UiEvent.ShowSnackbar(result.uiText ?: UiText.unknownError())
-                    )
-                    _pagingState.value = pagingState.value.copy(
-                        isLoading = false
-                    )
-                }
-            }
+            paginator.loadNextItems()
         }
     }
 
@@ -115,43 +110,22 @@ class ProfileViewModel @Inject constructor(
         parentId: String,
     ) {
         viewModelScope.launch {
-            val post = pagingState.value.items.find { it.id == parentId }
-            val currentlyLiked = post?.isLiked == true
-            val currentLikeCount = post?.likeCount ?: 0
-            val newPosts = pagingState.value.items.map { post ->
-                if(post.id == parentId) {
-                    post.copy(
-                        isLiked = !post.isLiked,
-                        likeCount = if(currentlyLiked) {
-                            post.likeCount - 1
-                        } else post.likeCount + 1
-                    )
-                } else post
-            }
-            val result = postUseCases.toggleLikeForParent(
+            postLiker.toggleLike(
+                posts = pagingState.value.items,
                 parentId = parentId,
-                parentType = ParentType.Post.type,
-                isLiked = currentlyLiked
-            )
-            _pagingState.value = pagingState.value.copy(
-                items = newPosts
-            )
-            when(result) {
-                is Resource.Success -> Unit
-                is Resource.Error -> {
-                    val oldPosts = pagingState.value.items.map { post ->
-                        if(post.id == parentId) {
-                            post.copy(
-                                isLiked = currentlyLiked,
-                                likeCount = currentLikeCount
-                            )
-                        } else post
-                    }
+                onRequest = { isLiked ->
+                    postUseCases.toggleLikeForParent(
+                        parentId = parentId,
+                        parentType = ParentType.Post.type,
+                        isLiked = isLiked
+                    )
+                },
+                onStateUpdated = { posts ->
                     _pagingState.value = pagingState.value.copy(
-                        items = oldPosts,
+                        items = posts,
                     )
                 }
-            }
+            )
         }
     }
 
@@ -163,7 +137,7 @@ class ProfileViewModel @Inject constructor(
             val result = profileUseCases.getProfile(
                 userId ?: getOwnUserId()
             )
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
                     _state.value = state.value.copy(
                         profile = result.data,
@@ -174,9 +148,11 @@ class ProfileViewModel @Inject constructor(
                     _state.value = state.value.copy(
                         isLoading = false
                     )
-                    _eventFlow.emit(UiEvent.ShowSnackbar(
-                        uiText = result.uiText ?: UiText.unknownError()
-                    ))
+                    _eventFlow.emit(
+                        UiEvent.ShowSnackbar(
+                            uiText = result.uiText ?: UiText.unknownError()
+                        )
+                    )
                 }
             }
         }

@@ -1,9 +1,6 @@
 package com.plcoding.socialnetworktwitch.feature_post.presentation.main_feed
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,6 +13,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -37,15 +35,13 @@ fun MainFeedScreen(
     scaffoldState: ScaffoldState,
     viewModel: MainFeedViewModel = hiltViewModel()
 ) {
-    val posts = viewModel.posts.collectAsLazyPagingItems()
-    val state = viewModel.state.value
-    val scope = rememberCoroutineScope()
+    val pagingState = viewModel.pagingState.value
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
                 is PostEvent.OnLiked -> {
-                    posts.refresh()
+
                 }
             }
         }
@@ -78,58 +74,30 @@ fun MainFeedScreen(
             }
         )
         Box(modifier = Modifier.fillMaxSize()) {
-            if(state.isLoadingFirstTime) {
-                CircularProgressIndicator(modifier = Modifier.align(Center))
-            }
             LazyColumn {
-                items(posts) { post ->
+                items(pagingState.items.size) { i ->
+                    val post = pagingState.items[i]
+                    if(i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
+                        viewModel.loadNextPosts()
+                    }
                     Post(
-                        post = com.plcoding.socialnetworktwitch.core.domain.models.Post(
-                            id = post?.id ?: "",
-                            userId = post?.userId ?: "",
-                            isLiked = post?.isLiked ?: false,
-                            username = post?.username ?: "",
-                            imageUrl = post?.imageUrl ?: "",
-                            profilePictureUrl = post?.profilePictureUrl ?: "",
-                            description = post?.description ?: "",
-                            likeCount = post?.likeCount ?: 0,
-                            commentCount = post?.commentCount ?: 0
-                        ),
+                        post = post,
                         onPostClick = {
-                            onNavigate(Screen.PostDetailScreen.route + "/${post?.id}")
+                            onNavigate(Screen.PostDetailScreen.route + "/${post.id}")
                         },
                         onLikeClick = {
-                            viewModel.onEvent(MainFeedEvent.LikedPost(post?.id ?: ""))
+                            viewModel.onEvent(MainFeedEvent.LikedPost(post.id))
                         }
                     )
                 }
                 item {
-                    if(state.isLoadingNewPosts) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.BottomCenter)
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(90.dp))
                 }
-                posts.apply {
-                    when {
-                        loadState.refresh !is LoadState.Loading -> {
-                            viewModel.onEvent(MainFeedEvent.LoadedPage)
-                        }
-                        loadState.append is LoadState.Loading -> {
-                            viewModel.onEvent(MainFeedEvent.LoadMorePosts)
-                        }
-                        loadState.append is LoadState.NotLoading -> {
-                            viewModel.onEvent(MainFeedEvent.LoadedPage)
-                        }
-                        loadState.append is LoadState.Error -> {
-                            scope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar(
-                                    message = "Error"
-                                )
-                            }
-                        }
-                    }
-                }
+            }
+            if(pagingState.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Center)
+                )
             }
         }
     }

@@ -7,6 +7,8 @@ import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
 import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.core.util.Constants
+import com.plcoding.socialnetworktwitch.core.util.DefaultPostLiker
+import com.plcoding.socialnetworktwitch.core.util.PostLiker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,6 +47,12 @@ object AppModule {
                 }
             )
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providePostLiker(): PostLiker {
+        return DefaultPostLiker()
     }
 
     @Provides
