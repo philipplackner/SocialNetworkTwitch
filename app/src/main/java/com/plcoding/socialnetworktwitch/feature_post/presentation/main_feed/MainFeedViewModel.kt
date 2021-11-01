@@ -11,6 +11,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.PagingState
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.DefaultPaginator
 import com.plcoding.socialnetworktwitch.core.util.Event
+import com.plcoding.socialnetworktwitch.core.util.PostLiker
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
@@ -22,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainFeedViewModel @Inject constructor(
-    private val postUseCases: PostUseCases
+    private val postUseCases: PostUseCases,
+    private val postLiker: PostLiker
 ) : ViewModel() {
 
     private val _eventFlow = MutableSharedFlow<Event>()
@@ -59,7 +61,7 @@ class MainFeedViewModel @Inject constructor(
     fun onEvent(event: MainFeedEvent) {
         when(event) {
             is MainFeedEvent.LikedPost -> {
-
+                toggleLikeForParent(event.postId)
             }
         }
     }
@@ -72,22 +74,24 @@ class MainFeedViewModel @Inject constructor(
 
     private fun toggleLikeForParent(
         parentId: String,
-        isLiked: Boolean
     ) {
         viewModelScope.launch {
-            val result = postUseCases.toggleLikeForParent(
+            postLiker.toggleLike(
+                posts = pagingState.value.items,
                 parentId = parentId,
-                parentType = ParentType.Post.type,
-                isLiked = isLiked
+                onRequest = { isLiked ->
+                    postUseCases.toggleLikeForParent(
+                        parentId = parentId,
+                        parentType = ParentType.Post.type,
+                        isLiked = isLiked
+                    )
+                },
+                onStateUpdated = { posts ->
+                    _pagingState.value = pagingState.value.copy(
+                        items = posts
+                    )
+                }
             )
-            when(result) {
-                is Resource.Success -> {
-                    _eventFlow.emit(PostEvent.OnLiked)
-                }
-                is Resource.Error -> {
-
-                }
-            }
         }
     }
 }

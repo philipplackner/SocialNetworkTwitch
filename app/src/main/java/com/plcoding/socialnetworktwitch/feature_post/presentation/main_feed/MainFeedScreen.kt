@@ -22,6 +22,7 @@ import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.components.Post
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
+import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
 import kotlinx.coroutines.flow.collectLatest
@@ -85,10 +86,16 @@ fun MainFeedScreen(
                         onPostClick = {
                             onNavigate(Screen.PostDetailScreen.route + "/${post.id}")
                         },
+                        onCommentClick = {
+                            onNavigate(Screen.PostDetailScreen.route + "/${post.id}?shouldShowKeyboard=true")
+                        },
                         onLikeClick = {
                             viewModel.onEvent(MainFeedEvent.LikedPost(post.id))
                         }
                     )
+                    if(i < pagingState.items.size - 1) {
+                        Spacer(modifier = Modifier.height(SpaceLarge))
+                    }
                 }
                 item {
                     Spacer(modifier = Modifier.height(90.dp))

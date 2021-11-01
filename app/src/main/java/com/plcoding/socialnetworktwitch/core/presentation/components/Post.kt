@@ -74,8 +74,6 @@ fun Post(
                     data = post.imageUrl,
                     builder = {
                         crossfade(true)
-                        error(R.drawable.channelart)
-                        placeholder(R.drawable.kermit)
                     }
                 ),
                 contentDescription = "Post image",
