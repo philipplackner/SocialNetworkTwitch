@@ -40,7 +40,7 @@ fun MainFeedScreen(
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
+            when (event) {
                 is PostEvent.OnLiked -> {
 
                 }
@@ -78,11 +78,14 @@ fun MainFeedScreen(
             LazyColumn {
                 items(pagingState.items.size) { i ->
                     val post = pagingState.items[i]
-                    if(i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
+                    if (i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
                         viewModel.loadNextPosts()
                     }
                     Post(
                         post = post,
+                        onUsernameClick = {
+                            onNavigate(Screen.ProfileScreen.route + "?userId=${post.userId}")
+                        },
                         onPostClick = {
                             onNavigate(Screen.PostDetailScreen.route + "/${post.id}")
                         },
@@ -93,7 +96,7 @@ fun MainFeedScreen(
                             viewModel.onEvent(MainFeedEvent.LikedPost(post.id))
                         }
                     )
-                    if(i < pagingState.items.size - 1) {
+                    if (i < pagingState.items.size - 1) {
                         Spacer(modifier = Modifier.height(SpaceLarge))
                     }
                 }
@@ -101,7 +104,7 @@ fun MainFeedScreen(
                     Spacer(modifier = Modifier.height(90.dp))
                 }
             }
-            if(pagingState.isLoading) {
+            if (pagingState.isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Center)
                 )

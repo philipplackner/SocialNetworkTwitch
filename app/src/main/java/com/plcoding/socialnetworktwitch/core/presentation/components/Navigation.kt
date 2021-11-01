@@ -85,7 +85,6 @@ fun Navigation(
                 }
             )
         ) {
-            println("Profile screen route: ${it.destination.route}")
             ProfileScreen(
                 userId = it.arguments?.getString("userId"),
                 onNavigateUp = navController::navigateUp,

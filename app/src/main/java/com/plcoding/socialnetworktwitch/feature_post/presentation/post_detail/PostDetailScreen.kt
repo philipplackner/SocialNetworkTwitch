@@ -60,12 +60,12 @@ fun PostDetailScreen(
 
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
-        if(shouldShowKeyboard) {
+        if (shouldShowKeyboard) {
             context.showKeyboard()
             focusRequester.requestFocus()
         }
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.uiText.asString(context)
@@ -148,7 +148,7 @@ fun PostDetailScreen(
 
                                         },
                                         onUsernameClick = {
-
+                                            onNavigate(Screen.ProfileScreen.route + "?userId=${post.userId}")
                                         },
                                         isLiked = state.post.isLiked
                                     )
@@ -231,7 +231,7 @@ fun PostDetailScreen(
                 hint = stringResource(id = R.string.enter_a_comment),
                 focusRequester = focusRequester
             )
-            if(viewModel.commentState.value.isLoading) {
+            if (viewModel.commentState.value.isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
