@@ -1,5 +1,6 @@
 package com.plcoding.socialnetworktwitch.core.data.repository
 
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.net.toFile
 import com.google.gson.Gson
@@ -16,6 +17,7 @@ import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Profile
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Skill
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.UpdateProfileData
 import com.plcoding.socialnetworktwitch.core.domain.repository.ProfileRepository
+import com.plcoding.socialnetworktwitch.core.util.Constants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
@@ -24,7 +26,8 @@ import java.io.IOException
 class ProfileRepositoryImpl(
     private val profileApi: ProfileApi,
     private val postApi: PostApi,
-    private val gson: Gson
+    private val gson: Gson,
+    private val sharedPreferences: SharedPreferences
 ) : ProfileRepository {
 
     override suspend fun getProfile(userId: String): Resource<Profile> {
@@ -199,5 +202,11 @@ class ProfileRepositoryImpl(
                 uiText = UiText.StringResource(R.string.oops_something_went_wrong)
             )
         }
+    }
+
+    override fun logout() {
+        sharedPreferences.edit()
+            .remove(Constants.KEY_JWT_TOKEN)
+            .apply()
     }
 }

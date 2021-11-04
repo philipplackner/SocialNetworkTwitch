@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun LoginScreen(
     scaffoldState: ScaffoldState,
     onNavigate: (String) -> Unit = {},
+    onLogin: () -> Unit = {},
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val emailState = viewModel.emailState.value
@@ -47,6 +48,9 @@ fun LoginScreen(
                 }
                 is UiEvent.Navigate -> {
                     onNavigate(event.route)
+                }
+                is UiEvent.OnLogin -> {
+                    onLogin()
                 }
             }
         }

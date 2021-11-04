@@ -1,5 +1,6 @@
 package com.plcoding.socialnetworktwitch.di
 
+import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.plcoding.socialnetworktwitch.core.domain.use_case.ToggleFollowStateForUserUseCase
 import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
@@ -34,8 +35,8 @@ object ProfileModule {
 
     @Provides
     @Singleton
-    fun provideProfileRepository(profileApi: ProfileApi, postApi: PostApi, gson: Gson): ProfileRepository {
-        return ProfileRepositoryImpl(profileApi, postApi, gson)
+    fun provideProfileRepository(profileApi: ProfileApi, postApi: PostApi, gson: Gson, sharedPreferences: SharedPreferences): ProfileRepository {
+        return ProfileRepositoryImpl(profileApi, postApi, gson, sharedPreferences)
     }
 
     @Provides
@@ -48,7 +49,8 @@ object ProfileModule {
             setSkillSelected = SetSkillSelectedUseCase(),
             getPostsForProfile = GetPostsForProfileUseCase(repository),
             searchUser = SearchUserUseCase(repository),
-            toggleFollowStateForUser = ToggleFollowStateForUserUseCase(repository)
+            toggleFollowStateForUser = ToggleFollowStateForUserUseCase(repository),
+            logout = LogoutUseCase(repository)
         )
     }
 

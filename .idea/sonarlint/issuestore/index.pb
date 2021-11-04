@@ -83,8 +83,6 @@ kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation
 oapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/edit_profile/components/Chip.kt,7\e\7e51678af1dced7144d9d96d87ca9960cad8c9c4
 †
 papp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/edit_profile/EditProfileEvent.kt,3\a\3a6b062f279642b881f3f4d1d00bca283af1ebb4
-ë
-aapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/login/LoginScreen.kt,0\2\0295cb9420a694e6067da4edafc06f7a3786507c
 ó
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/register/RegisterScreen.kt,0\3\03dfdad6b5c8f7831070005ade0e3a1f3a6a5bd4
 ö
@@ -92,11 +90,7 @@ japp/src/androidTest/java/com/plcoding/socialnetworktwitch/presentation/componen
 ñ
 fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/splash/SplashViewModel.kt,b\d\bd845f569a0884a1da454a605008754affcf27dc
 î
-dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/login/LoginViewModel.kt,1\f\1f592df5ff5c4975c563d15b91ee04d10d4ca664
-î
 dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/data/remote/response/AuthResponse.kt,2\f\2f2675b92a4b89663b197f2e5c531bbfda2f4fb5
-ï
-eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/data/repository/AuthRepositoryImpl.kt,8\2\821a3610587f07a257f90847aa806394fa850671
 é
 ^app/src/main/java/com/plcoding/socialnetworktwitch/core/domain/use_case/GetOwnUserIdUseCase.kt,8\2\8254ecae9c9c483fe6e2eb5c93b44ddf6a6b354e
 v
@@ -105,8 +99,6 @@ u
 Eapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Error.kt,2\e\2eeddb0adcfcbd4bde98dae2111e9c12661d11c6
 è
 _app/src/main/java/com/plcoding/socialnetworktwitch/core/domain/states/StandardTextFieldState.kt,4\9\49edd7f67fdb232306b444e44b2d6cbbd3bd830f
-ó
-gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileState.kt,6\1\617ff0132c0c9b8887ab211b591da1fcf567a0d7
 ¢
 rapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/components/ProfileStats.kt,e\2\e20c56840fc18979e0b375bb80ff68f3828e8281
 Ü
@@ -117,8 +109,6 @@ mapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/data/remote/
 Zapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/model/Profile.kt,2\d\2d10892e54f3ac4494bc0243f462bcf04e302139
 í
 bapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/util/ProfileConstants.kt,e\3\e318419da7027606f72c1eeced0a193049b1ce63
-™
-zapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/components/ProfileHeaderSection.kt,f\2\f2843dc04519f440ceea3a0ce4b1a81fd07341eb
 ö
 japp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/data/remote/response/ProfileResponse.kt,1\9\1922c49b5dff65b5edc41d8d7297de38c77bf066
 ï
@@ -211,16 +201,10 @@ kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/pe
 kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/person_list/PersonListState.kt,1\c\1c9188b5264fb69194016e9e7ca3d53303fa8388
 ü
 oapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/person_list/PersonListViewModel.kt,d\2\d21ef8982254e90b002a705b19736c0fb556f05b
-v
-Fapp/src/main/java/com/plcoding/socialnetworktwitch/di/ProfileModule.kt,0\e\0e6876039049c872a153d24c0ab653088dd3116d
-ï
-eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/use_case/ProfileUseCases.kt,a\e\ae2ffd033b4fd4132462d6271b1b99d08b55c85f
 ó
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/use_case/SearchUserUseCase.kt,2\d\2d352613110e922e5c5e3c56479c687065489b80
 ö
 japp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/use_case/ToggleFollowStateForUserUseCase.kt,5\3\53343d8fe884da920ac2ccf0be8553dccb187092
-ó
-gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileEvent.kt,6\4\64edb981a282c603c7eb02dd610e3a2ad0963887
 ï
 eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/person_list/PostEvent.kt,c\5\c5db4d4c8f200b58c2527433f32639b67b731e73
 u
@@ -249,16 +233,12 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-ê
-`app/src/main/java/com/plcoding/socialnetworktwitch/core/data/repository/ProfileRepositoryImpl.kt,2\9\29eaae2542c306d7557d8017fe5bb5ae381e1ad9
 Ü
 Vapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/data/remote/PostApi.kt,c\4\c4ad892a3c028898410a5ef6582db184559901ad
 å
 \app/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/data/remote/ProfileApi.kt,2\a\2a5bda25feac48655a126865b843a903cf03ebf9
 ó
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedState.kt,5\f\5faecba77e7e189fdb507f9a7c50643353f71e16
-Ñ
-Tapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/util/UiEvent.kt,f\b\fbcb454156965ec550634b80d2d227a8c5e9708c
 ù
 mapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/use_case/ToggleLikeForParentUseCase.kt,b\9\b93165dcf9755abbc21a64b3160aca906ab8f50f
 Ä
@@ -275,8 +255,6 @@ s
 Capp/src/main/java/com/plcoding/socialnetworktwitch/di/PostModule.kt,9\3\93f9b5ae25f982cd49224cc666fb0d6df999d4a2
 ì
 capp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/repository/PostRepository.kt,6\4\64e4782c625999e1ff97452792573560086ab00b
-õ
-kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileViewModel.kt,3\e\3e4bb8f32197b9012bd44883413352504a625a51
 Ä
 Papp/src/main/java/com/plcoding/socialnetworktwitch/core/util/DefaultPostLiker.kt,9\8\98da7edcea64c451856ecf67f7ef433a1f8e3842
 õ

@@ -80,4 +80,8 @@
     <string name="send_comment">Send comment</string>
     <string name="enter_a_comment">Enter a comment...</string>
     <string name="comment_posted">Successfully posted comment</string>
+    <string name="logout">Logout</string>
+    <string name="do_you_want_to_logout">Do you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
