@@ -45,6 +45,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import kotlinx.coroutines.flow.collectLatest
 import androidx.core.content.ContextCompat.getSystemService
+import coil.ImageLoader
 import com.plcoding.socialnetworktwitch.core.presentation.util.showKeyboard
 
 
@@ -52,6 +53,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.showKeyboard
 @Composable
 fun PostDetailScreen(
     scaffoldState: ScaffoldState,
+    imageLoader: ImageLoader,
     onNavigate: (String) -> Unit = {},
     onNavigateUp: () -> Unit = {},
     viewModel: PostDetailViewModel = hiltViewModel(),
@@ -125,9 +127,7 @@ fun PostDetailScreen(
                                 Image(
                                     painter = rememberImagePainter(
                                         data = state.post.imageUrl,
-                                        builder = {
-                                            crossfade(true)
-                                        }
+                                        imageLoader = imageLoader
                                     ),
                                     contentScale = ContentScale.Crop,
                                     contentDescription = "Post image",
@@ -182,9 +182,7 @@ fun PostDetailScreen(
                         Image(
                             painter = rememberImagePainter(
                                 data = state.post?.profilePictureUrl,
-                                builder = {
-                                    crossfade(true)
-                                }
+                                imageLoader = imageLoader
                             ),
                             contentDescription = "Profile picture",
                             modifier = Modifier
@@ -209,6 +207,7 @@ fun PostDetailScreen(
                             horizontal = SpaceLarge,
                             vertical = SpaceSmall
                         ),
+                    imageLoader = imageLoader,
                     comment = comment,
                     onLikeClick = {
                         viewModel.onEvent(PostDetailEvent.LikeComment(comment.id))

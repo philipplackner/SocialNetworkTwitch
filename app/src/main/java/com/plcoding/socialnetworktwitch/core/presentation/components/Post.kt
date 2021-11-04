@@ -30,6 +30,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
@@ -41,6 +42,7 @@ import com.plcoding.socialnetworktwitch.core.util.Constants
 @Composable
 fun Post(
     post: Post,
+    imageLoader: ImageLoader,
     modifier: Modifier = Modifier,
     showProfileImage: Boolean = true,
     onPostClick: () -> Unit = {},
@@ -72,9 +74,7 @@ fun Post(
             Image(
                 painter = rememberImagePainter(
                     data = post.imageUrl,
-                    builder = {
-                        crossfade(true)
-                    }
+                    imageLoader = imageLoader
                 ),
                 contentDescription = "Post image",
                 contentScale = ContentScale.Crop,
@@ -146,9 +146,7 @@ fun Post(
             Image(
                 painter = rememberImagePainter(
                     data = post.profilePictureUrl,
-                    builder = {
-                        crossfade(true)
-                    }
+                    imageLoader = imageLoader
                 ),
                 contentDescription = "Profile picture",
                 modifier = Modifier

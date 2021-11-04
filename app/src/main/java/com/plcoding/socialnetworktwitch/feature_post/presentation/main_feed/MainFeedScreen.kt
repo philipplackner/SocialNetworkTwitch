@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.components.Post
@@ -31,9 +32,10 @@ import kotlinx.coroutines.launch
 @ExperimentalCoilApi
 @Composable
 fun MainFeedScreen(
+    imageLoader: ImageLoader,
+    scaffoldState: ScaffoldState,
     onNavigate: (String) -> Unit = {},
     onNavigateUp: () -> Unit = {},
-    scaffoldState: ScaffoldState,
     viewModel: MainFeedViewModel = hiltViewModel()
 ) {
     val pagingState = viewModel.pagingState.value
@@ -83,6 +85,7 @@ fun MainFeedScreen(
                     }
                     Post(
                         post = post,
+                        imageLoader = imageLoader,
                         onUsernameClick = {
                             onNavigate(Screen.ProfileScreen.route + "?userId=${post.userId}")
                         },

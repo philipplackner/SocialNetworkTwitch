@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
@@ -27,6 +28,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 fun Comment(
     modifier: Modifier = Modifier,
     comment: Comment,
+    imageLoader: ImageLoader,
     onLikeClick: (Boolean) -> Unit = {},
     onLikedByClick: () -> Unit = {}
 ) {
@@ -52,9 +54,7 @@ fun Comment(
                     Image(
                         painter = rememberImagePainter(
                             data = comment.profilePictureUrl,
-                            builder = {
-                                crossfade(true)
-                            }
+                            imageLoader = imageLoader
                         ),
                         contentDescription = null,
                         modifier = Modifier

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.User
@@ -31,6 +32,7 @@ import com.plcoding.socialnetworktwitch.core.util.Screen
 @ExperimentalMaterialApi
 @Composable
 fun SearchScreen(
+    imageLoader: ImageLoader,
     onNavigate: (String) -> Unit = {},
     onNavigateUp: () -> Unit = {},
     viewModel: SearchViewModel = hiltViewModel()
@@ -76,6 +78,7 @@ fun SearchScreen(
                     items(state.userItems) { user ->
                         UserProfileItem(
                             user = user,
+                            imageLoader = imageLoader,
                             actionIcon = {
                                 IconButton(
                                     onClick = {

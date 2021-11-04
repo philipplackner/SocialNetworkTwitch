@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PersonListScreen
@@ -31,7 +32,8 @@ import com.plcoding.socialnetworktwitch.core.util.Screen
 @Composable
 fun Navigation(
     navController: NavHostController,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
+    imageLoader: ImageLoader
 ) {
     NavHost(
         navController = navController,
@@ -41,7 +43,7 @@ fun Navigation(
         composable(Screen.SplashScreen.route) {
             SplashScreen(
                 onPopBackStack = navController::popBackStack,
-                onNavigate = navController::navigate
+                onNavigate = navController::navigate,
             )
         }
         composable(Screen.LoginScreen.route) {
@@ -60,13 +62,15 @@ fun Navigation(
             MainFeedScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                imageLoader = imageLoader
             )
         }
         composable(Screen.ChatScreen.route) {
             ChatScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
+                imageLoader = imageLoader
             )
         }
         composable(Screen.ActivityScreen.route) {
@@ -89,7 +93,8 @@ fun Navigation(
                 userId = it.arguments?.getString("userId"),
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                imageLoader = imageLoader
             )
         }
         composable(
@@ -103,20 +108,23 @@ fun Navigation(
             EditProfileScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                imageLoader = imageLoader
             )
         }
         composable(Screen.CreatePostScreen.route) {
             CreatePostScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                imageLoader = imageLoader
             )
         }
         composable(Screen.SearchScreen.route) {
             SearchScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
+                imageLoader = imageLoader
             )
         }
         composable(
@@ -140,7 +148,8 @@ fun Navigation(
                 scaffoldState = scaffoldState,
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                shouldShowKeyboard = shouldShowKeyboard
+                shouldShowKeyboard = shouldShowKeyboard,
+                imageLoader = imageLoader
             )
         }
         composable(
@@ -154,7 +163,8 @@ fun Navigation(
             PersonListScreen(
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                imageLoader = imageLoader
             )
         }
     }
