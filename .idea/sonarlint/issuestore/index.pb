@@ -43,8 +43,6 @@ fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/re
 \app/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/domain/models/LoginResult.kt,5\f\5fdfd81ebd8356068903eee25b87b3b6857dfcb3
 ê
 `app/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/login/LoginState.kt,5\6\560a9aa3af8a944ea7d7051fe0921324f08de582
-ñ
-fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/domain/use_case/AuthenticateUseCase.kt,4\a\4af0af1790e6be9d92b647eb85d02a4ddc62b5a5
 ë
 aapp/src/androidTest/java/com/plcoding/socialnetworktwitch/presentation/splash/SplashScreenTest.kt,d\b\db2840b3a3ad8b74d360c8f91a4074436f274b5c
 á
@@ -171,8 +169,6 @@ aapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/ut
 kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/data/remote/request/CreateCommentRequest.kt,3\b\3b56931953c36ecd53f6bd6392802c456d874000
 ó
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/use_case/CreateCommentUseCase.kt,1\b\1be7e6c14e7e5234c852dfc5b81aaa4e08433559
-õ
-kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/post_detail/PostDetailEvent.kt,0\1\0181ea9b50606a72e75929f67dff21564f22ca16
 ò
 happ/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/post_detail/CommentState.kt,b\b\bbf326fac7ef7f5548c5b86ffe77db743c8fe7c5
 Ä
@@ -247,14 +243,10 @@ lapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/use_case
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedEvent.kt,2\0\208137373352ea9a744cf95bbb421623dc2b058e
 y
 Iapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Paginator.kt,4\4\4408efb9ba43a567b4fcd4686a4ddfbd531e0cd2
-y
-Iapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/PostLiker.kt,3\9\395754bf505d37aabf7df17ef6474702fa83cd53
 s
 Capp/src/main/java/com/plcoding/socialnetworktwitch/di/PostModule.kt,9\3\93f9b5ae25f982cd49224cc666fb0d6df999d4a2
 ì
 capp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/domain/repository/PostRepository.kt,6\4\64e4782c625999e1ff97452792573560086ab00b
-Ä
-Papp/src/main/java/com/plcoding/socialnetworktwitch/core/util/DefaultPostLiker.kt,9\8\98da7edcea64c451856ecf67f7ef433a1f8e3842
 õ
 kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/main_feed/MainFeedViewModel.kt,a\6\a64db2f8805ec6cd24261a2d224b0e7a5c866be4
 î
@@ -295,8 +287,6 @@ lapp/src/main/java/com/plcoding/socialnetworktwitch/feature_post/presentation/pe
 fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/search/SearchScreen.kt,4\1\41295bdffe57f5ba9a1a8d26a1d26b3b22cabbf2
 í
 bapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/components/UserProfileItem.kt,8\9\897f0dcc2125a9dfacf09a08978973fddfb1b113
-ï
-eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/data/repository/AuthRepositoryImpl.kt,8\2\821a3610587f07a257f90847aa806394fa850671
 ì
 capp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/use_case/LogoutUseCase.kt,b\f\bf931bbd8ca70a58e8375064fd928f88fc26c435
 ™
