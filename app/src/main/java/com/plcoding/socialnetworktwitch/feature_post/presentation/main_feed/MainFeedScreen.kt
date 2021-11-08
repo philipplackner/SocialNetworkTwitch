@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.components.Post
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -39,7 +41,7 @@ fun MainFeedScreen(
     viewModel: MainFeedViewModel = hiltViewModel()
 ) {
     val pagingState = viewModel.pagingState.value
-
+    val context = LocalContext.current
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
@@ -97,6 +99,9 @@ fun MainFeedScreen(
                         },
                         onLikeClick = {
                             viewModel.onEvent(MainFeedEvent.LikedPost(post.id))
+                        },
+                        onShareClick = {
+                            context.sendSharePostIntent(post.id)
                         }
                     )
                     if (i < pagingState.items.size - 1) {

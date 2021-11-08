@@ -47,6 +47,7 @@ import kotlinx.coroutines.flow.collectLatest
 import androidx.core.content.ContextCompat.getSystemService
 import coil.ImageLoader
 import com.plcoding.socialnetworktwitch.core.presentation.util.showKeyboard
+import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 
 
 @ExperimentalCoilApi
@@ -151,7 +152,7 @@ fun PostDetailScreen(
                                             focusRequester.requestFocus()
                                         },
                                         onShareClick = {
-
+                                            context.sendSharePostIntent(post.id)
                                         },
                                         onUsernameClick = {
                                             onNavigate(Screen.ProfileScreen.route + "?userId=${post.userId}")

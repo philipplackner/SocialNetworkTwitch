@@ -51,6 +51,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 import com.plcoding.socialnetworktwitch.core.util.toPx
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
 import kotlinx.coroutines.flow.collectLatest
@@ -189,6 +190,9 @@ fun ProfileScreen(
                     },
                     onLikeClick = {
                         viewModel.onEvent(ProfileEvent.LikePost(post.id))
+                    },
+                    onShareClick = {
+                        context.sendSharePostIntent(post.id)
                     }
                 )
             }

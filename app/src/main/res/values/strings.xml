@@ -84,4 +84,5 @@
     <string name="do_you_want_to_logout">Do you want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="share_intent_text">Hey, I found a great post, check it out :)\n%s</string>
 </resources>
