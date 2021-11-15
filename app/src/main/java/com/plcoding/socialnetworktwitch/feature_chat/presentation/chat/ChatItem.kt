@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.core.presentation.components
+package com.plcoding.socialnetworktwitch.feature_chat.presentation.chat
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -8,34 +8,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
-import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
+import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeSmall
+import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
+import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
+import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Chat
 
-@ExperimentalCoilApi
 @ExperimentalMaterialApi
+@ExperimentalCoilApi
 @Composable
-fun UserProfileItem(
-    user: UserItem,
+fun ChatItem(
+    item: Chat,
     imageLoader: ImageLoader,
     modifier: Modifier = Modifier,
-    actionIcon: @Composable () -> Unit = {},
-    onItemClick: () -> Unit = {},
-    onActionItemClick: () -> Unit = {},
-    ownUserId: String = ""
+    onItemClick: (Chat) -> Unit,
 ) {
     Card(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
-        onClick = onItemClick,
+        onClick = {
+            onItemClick(item)
+        },
         elevation = 5.dp
     ) {
         Row(
@@ -50,7 +48,7 @@ fun UserProfileItem(
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = user.profilePictureUrl,
+                    data = item.remoteUserProfileUrl,
                     imageLoader = imageLoader
                 ),
                 contentDescription = null,
@@ -64,30 +62,29 @@ fun UserProfileItem(
                     .padding(horizontal = SpaceSmall)
                     .weight(1f)
             ) {
-                Text(
-                    text = user.username,
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight.Bold
+                Row(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Text(
+                        text = item.remoteUsername,
+                        style = MaterialTheme.typography.body1.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier.weight(1f)
                     )
-                )
+                    Spacer(modifier = Modifier.width(SpaceSmall))
+                    Text(text = item.lastMessageFormattedTime)
+                }
                 Spacer(modifier = Modifier.height(SpaceSmall))
                 Text(
-                    text = user.bio,
+                    text = item.lastMessage,
                     style = MaterialTheme.typography.body2,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
                     modifier = Modifier.heightIn(
-                        min = MaterialTheme.typography.body2.fontSize.value.dp * 3f
+                        min = MaterialTheme.typography.body2.fontSize.value.dp * 2.5f
                     )
                 )
-            }
-            if(user.userId != ownUserId) {
-                IconButton(
-                    onClick = onActionItemClick,
-                    modifier = Modifier.size(IconSizeMedium)
-                ) {
-                    actionIcon()
-                }
             }
         }
     }

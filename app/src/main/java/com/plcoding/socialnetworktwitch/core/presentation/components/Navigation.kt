@@ -28,6 +28,7 @@ import com.plcoding.socialnetworktwitch.feature_auth.presentation.register.Regis
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.search.SearchScreen
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashScreen
 import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.MessageScreen
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
@@ -77,6 +78,14 @@ fun Navigation(
         }
         composable(Screen.ChatScreen.route) {
             ChatScreen(
+                onNavigateUp = navController::navigateUp,
+                onNavigate = navController::navigate,
+                imageLoader = imageLoader
+            )
+        }
+        composable(Screen.MessageScreen.route) {
+            MessageScreen(
+                chatId = "",
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
                 imageLoader = imageLoader
