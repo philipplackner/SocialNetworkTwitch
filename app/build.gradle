@@ -97,6 +97,14 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
+    // Scarlet
+    def scarletVersion = "0.1.12"
+    implementation "com.tinder.scarlet:scarlet:$scarletVersion"
+    implementation "com.tinder.scarlet:websocket-okhttp:$scarletVersion"
+    implementation "com.tinder.scarlet:lifecycle-android:$scarletVersion"
+    implementation "com.tinder.scarlet:message-adapter-gson:$scarletVersion"
+    implementation "com.tinder.scarlet:stream-adapter-coroutines:$scarletVersion"
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
