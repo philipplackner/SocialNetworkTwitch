@@ -1,4 +1,4 @@
-package com.plcoding.socialnetworktwitch.feature_chat.data.remote.ws.util
+package com.plcoding.socialnetworktwitch.feature_chat.data.remote.util
 
 import com.tinder.scarlet.Stream
 import com.tinder.scarlet.StreamAdapter

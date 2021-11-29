@@ -17,6 +17,7 @@ import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeSmall
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
+import com.plcoding.socialnetworktwitch.feature_chat.data.remote.data.ChatDto
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Chat
 
 @ExperimentalMaterialApi
@@ -48,7 +49,7 @@ fun ChatItem(
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = item.remoteUserProfileUrl,
+                    data = item.remoteUserProfilePictureUrl,
                     imageLoader = imageLoader
                 ),
                 contentDescription = null,
@@ -73,7 +74,7 @@ fun ChatItem(
                         modifier = Modifier.weight(1f)
                     )
                     Spacer(modifier = Modifier.width(SpaceSmall))
-                    Text(text = item.lastMessageFormattedTime)
+                    Text(text = item.timestamp.toString())
                 }
                 Spacer(modifier = Modifier.height(SpaceSmall))
                 Text(

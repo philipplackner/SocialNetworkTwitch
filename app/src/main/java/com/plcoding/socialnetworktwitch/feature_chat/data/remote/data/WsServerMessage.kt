@@ -1,11 +1,10 @@
-package com.plcoding.socialnetworktwitch.feature_chat.data.remote.ws.data
+package com.plcoding.socialnetworktwitch.feature_chat.data.remote.data
 
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
-import okhttp3.internal.format
 import java.text.DateFormat
 import java.util.*
 
-data class WsMessage(
+data class WsServerMessage(
     val fromId: String,
     val toId: String,
     val text: String,

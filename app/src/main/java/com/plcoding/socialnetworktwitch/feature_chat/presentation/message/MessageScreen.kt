@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,7 +23,6 @@ import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToo
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.DarkerGreen
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeSmall
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
-import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Chat
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.OwnMessage
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.RemoteMessage
@@ -46,7 +44,6 @@ fun MessageScreen(
                 text = "Hello World!",
                 formattedTime = "19:34",
                 chatId = "",
-                id = ""
             ),
             Message(
                 fromId = "",
@@ -54,7 +51,6 @@ fun MessageScreen(
                 text = "Hello World!",
                 formattedTime = "19:34",
                 chatId = "",
-                id = ""
             ),
             Message(
                 fromId = "",
@@ -62,7 +58,6 @@ fun MessageScreen(
                 text = "Hello World!",
                 formattedTime = "19:34",
                 chatId = "",
-                id = ""
             ),
         )
     }
