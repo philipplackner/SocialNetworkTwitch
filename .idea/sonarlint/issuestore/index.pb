@@ -281,8 +281,6 @@ Tapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/util/UiEve
 capp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/presentation/splash/SplashScreen.kt,d\8\d876da5bd99b48f07ac610a7bfbef4fab48ac407
 r
 Bapp/src/main/java/com/plcoding/socialnetworktwitch/di/AppModule.kt,b\4\b48165ed81968025b5175338ac71bd1eff5c2a46
-õ
-kapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileViewModel.kt,3\e\3e4bb8f32197b9012bd44883413352504a625a51
 ó
 gapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileEvent.kt,6\4\64edb981a282c603c7eb02dd610e3a2ad0963887
 Ñ
@@ -301,8 +299,6 @@ y
 Iapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/PostLiker.kt,3\9\395754bf505d37aabf7df17ef6474702fa83cd53
 z
 Japp/src/main/java/com/plcoding/socialnetworktwitch/core/util/ContextExt.kt,0\c\0cb0d9fc7886a06de1021df8488cad530244c10c
-ò
-happ/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/profile/ProfileScreen.kt,6\7\67c60b7d0cefe4d6ffb81356570896fefb8b892e
 ñ
 fapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/search/SearchScreen.kt,4\1\41295bdffe57f5ba9a1a8d26a1d26b3b22cabbf2
 ã
@@ -333,8 +329,6 @@ Fapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/UiText.kt,6\5\654
 `app/src/main/java/com/plcoding/socialnetworktwitch/core/data/repository/ProfileRepositoryImpl.kt,2\9\29eaae2542c306d7557d8017fe5bb5ae381e1ad9
 ù
 mapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/message/components/OwnMessage.kt,0\6\068467ed51dab4b1ec16a857cb9b3365526fd976
-î
-dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/message/MessageState.kt,0\4\04bf88069497f3c6850b511a74e0a8328749eb44
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 ò

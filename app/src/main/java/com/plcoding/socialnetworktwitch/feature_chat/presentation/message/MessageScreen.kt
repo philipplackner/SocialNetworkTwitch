@@ -3,7 +3,6 @@ package com.plcoding.socialnetworktwitch.feature_chat.presentation.message
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,44 +22,25 @@ import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToo
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.DarkerGreen
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeSmall
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
-import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.OwnMessage
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.RemoteMessage
+import okio.ByteString.Companion.decodeBase64
+import java.nio.charset.Charset
 
 @ExperimentalCoilApi
 @Composable
 fun MessageScreen(
-    chatId: String,
+    remoteUsername: String,
+    encodedRemoteUserProfilePictureUrl: String,
     imageLoader: ImageLoader,
     onNavigateUp: () -> Unit = {},
     onNavigate: (String) -> Unit = {},
     viewModel: MessageViewModel = hiltViewModel()
 ) {
-    val messages = remember {
-        listOf(
-            Message(
-                fromId = "",
-                toId = "",
-                text = "Hello World!",
-                formattedTime = "19:34",
-                chatId = "",
-            ),
-            Message(
-                fromId = "",
-                toId = "",
-                text = "Hello World!",
-                formattedTime = "19:34",
-                chatId = "",
-            ),
-            Message(
-                fromId = "",
-                toId = "",
-                text = "Hello World!",
-                formattedTime = "19:34",
-                chatId = "",
-            ),
-        )
+    val decodedRemoteUserProfilePictureUrl = remember {
+        encodedRemoteUserProfilePictureUrl.decodeBase64()?.string(Charset.defaultCharset())
     }
+    val pagingState = viewModel.pagingState.value
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -70,7 +50,7 @@ fun MessageScreen(
             title = {
                 Image(
                     painter = rememberImagePainter(
-                        data = "http://192.168.0.2:8001/profile_pictures/2d9d19dd-eb6b-4e51-957d-1381c4a28024.jpg",
+                        data = decodedRemoteUserProfilePictureUrl,
                         imageLoader = imageLoader
                     ),
                     contentDescription = null,
@@ -80,7 +60,7 @@ fun MessageScreen(
                 )
                 Spacer(modifier = Modifier.width(SpaceMedium))
                 Text(
-                    text = "Philipp",
+                    text = remoteUsername,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onBackground
                 )
@@ -94,7 +74,11 @@ fun MessageScreen(
                     .weight(1f)
                     .padding(SpaceMedium)
             ) {
-                items(messages) { message ->
+                items(pagingState.items.size) { i ->
+                    val message = pagingState.items[i]
+                    if (i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
+                        viewModel.loadNextMessages()
+                    }
                     RemoteMessage(
                         message = message.text,
                         formattedTime = message.formattedTime,

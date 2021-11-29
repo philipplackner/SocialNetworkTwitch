@@ -1,5 +1,6 @@
 package com.plcoding.socialnetworktwitch.feature_chat.presentation.chat
 
+import android.util.Base64
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -41,7 +42,7 @@ fun ChatScreen(
                     item = chat,
                     imageLoader = imageLoader,
                     onItemClick = {
-                        onNavigate(Screen.MessageScreen.route + "/${chat.chatId}/${chat.remoteUserId}")
+                        onNavigate(Screen.MessageScreen.route + "/${chat.chatId}/${chat.remoteUserId}/${chat.remoteUsername}/${Base64.encodeToString(chat.remoteUserProfilePictureUrl.encodeToByteArray(), 0)}")
                     }
                 )
                 Spacer(modifier = Modifier.height(SpaceLarge))

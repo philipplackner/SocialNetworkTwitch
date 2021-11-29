@@ -14,7 +14,6 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
-import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PersonListScreen
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.EditProfileScreen
 import com.plcoding.socialnetworktwitch.feature_activity.presentation.ActivityScreen
@@ -84,7 +83,7 @@ fun Navigation(
             )
         }
         composable(
-            route = Screen.MessageScreen.route + "/{chatId}/{remoteUserId}",
+            route = Screen.MessageScreen.route + "/{chatId}/{remoteUserId}/{remoteUsername}/{remoteUserProfilePictureUrl}",
             arguments = listOf(
                 navArgument("chatId") {
                     type = NavType.StringType
@@ -92,10 +91,19 @@ fun Navigation(
                 navArgument("remoteUserId") {
                     type = NavType.StringType
                 },
+                navArgument("remoteUsername") {
+                    type = NavType.StringType
+                },
+                navArgument("remoteUserProfilePictureUrl") {
+                    type = NavType.StringType
+                }
             )
         ) {
+            val remoteUsername = it.arguments?.getString("remoteUsername")!!
+            val remoteUserProfilePictureUrl = it.arguments?.getString("remoteUserProfilePictureUrl")!!
             MessageScreen(
-                chatId = "",
+                remoteUsername = remoteUsername,
+                encodedRemoteUserProfilePictureUrl = remoteUserProfilePictureUrl,
                 onNavigateUp = navController::navigateUp,
                 onNavigate = navController::navigate,
                 imageLoader = imageLoader
