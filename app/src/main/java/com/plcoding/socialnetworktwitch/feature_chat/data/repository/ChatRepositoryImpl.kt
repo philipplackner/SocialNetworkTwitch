@@ -12,6 +12,8 @@ import com.plcoding.socialnetworktwitch.feature_chat.domain.repository.ChatRepos
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -56,11 +58,19 @@ class ChatRepositoryImpl(
 
     override fun observeChatEvents(): Flow<WebSocket.Event> {
         return chatService.observeEvents()
+            .receiveAsFlow()
+            .onEach {
+                println("Received chat event: $it")
+            }
     }
 
     override fun observeMessages(): Flow<Message> {
         return chatService
             .observeMessages()
+            .receiveAsFlow()
+            .onEach { msg ->
+                println("Received message: $msg")
+            }
             .map { it.toMessage() }
     }
 

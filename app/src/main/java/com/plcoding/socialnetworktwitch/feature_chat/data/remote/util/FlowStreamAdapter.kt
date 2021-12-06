@@ -12,20 +12,26 @@ import java.lang.reflect.Type
 @ExperimentalCoroutinesApi
 class FlowStreamAdapter<T> : StreamAdapter<T, Flow<T>> {
     override fun adapt(stream: Stream<T>) = callbackFlow<T> {
+        println("FlowStreamAdapter: Flow stream adapter triggered")
         stream.start(object : Stream.Observer<T> {
             override fun onComplete() {
+                println("FlowStreamAdapter: Flow completed")
                 close()
             }
 
             override fun onError(throwable: Throwable) {
+                println("FlowStreamAdapter: Exception")
+                throwable.printStackTrace()
                 close(cause = throwable)
             }
 
             override fun onNext(data: T) {
-                if (!isClosedForSend) offer(data)
+                println("FlowStreamAdapter: onNext with $data")
+                if (!isClosedForSend) trySend(data)
             }
         })
         awaitClose {}
+        println("FlowStreamAdapter: Closing")
     }
 
     object Factory : StreamAdapter.Factory {

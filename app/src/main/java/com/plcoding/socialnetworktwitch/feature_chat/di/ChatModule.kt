@@ -1,17 +1,17 @@
 package com.plcoding.socialnetworktwitch.feature_chat.di
 
-import android.app.Application
 import com.google.gson.Gson
+import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.feature_chat.data.remote.ChatApi
 import com.plcoding.socialnetworktwitch.feature_chat.data.remote.ChatService
 import com.plcoding.socialnetworktwitch.feature_chat.data.remote.util.CustomGsonMessageAdapter
-import com.plcoding.socialnetworktwitch.feature_chat.data.remote.util.FlowStreamAdapter
 import com.plcoding.socialnetworktwitch.feature_chat.data.repository.ChatRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_chat.domain.repository.ChatRepository
 import com.plcoding.socialnetworktwitch.feature_chat.domain.use_case.*
 import com.tinder.scarlet.Scarlet
-import com.tinder.scarlet.lifecycle.android.AndroidLifecycle
+import com.tinder.scarlet.retry.LinearBackoffStrategy
 import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
+import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,10 +33,11 @@ object ChatModule {
     fun provideScarlet(gson: Gson, client: OkHttpClient): Scarlet {
         return Scarlet.Builder()
             .addMessageAdapterFactory(CustomGsonMessageAdapter.Factory(gson))
-            .addStreamAdapterFactory(FlowStreamAdapter.Factory)
+            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
             .webSocketFactory(
-                client.newWebSocketFactory("ws://192.168.0.2:8001/api/chat/websocket")
+                client.newWebSocketFactory("ws://192.168.0.2:8001/api/chat/websocket?userId=6127d2001241f332c88eb9a2")
             )
+            .backoffStrategy(LinearBackoffStrategy(Constants.RECONNECT_INTERVAL))
             .build()
     }
 

@@ -105,6 +105,13 @@ dependencies {
     implementation "com.tinder.scarlet:message-adapter-gson:$scarletVersion"
     implementation "com.tinder.scarlet:stream-adapter-coroutines:$scarletVersion"
 
+    // Ktor client
+    implementation "io.ktor:ktor-client-core:1.6.5"
+    implementation "io.ktor:ktor-client-cio:1.6.5"
+    implementation "io.ktor:ktor-client-gson:1.6.5"
+    implementation "io.ktor:ktor-client-logging:1.6.5"
+    implementation "ch.qos.logback:logback-classic:1.2.6"
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

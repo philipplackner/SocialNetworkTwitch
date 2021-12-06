@@ -15,10 +15,7 @@ import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
 import com.plcoding.socialnetworktwitch.feature_chat.domain.use_case.ChatUseCases
 import com.tinder.scarlet.WebSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,13 +67,15 @@ class MessageViewModel @Inject constructor(
     }
 
     private fun observeChatMessages() {
-        chatUseCases.observeMessages()
-            .onEach { message ->
-                println("Message received: $message")
-                _state.value = state.value.copy(
-                    messages = state.value.messages + message
-                )
-            }.launchIn(viewModelScope)
+        viewModelScope.launch {
+            chatUseCases.observeMessages()
+                .collect { message ->
+                    println("Message received in ViewModel: $message")
+                    _pagingState.value = pagingState.value.copy(
+                        items = pagingState.value.items + message
+                    )
+                }
+        }
     }
 
     private fun observeChatEvents() {

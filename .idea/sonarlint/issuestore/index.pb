@@ -207,8 +207,6 @@ Sapp/src/main/java/com/plcoding/socialnetworktwitch/core/presentation/PagingStat
 Uapp/src/main/java/com/plcoding/socialnetworktwitch/core/domain/util/ValidationUtil.kt,0\2\02de0f869e384ed4184e0ff64fed345b37dc5a97
 §
 tapp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/presentation/edit_profile/EditProfileViewModel.kt,6\b\6ba954293d6f04f5e0ba5a6b5f1dd10fd767ccc5
-y
-Iapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/Constants.kt,2\1\21c7254d2b5fbf719a2e67d240e31453eceda8e9
 ö
 japp/src/main/java/com/plcoding/socialnetworktwitch/feature_profile/domain/use_case/UpdateProfileUseCase.kt,8\d\8d1b955abe194918133a667f594742437b34d338
 ó
@@ -321,8 +319,6 @@ v
 Fapp/src/main/java/com/plcoding/socialnetworktwitch/core/util/UiText.kt,6\5\6546d358fa89fe59c336f0d60727dea89ef02ca0
 ê
 `app/src/main/java/com/plcoding/socialnetworktwitch/core/data/repository/ProfileRepositoryImpl.kt,2\9\29eaae2542c306d7557d8017fe5bb5ae381e1ad9
-ù
-mapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/message/components/OwnMessage.kt,0\6\068467ed51dab4b1ec16a857cb9b3365526fd976
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 ï
@@ -331,8 +327,6 @@ eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_auth/data/repository
 dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/message/MessageEvent.kt,2\3\2397b30d94cb3b6f8f8bbd9baa3829b683de0521
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 ù
 mapp/src/main/java/com/plcoding/socialnetworktwitch/feature_activity/data/repository/ActivityRepositoryImpl.kt,5\8\58a21bf0faa0885303207bd418b4ad190434c5d1
 ï
@@ -353,8 +347,6 @@ capp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/data/remote/uti
 ^app/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/chat/ChatState.kt,c\d\cd3bf2c5ca7e07e59c6daf0ea9668cf06d73ecf7
 î
 dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/domain/use_case/ObserveChatEvents.kt,f\4\f43432a9ae85e1f111dfa74f8a99a6a12a322cf3
-ï
-eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/data/remote/util/FlowStreamAdapter.kt,1\3\139e3c705ec5a8804a8cf4c59461fe9feb7ea96f
 í
 bapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/domain/use_case/ObserveMessages.kt,8\d\8d87b14b63e0fab9ff2e3db908000eb4adfec6ac
 Ñ
@@ -365,5 +357,3 @@ dapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/presentation/me
 eapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/domain/use_case/GetMessagesForChat.kt,e\f\ef0991546c059789f72da42e4a5edbf716e168a8
 Ü
 Vapp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/data/remote/ChatApi.kt,0\6\06927648c0a68673eae5cd4ffd7e95851720ccd1
-ì
-capp/src/main/java/com/plcoding/socialnetworktwitch/feature_chat/domain/repository/ChatRepository.kt,4\2\42ff7bf2d1a55fc8fd3f228e37dfb1d9bb81178e
