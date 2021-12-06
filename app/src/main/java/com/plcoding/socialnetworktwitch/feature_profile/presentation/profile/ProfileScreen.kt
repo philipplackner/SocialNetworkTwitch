@@ -1,5 +1,6 @@
 package com.plcoding.socialnetworktwitch.feature_profile.presentation.profile
 
+import android.util.Base64
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -169,6 +170,12 @@ fun ProfileScreen(
                         },
                         onEditClick = {
                             onNavigate(Screen.EditProfileScreen.route + "/${profile.userId}")
+                        },
+                        onMessageClick = {
+                            val encodedProfilePictureUrl = Base64.encodeToString(profile.profilePictureUrl.encodeToByteArray(), 0)
+                            onNavigate(
+                                Screen.MessageScreen.route + "/${profile.userId}/${profile.username}/${encodedProfilePictureUrl}"
+                            )
                         }
                     )
                 }

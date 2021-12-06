@@ -87,4 +87,5 @@
     <string name="share_intent_text">Hey, I found a great post, check it out :)\n%s</string>
     <string name="error_not_logged_in">Oops! Please login before doing that.</string>
     <string name="enter_a_message">Enter a message...</string>
+    <string name="message">Send message</string>
 </resources>

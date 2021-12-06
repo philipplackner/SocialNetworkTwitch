@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Message
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +27,8 @@ fun ProfileHeaderSection(
     isFollowing: Boolean = true,
     isOwnProfile: Boolean = true,
     onEditClick: () -> Unit = {},
-    onLogoutClick: () -> Unit = {}
+    onLogoutClick: () -> Unit = {},
+    onMessageClick: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -50,6 +52,18 @@ fun ProfileHeaderSection(
                 ),
                 textAlign = TextAlign.Center,
             )
+            if(!isOwnProfile) {
+                Spacer(modifier = Modifier.width(SpaceSmall))
+                IconButton(
+                    onClick = onMessageClick,
+                    modifier = Modifier.size(30.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Message,
+                        contentDescription = stringResource(id = R.string.message)
+                    )
+                }
+            }
             if (isOwnProfile) {
                 Spacer(modifier = Modifier.width(SpaceSmall))
                 IconButton(

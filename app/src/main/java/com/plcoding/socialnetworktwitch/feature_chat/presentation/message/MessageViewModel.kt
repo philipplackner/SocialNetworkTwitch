@@ -13,9 +13,12 @@ import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
 import com.plcoding.socialnetworktwitch.feature_chat.domain.use_case.ChatUseCases
+import com.tinder.scarlet.WebSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,7 +64,32 @@ class MessageViewModel @Inject constructor(
     )
 
     init {
-       loadNextMessages()
+        loadNextMessages()
+        observeChatEvents()
+    }
+
+    private fun observeChatMessages() {
+        chatUseCases.observeMessages()
+            .onEach { message ->
+                _state.value = state.value.copy(
+                    messages = state.value.messages + message
+                )
+            }.launchIn(viewModelScope)
+    }
+
+    private fun observeChatEvents() {
+        chatUseCases.observeChatEvents()
+            .onEach { event ->
+                when (event) {
+                    is WebSocket.Event.OnConnectionOpened<*> -> {
+                        println("Connection was opened")
+                        observeChatMessages()
+                    }
+                    is WebSocket.Event.OnConnectionFailed -> {
+                        println("Connection failed: ${event.throwable}")
+                    }
+                }
+            }.launchIn(viewModelScope)
     }
 
     fun loadNextMessages() {
@@ -70,15 +98,24 @@ class MessageViewModel @Inject constructor(
         }
     }
 
+    private fun sendMessage() {
+        val toId = savedStateHandle.get<String>("remoteUserId") ?: return
+        if (messageTextFieldState.value.text.isBlank()) {
+            return
+        }
+        val chatId = savedStateHandle.get<String>("chatId")
+        chatUseCases.sendMessage(toId, messageTextFieldState.value.text, chatId)
+    }
+
     fun onEvent(event: MessageEvent) {
-        when(event) {
+        when (event) {
             is MessageEvent.EnteredMessage -> {
                 _messageTextFieldState.value = messageTextFieldState.value.copy(
                     text = event.message
                 )
             }
             is MessageEvent.SendMessage -> {
-
+                sendMessage()
             }
         }
     }
