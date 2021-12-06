@@ -66,11 +66,13 @@ class MessageViewModel @Inject constructor(
     init {
         loadNextMessages()
         observeChatEvents()
+        observeChatMessages()
     }
 
     private fun observeChatMessages() {
         chatUseCases.observeMessages()
             .onEach { message ->
+                println("Message received: $message")
                 _state.value = state.value.copy(
                     messages = state.value.messages + message
                 )
@@ -83,7 +85,6 @@ class MessageViewModel @Inject constructor(
                 when (event) {
                     is WebSocket.Event.OnConnectionOpened<*> -> {
                         println("Connection was opened")
-                        observeChatMessages()
                     }
                     is WebSocket.Event.OnConnectionFailed -> {
                         println("Connection failed: ${event.throwable}")

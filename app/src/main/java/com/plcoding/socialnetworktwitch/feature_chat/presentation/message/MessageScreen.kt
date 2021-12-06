@@ -30,6 +30,7 @@ import java.nio.charset.Charset
 @ExperimentalCoilApi
 @Composable
 fun MessageScreen(
+    remoteUserId: String,
     remoteUsername: String,
     encodedRemoteUserProfilePictureUrl: String,
     imageLoader: ImageLoader,
@@ -79,19 +80,23 @@ fun MessageScreen(
                     if (i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
                         viewModel.loadNextMessages()
                     }
-                    RemoteMessage(
-                        message = message.text,
-                        formattedTime = message.formattedTime,
-                        color = MaterialTheme.colors.surface,
-                        textColor = MaterialTheme.colors.onBackground
-                    )
-                    Spacer(modifier = Modifier.height(SpaceMedium))
-                    OwnMessage(
-                        message = message.text,
-                        formattedTime = message.formattedTime,
-                        color = DarkerGreen,
-                        textColor = MaterialTheme.colors.onBackground
-                    )
+                    if(message.fromId == remoteUserId) {
+                        RemoteMessage(
+                            message = message.text,
+                            formattedTime = message.formattedTime,
+                            color = MaterialTheme.colors.surface,
+                            textColor = MaterialTheme.colors.onBackground
+                        )
+                        Spacer(modifier = Modifier.height(SpaceMedium))
+                    } else {
+                        OwnMessage(
+                            message = message.text,
+                            formattedTime = message.formattedTime,
+                            color = DarkerGreen,
+                            textColor = MaterialTheme.colors.onBackground
+                        )
+                        Spacer(modifier = Modifier.height(SpaceMedium))
+                    }
                     Spacer(modifier = Modifier.height(SpaceMedium))
                 }
             }
