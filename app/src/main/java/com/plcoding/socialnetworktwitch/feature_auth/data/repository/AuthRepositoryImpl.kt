@@ -50,6 +50,7 @@ class AuthRepositoryImpl(
             val response = api.login(request)
             if(response.successful) {
                 response.data?.let { authResponse ->
+                    println("Overriding token with ${authResponse.token}")
                     sharedPreferences.edit()
                         .putString(Constants.KEY_JWT_TOKEN, authResponse.token)
                         .putString(Constants.KEY_USER_ID, authResponse.userId)

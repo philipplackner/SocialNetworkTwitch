@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
-    private val chatUseCases: ChatUseCases
+    private val chatUseCases: ChatUseCases,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(ChatState())

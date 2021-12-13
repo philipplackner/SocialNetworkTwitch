@@ -172,6 +172,7 @@ fun ProfileScreen(
                             onNavigate(Screen.EditProfileScreen.route + "/${profile.userId}")
                         },
                         onMessageClick = {
+                            println("Profile user id is ${profile.userId}")
                             val encodedProfilePictureUrl = Base64.encodeToString(profile.profilePictureUrl.encodeToByteArray(), 0)
                             onNavigate(
                                 Screen.MessageScreen.route + "/${profile.userId}/${profile.username}/${encodedProfilePictureUrl}"

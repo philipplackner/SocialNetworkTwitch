@@ -70,7 +70,6 @@ class MessageViewModel @Inject constructor(
         viewModelScope.launch {
             chatUseCases.observeMessages()
                 .collect { message ->
-                    println("Message received in ViewModel: $message")
                     _pagingState.value = pagingState.value.copy(
                         items = pagingState.value.items + message
                     )
