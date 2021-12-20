@@ -19,6 +19,10 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.feature_chat.data.remote.data.ChatDto
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Chat
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.util.*
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
@@ -74,7 +78,10 @@ fun ChatItem(
                         modifier = Modifier.weight(1f)
                     )
                     Spacer(modifier = Modifier.width(SpaceSmall))
-                    Text(text = item.timestamp.toString())
+                    Text(
+                        text = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
+                            .format(item.timestamp)
+                    )
                 }
                 Spacer(modifier = Modifier.height(SpaceSmall))
                 Text(
