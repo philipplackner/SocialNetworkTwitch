@@ -17,6 +17,8 @@ import com.plcoding.socialnetworktwitch.feature_post.presentation.util.CommentEr
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.concatMap
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
