@@ -113,6 +113,9 @@ class MessageViewModel @Inject constructor(
         val chatId = savedStateHandle.get<String>("chatId")
         chatUseCases.sendMessage(toId, messageTextFieldState.value.text, chatId)
         _messageTextFieldState.value = StandardTextFieldState()
+        _state.value = state.value.copy(
+            canSendMessage = false
+        )
         viewModelScope.launch {
             _messageUpdatedEvent.emit(MessageUpdateEvent.MessageSent)
         }
@@ -124,9 +127,13 @@ class MessageViewModel @Inject constructor(
                 _messageTextFieldState.value = messageTextFieldState.value.copy(
                     text = event.message
                 )
+                _state.value = state.value.copy(
+                    canSendMessage = event.message.isNotBlank()
+                )
             }
             is MessageEvent.SendMessage -> {
                 sendMessage()
+
             }
         }
     }
