@@ -27,6 +27,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.util.AuthError
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @ExperimentalComposeUiApi
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun RegisterScreen(
     navController: NavController,
     scaffoldState: ScaffoldState,
+    onPopBackStack: () -> Unit,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val usernameState = viewModel.usernameState.value
@@ -44,6 +46,11 @@ fun RegisterScreen(
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    LaunchedEffect(key1 = true) {
+        viewModel.onRegister.collect {
+            onPopBackStack()
+        }
+    }
     LaunchedEffect(key1 = keyboardController) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {

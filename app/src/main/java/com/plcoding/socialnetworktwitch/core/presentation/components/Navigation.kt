@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -29,6 +30,7 @@ import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashS
 import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.MessageScreen
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
@@ -64,7 +66,8 @@ fun Navigation(
         composable(Screen.RegisterScreen.route) {
             RegisterScreen(
                 navController = navController,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                onPopBackStack = navController::popBackStack
             )
         }
         composable(Screen.MainFeedScreen.route) {
