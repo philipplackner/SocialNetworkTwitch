@@ -3,13 +3,18 @@ package com.plcoding.socialnetworktwitch.feature_chat.presentation.message
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,9 +29,11 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictur
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.OwnMessage
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.RemoteMessage
+import kotlinx.coroutines.flow.collect
 import okio.ByteString.Companion.decodeBase64
 import java.nio.charset.Charset
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @Composable
 fun MessageScreen(
@@ -42,6 +49,24 @@ fun MessageScreen(
         encodedRemoteUserProfilePictureUrl.decodeBase64()?.string(Charset.defaultCharset())
     }
     val pagingState = viewModel.pagingState.value
+    val lazyListState = rememberLazyListState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    LaunchedEffect(key1 = pagingState, key2 = keyboardController) {
+        viewModel.messageReceived.collect { event ->
+            when(event) {
+                is MessageViewModel.MessageUpdateEvent.SingleMessageUpdate,
+                is MessageViewModel.MessageUpdateEvent.MessagePageLoaded -> {
+                    if(pagingState.items.isEmpty()) {
+                        return@collect
+                    }
+                    lazyListState.scrollToItem(pagingState.items.size - 1)
+                }
+                is MessageViewModel.MessageUpdateEvent.MessageSent -> {
+                    keyboardController?.hide()
+                }
+            }
+        }
+    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -71,6 +96,7 @@ fun MessageScreen(
             modifier = Modifier.weight(1f)
         ) {
             LazyColumn(
+                state = lazyListState,
                 modifier = Modifier
                     .weight(1f)
                     .padding(SpaceMedium)
