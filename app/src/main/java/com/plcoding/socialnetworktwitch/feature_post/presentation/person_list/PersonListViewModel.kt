@@ -6,11 +6,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
+import com.plcoding.socialnetworktwitch.core.domain.use_case.ToggleFollowStateForUserUseCase
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.destinations.PersonListScreenDestination
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
-import com.plcoding.socialnetworktwitch.core.domain.use_case.ToggleFollowStateForUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -34,11 +35,11 @@ class PersonListViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+    private val parentId = PersonListScreenDestination.argsFrom(savedStateHandle).parentId
+
     init {
-        savedStateHandle.get<String>("parentId")?.let { parentId ->
-            getLikesForParent(parentId)
-            _ownUserId.value = getOwnUserId()
-        }
+        getLikesForParent(parentId)
+        _ownUserId.value = getOwnUserId()
     }
 
     fun onEvent(event: PersonListEvent) {

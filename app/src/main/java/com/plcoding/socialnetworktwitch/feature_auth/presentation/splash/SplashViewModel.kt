@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.LoginScreenDestination
+import com.plcoding.socialnetworktwitch.destinations.MainFeedScreenDestination
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.AuthenticateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,12 +26,12 @@ class SplashViewModel @Inject constructor(
             when(authenticateUseCase()) {
                 is Resource.Success -> {
                     _eventFlow.emit(
-                        UiEvent.Navigate(Screen.MainFeedScreen.route)
+                        UiEvent.Navigate(MainFeedScreenDestination)
                     )
                 }
                 is Resource.Error -> {
                     _eventFlow.emit(
-                        UiEvent.Navigate(Screen.LoginScreen.route)
+                        UiEvent.Navigate(LoginScreenDestination)
                     )
                 }
             }

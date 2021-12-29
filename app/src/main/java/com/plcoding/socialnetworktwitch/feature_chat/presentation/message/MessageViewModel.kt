@@ -11,6 +11,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.DefaultPaginator
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.destinations.MessageScreenDestination
 import com.plcoding.socialnetworktwitch.feature_chat.domain.model.Message
 import com.plcoding.socialnetworktwitch.feature_chat.domain.use_case.ChatUseCases
 import com.tinder.scarlet.WebSocket
@@ -37,6 +38,8 @@ class MessageViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+    private val navArgs = MessageScreenDestination.argsFrom(savedStateHandle)
+
     private val _messageUpdatedEvent = MutableSharedFlow<MessageUpdateEvent>(replay = 1)
     val messageReceived = _messageUpdatedEvent.asSharedFlow()
 
@@ -45,7 +48,7 @@ class MessageViewModel @Inject constructor(
             _pagingState.value = pagingState.value.copy(isLoading = isLoading)
         },
         onRequest = { nextPage ->
-            savedStateHandle.get<String>("chatId")?.let { chatId ->
+            navArgs.chatId?.let { chatId ->
                 chatUseCases.getMessagesForChat(
                     chatId, nextPage
                 )
@@ -106,11 +109,11 @@ class MessageViewModel @Inject constructor(
     }
 
     private fun sendMessage() {
-        val toId = savedStateHandle.get<String>("remoteUserId") ?: return
+        val toId = navArgs.remoteUserId
         if (messageTextFieldState.value.text.isBlank()) {
             return
         }
-        val chatId = savedStateHandle.get<String>("chatId")
+        val chatId = navArgs.chatId
         chatUseCases.sendMessage(toId, messageTextFieldState.value.text, chatId)
         _messageTextFieldState.value = StandardTextFieldState()
         _state.value = state.value.copy(

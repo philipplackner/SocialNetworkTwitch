@@ -11,10 +11,10 @@ import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldStat
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
-import com.plcoding.socialnetworktwitch.feature_profile.domain.model.Skill
 import com.plcoding.socialnetworktwitch.feature_profile.domain.model.UpdateProfileData
 import com.plcoding.socialnetworktwitch.feature_profile.domain.use_case.ProfileUseCases
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.ProfileState
+import com.plcoding.socialnetworktwitch.destinations.EditProfileScreenDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -57,11 +57,11 @@ class EditProfileViewModel @Inject constructor(
     private val _profilePictureUri = mutableStateOf<Uri?>(null)
     val profilePictureUri: State<Uri?> = _profilePictureUri
 
+    private val userId = EditProfileScreenDestination.argsFrom(savedStateHandle).userId
+
     init {
-        savedStateHandle.get<String>("userId")?.let { userId ->
-            getSkills()
-            getProfile(userId)
-        }
+        getSkills()
+        getProfile(userId)
     }
 
     private fun getSkills() {

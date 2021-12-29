@@ -18,11 +18,13 @@ import com.plcoding.socialnetworktwitch.core.domain.models.Activity
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.feature_activity.presentation.components.ActivityItem
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination
 @Composable
 fun ActivityScreen(
-    onNavigate: (String) -> Unit = {},
-    onNavigateUp: () -> Unit = {},
+    destinationsNavigator: DestinationsNavigator,
     viewModel: ActivityViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -35,7 +37,7 @@ fun ActivityScreen(
                 .fillMaxSize()
         ) {
             StandardToolbar(
-                onNavigateUp = onNavigateUp,
+                onNavigateUp = destinationsNavigator::navigateUp,
                 title = {
                     Text(
                         text = stringResource(id = R.string.your_activity),
@@ -61,7 +63,7 @@ fun ActivityScreen(
                                 parentId = activity.parentId,
                                 username = activity.username
                             ),
-                            onNavigate = onNavigate
+                            onNavigate = destinationsNavigator::navigate
                         )
                     }
                 }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -33,20 +32,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import coil.decode.SvgDecoder
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.domain.models.User
 import com.plcoding.socialnetworktwitch.core.presentation.components.Post
-import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.BannerSection
-import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.ProfileHeaderSection
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictureSizeLarge
-import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
@@ -55,17 +47,22 @@ import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.openUrlInBrowser
 import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 import com.plcoding.socialnetworktwitch.core.util.toPx
+import com.plcoding.socialnetworktwitch.destinations.*
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
+import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.BannerSection
+import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.components.ProfileHeaderSection
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collectLatest
 
-@ExperimentalCoilApi
+@OptIn(ExperimentalCoilApi::class)
+@Destination
 @Composable
 fun ProfileScreen(
     scaffoldState: ScaffoldState,
     imageLoader: ImageLoader,
     userId: String? = null,
-    onNavigate: (String) -> Unit = {},
-    onLogout: () -> Unit = {},
+    navigator: DestinationsNavigator,
     profilePictureSize: Dp = ProfilePictureSizeLarge,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -170,13 +167,17 @@ fun ProfileScreen(
                             viewModel.onEvent(ProfileEvent.ShowLogoutDialog)
                         },
                         onEditClick = {
-                            onNavigate(Screen.EditProfileScreen.route + "/${profile.userId}")
+                            navigator.navigate(EditProfileScreenDestination(userId = profile.userId))
                         },
                         onMessageClick = {
                             println("Profile user id is ${profile.userId}")
                             val encodedProfilePictureUrl = Base64.encodeToString(profile.profilePictureUrl.encodeToByteArray(), 0)
-                            onNavigate(
-                                Screen.MessageScreen.route + "/${profile.userId}/${profile.username}/${encodedProfilePictureUrl}"
+                            navigator.navigate(
+                                MessageScreenDestination(
+                                    remoteUserId = profile.userId,
+                                    remoteUsername = profile.username,
+                                    encodedRemoteUserProfilePictureUrl = encodedProfilePictureUrl
+                                )
                             )
                         }
                     )
@@ -193,10 +194,10 @@ fun ProfileScreen(
                     imageLoader = imageLoader,
                     showProfileImage = false,
                     onPostClick = {
-                        onNavigate(Screen.PostDetailScreen.route + "/${post.id}")
+                        navigator.navigate(PostDetailScreenDestination(postId = post.id))
                     },
                     onCommentClick = {
-                        onNavigate(Screen.PostDetailScreen.route + "/${post.id}?shouldShowKeyboard=true")
+                        navigator.navigate(PostDetailScreenDestination(postId = post.id, shouldShowKeyboard = true))
                     },
                     onLikeClick = {
                         viewModel.onEvent(ProfileEvent.LikePost(post.id))
@@ -319,7 +320,7 @@ fun ProfileScreen(
                             modifier = Modifier.clickable {
                                 viewModel.onEvent(ProfileEvent.Logout)
                                 viewModel.onEvent(ProfileEvent.DismissLogoutDialog)
-                                onLogout()
+                                navigator.navigate(LoginScreenDestination)
                             }
                         )
                     }

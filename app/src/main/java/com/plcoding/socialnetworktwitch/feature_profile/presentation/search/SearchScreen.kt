@@ -17,24 +17,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.components.UserProfileItem
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.IconSizeMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
-import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.ProfileScreenDestination
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@ExperimentalCoilApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
+@Destination
 @Composable
 fun SearchScreen(
     imageLoader: ImageLoader,
-    onNavigate: (String) -> Unit = {},
-    onNavigateUp: () -> Unit = {},
+    navigator: DestinationsNavigator,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val state = viewModel.searchState.value
@@ -45,7 +43,7 @@ fun SearchScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             StandardToolbar(
-                onNavigateUp = onNavigateUp,
+                onNavigateUp = navigator::navigateUp,
                 showBackArrow = true,
                 title = {
                     Text(
@@ -97,8 +95,8 @@ fun SearchScreen(
                                 }
                             },
                             onItemClick = {
-                                onNavigate(
-                                    Screen.ProfileScreen.route + "?userId=${user.userId}"
+                                navigator.navigate(
+                                    ProfileScreenDestination(userId = user.userId)
                                 )
                             }
                         )

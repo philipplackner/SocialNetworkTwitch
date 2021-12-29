@@ -29,24 +29,30 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.ProfilePictur
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.OwnMessage
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.components.RemoteMessage
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 import okio.ByteString.Companion.decodeBase64
 import java.nio.charset.Charset
 
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
+data class MessageScreenNavArgs(
+    val remoteUserId: String,
+    val remoteUsername: String,
+    val encodedRemoteUserProfilePictureUrl: String,
+    val chatId: String?
+)
+
+@OptIn(ExperimentalCoilApi::class, ExperimentalComposeUiApi::class)
+@Destination(navArgsDelegate = MessageScreenNavArgs::class)
 @Composable
 fun MessageScreen(
-    remoteUserId: String,
-    remoteUsername: String,
-    encodedRemoteUserProfilePictureUrl: String,
+    navArgs: MessageScreenNavArgs,
     imageLoader: ImageLoader,
-    onNavigateUp: () -> Unit = {},
-    onNavigate: (String) -> Unit = {},
+    destinationsNavigator: DestinationsNavigator,
     viewModel: MessageViewModel = hiltViewModel()
 ) {
     val decodedRemoteUserProfilePictureUrl = remember {
-        encodedRemoteUserProfilePictureUrl.decodeBase64()?.string(Charset.defaultCharset())
+        navArgs.encodedRemoteUserProfilePictureUrl.decodeBase64()?.string(Charset.defaultCharset())
     }
     val pagingState = viewModel.pagingState.value
     val state = viewModel.state.value
@@ -72,7 +78,7 @@ fun MessageScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            onNavigateUp = onNavigateUp,
+            onNavigateUp = destinationsNavigator::navigateUp,
             showBackArrow = true,
             title = {
                 Image(
@@ -87,7 +93,7 @@ fun MessageScreen(
                 )
                 Spacer(modifier = Modifier.width(SpaceMedium))
                 Text(
-                    text = remoteUsername,
+                    text = navArgs.remoteUsername,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onBackground
                 )
@@ -107,7 +113,7 @@ fun MessageScreen(
                     if (i >= pagingState.items.size - 1 && !pagingState.endReached && !pagingState.isLoading) {
                         viewModel.loadNextMessages()
                     }
-                    if(message.fromId == remoteUserId) {
+                    if(message.fromId == navArgs.remoteUserId) {
                         RemoteMessage(
                             message = message.text,
                             formattedTime = message.formattedTime,

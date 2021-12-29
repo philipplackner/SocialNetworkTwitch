@@ -36,18 +36,19 @@ import com.plcoding.socialnetworktwitch.feature_post.presentation.util.PostConst
 import com.plcoding.socialnetworktwitch.feature_post.presentation.util.PostDescriptionError
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@DelicateCoroutinesApi
-@ExperimentalCoilApi
+@OptIn(DelicateCoroutinesApi::class, ExperimentalCoilApi::class)
+@Destination
 @Composable
 fun CreatePostScreen(
     imageLoader: ImageLoader,
-    onNavigateUp: () -> Unit = {},
-    onNavigate: (String) -> Unit = {},
+    navigator: DestinationsNavigator,
     scaffoldState: ScaffoldState,
     viewModel: CreatePostViewModel = hiltViewModel()
 ) {
@@ -77,7 +78,7 @@ fun CreatePostScreen(
                     }
                 }
                 is UiEvent.NavigateUp -> {
-                    onNavigateUp()
+                    navigator.navigateUp()
                 }
             }
         }
@@ -87,7 +88,7 @@ fun CreatePostScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            onNavigateUp = onNavigateUp,
+            onNavigateUp = navigator::navigateUp,
             showBackArrow = true,
             title = {
                 Text(

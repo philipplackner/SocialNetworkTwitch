@@ -44,15 +44,21 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.CropActivityResul
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.util.EditProfileError
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collectLatest
 
-@ExperimentalCoilApi
+data class EditProfileScreenNavArgs(
+    val userId: String
+)
+
+@OptIn(ExperimentalCoilApi::class)
+@Destination(navArgsDelegate = EditProfileScreenNavArgs::class)
 @Composable
 fun EditProfileScreen(
     scaffoldState: ScaffoldState,
     imageLoader: ImageLoader,
-    onNavigate: (String) -> Unit = {},
-    onNavigateUp: () -> Unit = {},
+    navigator: DestinationsNavigator,
     viewModel: EditProfileViewModel = hiltViewModel(),
     profilePictureSize: Dp = ProfilePictureSizeLarge
 ) {
@@ -95,7 +101,7 @@ fun EditProfileScreen(
                     )
                 }
                 is UiEvent.NavigateUp -> {
-                    onNavigateUp()
+                    navigator.navigateUp()
                 }
             }
         }
@@ -105,7 +111,7 @@ fun EditProfileScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            onNavigateUp = onNavigateUp,
+            onNavigateUp = navigator::navigateUp,
             showBackArrow = true,
             navActions = {
                 IconButton(onClick = {

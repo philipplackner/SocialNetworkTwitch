@@ -3,7 +3,6 @@ package com.plcoding.socialnetworktwitch.core.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -17,10 +16,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
+import com.plcoding.socialnetworktwitch.core.presentation.components.Navigation
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardScaffold
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SocialNetworkTwitchTheme
-import com.plcoding.socialnetworktwitch.core.presentation.components.Navigation
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.*
+import com.plcoding.socialnetworktwitch.navDestination
+import com.ramcosta.composedestinations.navigation.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                         state = scaffoldState,
                         modifier = Modifier.fillMaxSize(),
                         onFabClick = {
-                            navController.navigate(Screen.CreatePostScreen.route)
+                            navController.navigateTo(CreatePostScreenDestination)
                         }
                     ) {
                         Navigation(navController, scaffoldState, imageLoader)
@@ -63,13 +64,14 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
-        val doesRouteMatch = backStackEntry?.destination?.route in listOf(
-            Screen.MainFeedScreen.route,
-            Screen.ChatScreen.route,
-            Screen.ActivityScreen.route
+        val currentDestination = backStackEntry?.navDestination
+        val doesRouteMatch = currentDestination in listOf(
+            MainFeedScreenDestination,
+            ChatScreenDestination,
+            ActivityScreenDestination
         )
-        val isOwnProfile = backStackEntry?.destination?.route == "${Screen.ProfileScreen.route}?userId={userId}" &&
-                backStackEntry.arguments?.getString("userId") == null
+        val isOwnProfile = currentDestination == ProfileScreenDestination &&
+                ProfileScreenDestination.argsFrom(backStackEntry).userId == null
         return doesRouteMatch || isOwnProfile
     }
 }

@@ -18,7 +18,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
@@ -27,15 +26,17 @@ import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Constants
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.util.AuthError
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
-@ExperimentalComposeUiApi
+@OptIn(ExperimentalComposeUiApi::class)
+@Destination
 @Composable
 fun RegisterScreen(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     scaffoldState: ScaffoldState,
-    onPopBackStack: () -> Unit,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val usernameState = viewModel.usernameState.value
@@ -48,7 +49,7 @@ fun RegisterScreen(
 
     LaunchedEffect(key1 = true) {
         viewModel.onRegister.collect {
-            onPopBackStack()
+            navigator.popBackStack()
         }
     }
     LaunchedEffect(key1 = keyboardController) {
@@ -182,7 +183,7 @@ fun RegisterScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .clickable {
-                    navController.popBackStack()
+                    navigator.popBackStack()
                 }
         )
     }
