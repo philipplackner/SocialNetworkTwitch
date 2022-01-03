@@ -52,6 +52,7 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
 import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.core.util.openUrlInBrowser
 import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 import com.plcoding.socialnetworktwitch.core.util.toPx
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
@@ -244,7 +245,16 @@ fun ProfileScreen(
                     shouldShowGitHub = profile.gitHubUrl != null && profile.gitHubUrl.isNotBlank(),
                     shouldShowInstagram = profile.instagramUrl != null && profile.instagramUrl.isNotBlank(),
                     shouldShowLinkedIn = profile.linkedInUrl != null && profile.linkedInUrl.isNotBlank(),
-                    bannerUrl = profile.bannerUrl
+                    bannerUrl = profile.bannerUrl,
+                    onGitHubClick = {
+                        context.openUrlInBrowser(profile.gitHubUrl ?: return@BannerSection)
+                    },
+                    onInstagramClick = {
+                        context.openUrlInBrowser(profile.instagramUrl ?: return@BannerSection)
+                    },
+                    onLinkedInClick = {
+                        context.openUrlInBrowser(profile.linkedInUrl ?: return@BannerSection)
+                    }
                 )
                 Image(
                     painter = rememberImagePainter(
