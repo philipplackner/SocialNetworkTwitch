@@ -1,5 +1,7 @@
 package com.plcoding.socialnetworktwitch.feature_post.domain.use_case
 
+import com.plcoding.socialnetworktwitch.core.domain.use_case.DeletePost
+
 data class PostUseCases(
     val getPostsForFollows: GetPostsForFollowsUseCase,
     val createPostUseCase: CreatePostUseCase,
@@ -8,4 +10,5 @@ data class PostUseCases(
     val createComment: CreateCommentUseCase,
     val toggleLikeForParent: ToggleLikeForParentUseCase,
     val getLikesForParent: GetLikesForParentUseCase,
+    val deletePost: DeletePost
 )

@@ -9,5 +9,6 @@ data class Post(
     val description: String,
     val likeCount: Int,
     val commentCount: Int,
-    val isLiked: Boolean
+    val isLiked: Boolean,
+    val isOwnPost: Boolean
 )

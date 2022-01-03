@@ -1,6 +1,7 @@
 package com.plcoding.socialnetworktwitch.di
 
 import com.google.gson.Gson
+import com.plcoding.socialnetworktwitch.core.domain.use_case.DeletePost
 import com.plcoding.socialnetworktwitch.feature_post.data.remote.PostApi
 import com.plcoding.socialnetworktwitch.feature_post.data.repository.PostRepositoryImpl
 import com.plcoding.socialnetworktwitch.feature_post.domain.repository.PostRepository
@@ -48,7 +49,8 @@ object PostModule {
             getCommentsForPost = GetCommentsForPostUseCase(repository),
             createComment = CreateCommentUseCase(repository),
             toggleLikeForParent = ToggleLikeForParentUseCase(repository),
-            getLikesForParent = GetLikesForParentUseCase(repository)
+            getLikesForParent = GetLikesForParentUseCase(repository),
+            deletePost = DeletePost(repository)
         )
     }
 }

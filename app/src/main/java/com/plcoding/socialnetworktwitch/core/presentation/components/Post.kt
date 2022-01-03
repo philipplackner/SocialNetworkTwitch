@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
@@ -18,6 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -37,6 +41,7 @@ import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 import com.plcoding.socialnetworktwitch.core.util.Constants
+import com.plcoding.socialnetworktwitch.core.util.toPx
 
 @ExperimentalCoilApi
 @Composable
@@ -50,6 +55,7 @@ fun Post(
     onCommentClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onUsernameClick: () -> Unit = {},
+    onDeleteClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier
@@ -78,8 +84,9 @@ fun Post(
                 ),
                 contentDescription = "Post image",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxWidth()
-                    .aspectRatio(16f/9f)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16f / 9f)
             )
             Column(
                 modifier = Modifier
@@ -93,7 +100,8 @@ fun Post(
                     onLikeClick = onLikeClick,
                     onCommentClick = onCommentClick,
                     onShareClick = onShareClick,
-                    onUsernameClick = onUsernameClick
+                    onUsernameClick = onUsernameClick,
+                    onDeleteClick = onDeleteClick
                 )
                 Spacer(modifier = Modifier.height(SpaceSmall))
                 Text(
@@ -166,6 +174,7 @@ fun EngagementButtons(
     onLikeClick: () -> Unit = {},
     onCommentClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
+    onDeleteClick: () -> Unit = {}
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceAround,
@@ -216,6 +225,16 @@ fun EngagementButtons(
                 contentDescription = stringResource(id = R.string.share)
             )
         }
+        Spacer(modifier = Modifier.width(SpaceMedium))
+        IconButton(
+            onClick = onDeleteClick,
+            modifier = Modifier.size(iconSize)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = stringResource(id = R.string.delete_post)
+            )
+        }
     }
 }
 
@@ -227,7 +246,8 @@ fun ActionRow(
     onCommentClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     username: String,
-    onUsernameClick: () -> Unit = {}
+    onUsernameClick: () -> Unit = {},
+    onDeleteClick: () -> Unit = {}
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -249,7 +269,8 @@ fun ActionRow(
             isLiked = isLiked,
             onLikeClick = onLikeClick,
             onCommentClick = onCommentClick,
-            onShareClick = onShareClick
+            onShareClick = onShareClick,
+            onDeleteClick = onDeleteClick
         )
     }
 }

@@ -88,4 +88,6 @@
     <string name="error_not_logged_in">Oops! Please login before doing that.</string>
     <string name="enter_a_message">Enter a message...</string>
     <string name="message">Send message</string>
+    <string name="delete_post">Delete post</string>
+    <string name="successfully_deleted_post">Successfully deleted post</string>
 </resources>

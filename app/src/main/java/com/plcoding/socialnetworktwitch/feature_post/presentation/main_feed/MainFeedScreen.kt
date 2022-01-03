@@ -102,6 +102,9 @@ fun MainFeedScreen(
                         },
                         onShareClick = {
                             context.sendSharePostIntent(post.id)
+                        },
+                        onDeleteClick = {
+                            viewModel.onEvent(MainFeedEvent.DeletePost(post))
                         }
                     )
                     if (i < pagingState.items.size - 1) {

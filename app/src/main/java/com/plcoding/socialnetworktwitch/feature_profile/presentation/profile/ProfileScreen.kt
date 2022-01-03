@@ -202,6 +202,9 @@ fun ProfileScreen(
                     },
                     onShareClick = {
                         context.sendSharePostIntent(post.id)
+                    },
+                    onDeleteClick = {
+                        viewModel.onEvent(ProfileEvent.DeletePost(post))
                     }
                 )
             }

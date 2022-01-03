@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.plcoding.data.util.ParentType
+import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.presentation.PagingState
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
-import com.plcoding.socialnetworktwitch.core.util.DefaultPaginator
-import com.plcoding.socialnetworktwitch.core.util.Event
-import com.plcoding.socialnetworktwitch.core.util.PostLiker
-import com.plcoding.socialnetworktwitch.core.util.Resource
+import com.plcoding.socialnetworktwitch.core.util.*
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PostEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,6 +60,33 @@ class MainFeedViewModel @Inject constructor(
         when(event) {
             is MainFeedEvent.LikedPost -> {
                 toggleLikeForParent(event.postId)
+            }
+            is MainFeedEvent.DeletePost -> {
+                deletePost(event.post.id)
+            }
+        }
+    }
+
+    private fun deletePost(postId: String) {
+        viewModelScope.launch {
+            when(val result = postUseCases.deletePost(postId)) {
+                is Resource.Success -> {
+                    _pagingState.value = pagingState.value.copy(
+                        items = pagingState.value.items.filter {
+                            it.id != postId
+                        }
+                    )
+                    _eventFlow.emit(
+                        UiEvent.ShowSnackbar(UiText.StringResource(
+                            R.string.successfully_deleted_post
+                        ))
+                    )
+                }
+                is Resource.Error -> {
+                    _eventFlow.emit(
+                        UiEvent.ShowSnackbar(result.uiText ?: UiText.unknownError())
+                    )
+                }
             }
         }
     }

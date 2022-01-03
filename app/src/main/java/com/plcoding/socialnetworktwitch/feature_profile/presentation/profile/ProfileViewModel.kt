@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.cachedIn
 import com.plcoding.data.util.ParentType
+import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Post
 import com.plcoding.socialnetworktwitch.core.domain.use_case.GetOwnUserIdUseCase
 import com.plcoding.socialnetworktwitch.core.presentation.PagingState
@@ -104,6 +105,33 @@ class ProfileViewModel @Inject constructor(
                 viewModelScope.launch {
                     toggleLikeForParent(
                         parentId = event.postId
+                    )
+                }
+            }
+            is ProfileEvent.DeletePost -> {
+                deletePost(event.post.id)
+            }
+        }
+    }
+
+    private fun deletePost(postId: String) {
+        viewModelScope.launch {
+            when(val result = postUseCases.deletePost(postId)) {
+                is Resource.Success -> {
+                    _pagingState.value = pagingState.value.copy(
+                        items = pagingState.value.items.filter {
+                            it.id != postId
+                        }
+                    )
+                    _eventFlow.emit(
+                        UiEvent.ShowSnackbar(UiText.StringResource(
+                            R.string.successfully_deleted_post
+                        ))
+                    )
+                }
+                is Resource.Error -> {
+                    _eventFlow.emit(
+                        UiEvent.ShowSnackbar(result.uiText ?: UiText.unknownError())
                     )
                 }
             }
