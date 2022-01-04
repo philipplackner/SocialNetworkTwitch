@@ -58,7 +58,7 @@ fun LoginScreen(
                         direction = LoginScreenDestination,
                         inclusive = true
                     )
-                    navigator.navigate(MainFeedScreenDestination)
+                    navigator.navigate(MainFeedScreenDestination, onlyIfResumed = false)
                 }
             }
         }

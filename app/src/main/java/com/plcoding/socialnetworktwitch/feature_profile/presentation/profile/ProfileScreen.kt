@@ -43,7 +43,6 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
-import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.openUrlInBrowser
 import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
 import com.plcoding.socialnetworktwitch.core.util.toPx
