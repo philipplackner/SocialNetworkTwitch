@@ -1,12 +1,6 @@
 package com.plcoding.socialnetworktwitch.feature_post.presentation.post_detail
 
-import android.content.Context
-import android.media.AudioRouting
-import android.media.MediaPlayer
-import android.net.Uri
-import android.os.Handler
-import android.os.Looper
-import android.view.inputmethod.InputMethodManager
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,11 +8,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,35 +25,48 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.components.ActionRow
-import com.plcoding.socialnetworktwitch.core.presentation.components.StandardTextField
+import com.plcoding.socialnetworktwitch.core.presentation.components.SendTextField
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.*
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
-import com.plcoding.socialnetworktwitch.core.util.Screen
-import kotlinx.coroutines.flow.collectLatest
-import androidx.core.content.ContextCompat.getSystemService
-import coil.ImageLoader
-import com.plcoding.socialnetworktwitch.core.presentation.components.SendTextField
 import com.plcoding.socialnetworktwitch.core.presentation.util.showKeyboard
 import com.plcoding.socialnetworktwitch.core.util.sendSharePostIntent
+import com.plcoding.socialnetworktwitch.destinations.PersonListScreenDestination
+import com.plcoding.socialnetworktwitch.destinations.ProfileScreenDestination
+import com.ramcosta.composedestinations.annotation.DeepLink
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.flow.collectLatest
 
+data class PostDetailScreenNavArgs(
+    val postId: String,
+    val shouldShowKeyboard: Boolean = false
+)
 
-@ExperimentalCoilApi
+@OptIn(ExperimentalCoilApi::class)
+@Destination(
+    navArgsDelegate = PostDetailScreenNavArgs::class,
+    deepLinks = [
+        DeepLink(
+            action = Intent.ACTION_VIEW,
+            uriPattern = "https://pl-coding.com/{postId}"
+        )
+    ]
+)
 @Composable
 fun PostDetailScreen(
     scaffoldState: ScaffoldState,
     imageLoader: ImageLoader,
-    onNavigate: (String) -> Unit = {},
-    onNavigateUp: () -> Unit = {},
+    navigator: DestinationsNavigator,
     viewModel: PostDetailViewModel = hiltViewModel(),
-    shouldShowKeyboard: Boolean = false
+    navArgs: PostDetailScreenNavArgs
 ) {
     val state = viewModel.state.value
     val commentTextFieldState = viewModel.commentTextFieldState.value
@@ -70,7 +77,7 @@ fun PostDetailScreen(
 
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
-        if (shouldShowKeyboard) {
+        if (navArgs.shouldShowKeyboard) {
             context.showKeyboard()
             focusRequester.requestFocus()
         }
@@ -90,7 +97,7 @@ fun PostDetailScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            onNavigateUp = onNavigateUp,
+            onNavigateUp = navigator::navigateUp,
             title = {
                 Text(
                     text = stringResource(id = R.string.your_feed),
@@ -156,7 +163,7 @@ fun PostDetailScreen(
                                             context.sendSharePostIntent(post.id)
                                         },
                                         onUsernameClick = {
-                                            onNavigate(Screen.ProfileScreen.route + "?userId=${post.userId}")
+                                            navigator.navigate(ProfileScreenDestination(userId = post.userId))
                                         },
                                         isLiked = state.post.isLiked
                                     )
@@ -174,8 +181,7 @@ fun PostDetailScreen(
                                         fontWeight = FontWeight.Bold,
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier.clickable {
-                                            onNavigate(Screen.PersonListScreen.route + "/${post.id}")
-
+                                            navigator.navigate(PersonListScreenDestination(parentId = post.id))
                                         }
                                     )
                                 }
@@ -215,7 +221,7 @@ fun PostDetailScreen(
                         viewModel.onEvent(PostDetailEvent.LikeComment(comment.id))
                     },
                     onLikedByClick = {
-                        onNavigate(Screen.PersonListScreen.route + "/${comment.id}")
+                        navigator.navigate(PersonListScreenDestination(parentId = comment.id))
                     }
                 )
             }

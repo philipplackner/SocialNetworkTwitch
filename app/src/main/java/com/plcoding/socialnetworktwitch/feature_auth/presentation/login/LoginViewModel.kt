@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldState
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
-import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.UiText
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

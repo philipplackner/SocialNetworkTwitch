@@ -1,6 +1,5 @@
 package com.plcoding.socialnetworktwitch.core.presentation.components
 
-import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
@@ -8,27 +7,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
-import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PersonListScreen
-import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.EditProfileScreen
-import com.plcoding.socialnetworktwitch.feature_activity.presentation.ActivityScreen
+import com.plcoding.socialnetworktwitch.NavGraphs
+import com.plcoding.socialnetworktwitch.destinations.*
+import com.plcoding.socialnetworktwitch.feature_auth.presentation.login.LoginScreen
+import com.plcoding.socialnetworktwitch.feature_auth.presentation.register.RegisterScreen
 import com.plcoding.socialnetworktwitch.feature_chat.presentation.chat.ChatScreen
+import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.MessageScreen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.create_post.CreatePostScreen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.main_feed.MainFeedScreen
-import com.plcoding.socialnetworktwitch.feature_auth.presentation.login.LoginScreen
+import com.plcoding.socialnetworktwitch.feature_post.presentation.person_list.PersonListScreen
 import com.plcoding.socialnetworktwitch.feature_post.presentation.post_detail.PostDetailScreen
+import com.plcoding.socialnetworktwitch.feature_profile.presentation.edit_profile.EditProfileScreen
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.profile.ProfileScreen
-import com.plcoding.socialnetworktwitch.feature_auth.presentation.register.RegisterScreen
 import com.plcoding.socialnetworktwitch.feature_profile.presentation.search.SearchScreen
-import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashScreen
-import com.plcoding.socialnetworktwitch.core.util.Screen
-import com.plcoding.socialnetworktwitch.feature_chat.presentation.message.MessageScreen
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.manualcomposablecalls.composable
 
 @ExperimentalComposeUiApi
 @ExperimentalCoilApi
@@ -39,183 +34,94 @@ fun Navigation(
     scaffoldState: ScaffoldState,
     imageLoader: ImageLoader
 ) {
-    NavHost(
+    DestinationsNavHost(
+        navGraph = NavGraphs.root,
         navController = navController,
-        startDestination = Screen.SplashScreen.route,
         modifier = Modifier.fillMaxSize()
     ) {
-        composable(Screen.SplashScreen.route) {
-            SplashScreen(
-                onPopBackStack = navController::popBackStack,
-                onNavigate = navController::navigate,
-            )
-        }
-        composable(Screen.LoginScreen.route) {
+        composable(LoginScreenDestination) {
             LoginScreen(
-                onNavigate = navController::navigate,
-                onLogin = {
-                    navController.popBackStack(
-                        route = Screen.LoginScreen.route,
-                        inclusive = true
-                    )
-                    navController.navigate(route = Screen.MainFeedScreen.route)
-                },
+                navigator = destinationsNavigator,
                 scaffoldState = scaffoldState
             )
         }
-        composable(Screen.RegisterScreen.route) {
+
+        composable(RegisterScreenDestination) {
             RegisterScreen(
-                navController = navController,
+                navigator = destinationsNavigator,
                 scaffoldState = scaffoldState,
-                onPopBackStack = navController::popBackStack
             )
         }
-        composable(Screen.MainFeedScreen.route) {
+
+        composable(MainFeedScreenDestination) {
             MainFeedScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
+                imageLoader = imageLoader,
                 scaffoldState = scaffoldState,
-                imageLoader = imageLoader
+                navigator = destinationsNavigator,
             )
         }
-        composable(Screen.ChatScreen.route) {
+
+        composable(ChatScreenDestination) {
             ChatScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
-                imageLoader = imageLoader
+                imageLoader = imageLoader,
+                navigator = destinationsNavigator,
             )
         }
-        composable(
-            route = Screen.MessageScreen.route + "/{remoteUserId}/{remoteUsername}/{remoteUserProfilePictureUrl}?chatId={chatId}",
-            arguments = listOf(
-                navArgument("chatId") {
-                    type = NavType.StringType
-                    nullable = true
-                },
-                navArgument("remoteUserId") {
-                    type = NavType.StringType
-                },
-                navArgument("remoteUsername") {
-                    type = NavType.StringType
-                },
-                navArgument("remoteUserProfilePictureUrl") {
-                    type = NavType.StringType
-                }
-            )
-        ) {
-            val remoteUserId = it.arguments?.getString("remoteUserId")!!
-            val remoteUsername = it.arguments?.getString("remoteUsername")!!
-            val remoteUserProfilePictureUrl = it.arguments?.getString("remoteUserProfilePictureUrl")!!
+
+        composable(MessageScreenDestination) {
             MessageScreen(
-                remoteUserId = remoteUserId,
-                remoteUsername = remoteUsername,
-                encodedRemoteUserProfilePictureUrl = remoteUserProfilePictureUrl,
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
+                navArgs = navArgs,
+                destinationsNavigator = destinationsNavigator,
                 imageLoader = imageLoader
             )
         }
-        composable(Screen.ActivityScreen.route) {
-            ActivityScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
-            )
-        }
-        composable(
-            route = Screen.ProfileScreen.route + "?userId={userId}",
-            arguments = listOf(
-                navArgument(name = "userId") {
-                    type = NavType.StringType
-                    nullable = true
-                    defaultValue = null
-                }
-            )
-        ) {
+
+        composable(ProfileScreenDestination) {
             ProfileScreen(
-                userId = it.arguments?.getString("userId"),
-                onLogout = {
-                    navController.navigate(route = Screen.LoginScreen.route)
-                },
-                onNavigate = navController::navigate,
+                userId = navArgs.userId,
+                navigator = destinationsNavigator,
                 scaffoldState = scaffoldState,
                 imageLoader = imageLoader
             )
         }
-        composable(
-            Screen.EditProfileScreen.route + "/{userId}",
-            arguments = listOf(
-                navArgument(name = "userId") {
-                    type = NavType.StringType
-                }
-            )
-        ) {
+
+        composable(EditProfileScreenDestination) {
             EditProfileScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
                 scaffoldState = scaffoldState,
-                imageLoader = imageLoader
+                imageLoader = imageLoader,
+                navigator = destinationsNavigator
             )
         }
-        composable(Screen.CreatePostScreen.route) {
+
+        composable(CreatePostScreenDestination) {
             CreatePostScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
+                navigator = destinationsNavigator,
                 scaffoldState = scaffoldState,
                 imageLoader = imageLoader
             )
         }
-        composable(Screen.SearchScreen.route) {
+
+        composable(SearchScreenDestination) {
             SearchScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
+                navigator = destinationsNavigator,
                 imageLoader = imageLoader
             )
         }
-        composable(
-            route = Screen.PostDetailScreen.route + "/{postId}?shouldShowKeyboard={shouldShowKeyboard}",
-            arguments = listOf(
-                navArgument(
-                    name = "postId"
-                ) {
-                    type = NavType.StringType
-                },
-                navArgument(
-                    name = "shouldShowKeyboard"
-                ) {
-                    type = NavType.BoolType
-                    defaultValue = false
-                }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    action = Intent.ACTION_VIEW
-                    uriPattern = "https://pl-coding.com/{postId}"
-                }
-            )
-        ) {
-            val shouldShowKeyboard = it.arguments?.getBoolean("shouldShowKeyboard") ?: false
-            println("POST ID: ${it.arguments?.getString("postId")}")
+
+        composable(PostDetailScreenDestination) {
             PostDetailScreen(
                 scaffoldState = scaffoldState,
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
-                shouldShowKeyboard = shouldShowKeyboard,
-                imageLoader = imageLoader
+                imageLoader = imageLoader,
+                navigator = destinationsNavigator,
+                navArgs = navArgs,
             )
         }
-        composable(
-            route = Screen.PersonListScreen.route + "/{parentId}",
-            arguments = listOf(
-                navArgument("parentId") {
-                    type = NavType.StringType
-                }
-            )
-        ) {
+
+        composable(PersonListScreenDestination) {
             PersonListScreen(
-                onNavigateUp = navController::navigateUp,
-                onNavigate = navController::navigate,
                 scaffoldState = scaffoldState,
-                imageLoader = imageLoader
+                imageLoader = imageLoader,
+                navigator = destinationsNavigator
             )
         }
     }

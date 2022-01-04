@@ -11,6 +11,7 @@ import com.plcoding.socialnetworktwitch.core.domain.states.StandardTextFieldStat
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.util.Resource
 import com.plcoding.socialnetworktwitch.core.util.UiText
+import com.plcoding.socialnetworktwitch.destinations.PostDetailScreenDestination
 import com.plcoding.socialnetworktwitch.feature_auth.domain.use_case.AuthenticateUseCase
 import com.plcoding.socialnetworktwitch.feature_post.domain.use_case.PostUseCases
 import com.plcoding.socialnetworktwitch.feature_post.presentation.util.CommentError
@@ -43,11 +44,11 @@ class PostDetailViewModel @Inject constructor(
 
     private var isUserLoggedIn = false
 
+    val postId = PostDetailScreenDestination.argsFrom(savedStateHandle).postId
+
     init {
-        savedStateHandle.get<String>("postId")?.let { postId ->
-            loadPostDetails(postId)
-            loadCommentsForPost(postId)
-        }
+        loadPostDetails(postId)
+        loadCommentsForPost(postId)
     }
 
     fun onEvent(event: PostDetailEvent) {
@@ -62,7 +63,7 @@ class PostDetailViewModel @Inject constructor(
             }
             is PostDetailEvent.Comment -> {
                 createComment(
-                    postId = savedStateHandle.get<String>("postId") ?: "",
+                    postId = postId,
                     comment = commentTextFieldState.value.text
                 )
             }

@@ -13,7 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.BottomNavItem
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.core.domain.models.DestinationBottomNavItem
+import com.plcoding.socialnetworktwitch.core.domain.models.SpacerBottomNavItem
+import com.plcoding.socialnetworktwitch.destinations.*
+import com.plcoding.socialnetworktwitch.navDestination
 
 @Composable
 fun StandardScaffold(
@@ -22,24 +25,24 @@ fun StandardScaffold(
     showBottomBar: Boolean = true,
     state: ScaffoldState,
     bottomNavItems: List<BottomNavItem> = listOf(
-        BottomNavItem(
-            route = Screen.MainFeedScreen.route,
+        DestinationBottomNavItem(
+            destination = MainFeedScreenDestination,
             icon = Icons.Outlined.Home,
             contentDescription = "Home"
         ),
-        BottomNavItem(
-            route = Screen.ChatScreen.route,
+        DestinationBottomNavItem(
+            destination = ChatScreenDestination,
             icon = Icons.Outlined.Message,
             contentDescription = "Message"
         ),
-        BottomNavItem(route = "-"),
-        BottomNavItem(
-            route = Screen.ActivityScreen.route,
+        SpacerBottomNavItem(),
+        DestinationBottomNavItem(
+            destination = ActivityScreenDestination,
             icon = Icons.Outlined.Notifications,
             contentDescription = "Activity"
         ),
-        BottomNavItem(
-            route = Screen.ProfileScreen.route,
+        DestinationBottomNavItem(
+            destination = ProfileScreenDestination,
             icon = Icons.Outlined.Person,
             contentDescription = "Profile"
         ),
@@ -57,16 +60,17 @@ fun StandardScaffold(
                     elevation = 5.dp
                 ) {
                     BottomNavigation {
-                        bottomNavItems.forEachIndexed { i, bottomNavItem ->
+                        val currentDestination = navController.currentBackStackEntry?.navDestination
+                        bottomNavItems.forEach { bottomNavItem ->
                             StandardBottomNavItem(
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
-                                selected = navController.currentDestination?.route?.startsWith(bottomNavItem.route) == true,
+                                selected = bottomNavItem is DestinationBottomNavItem && currentDestination == bottomNavItem.destination,
                                 alertCount = bottomNavItem.alertCount,
                                 enabled = bottomNavItem.icon != null
                             ) {
-                                if (navController.currentDestination?.route != bottomNavItem.route) {
-                                    navController.navigate(bottomNavItem.route)
+                                if (bottomNavItem is DestinationBottomNavItem && currentDestination != bottomNavItem.destination) {
+                                    navController.navigate(bottomNavItem.destination.route)
                                 }
                             }
                         }

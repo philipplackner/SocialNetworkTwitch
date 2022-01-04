@@ -12,19 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
-import com.plcoding.socialnetworktwitch.core.util.Screen
-import com.plcoding.socialnetworktwitch.core.util.Constants
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 
+@Destination(start = true)
 @Composable
 fun SplashScreen(
+    destinationsNavigator: DestinationsNavigator,
     dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    onPopBackStack: () -> Unit = {},
-    onNavigate: (String) -> Unit = {},
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     val scale = remember {
@@ -50,8 +49,11 @@ fun SplashScreen(
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
                 is UiEvent.Navigate -> {
-                    onPopBackStack()
-                    onNavigate(event.route)
+                    destinationsNavigator.popBackStack()
+                    destinationsNavigator.navigate(
+                        direction = event.direction,
+                        onlyIfResumed = false
+                    )
                 }
                 else -> Unit
             }

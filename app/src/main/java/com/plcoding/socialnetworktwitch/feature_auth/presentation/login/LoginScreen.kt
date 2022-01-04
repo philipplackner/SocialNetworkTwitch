@@ -22,15 +22,19 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.LoginScreenDestination
+import com.plcoding.socialnetworktwitch.destinations.MainFeedScreenDestination
+import com.plcoding.socialnetworktwitch.destinations.RegisterScreenDestination
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.util.AuthError
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collectLatest
 
+@Destination
 @Composable
 fun LoginScreen(
     scaffoldState: ScaffoldState,
-    onNavigate: (String) -> Unit = {},
-    onLogin: () -> Unit = {},
+    navigator: DestinationsNavigator,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val emailState = viewModel.emailState.value
@@ -47,10 +51,14 @@ fun LoginScreen(
                     )
                 }
                 is UiEvent.Navigate -> {
-                    onNavigate(event.route)
+                    navigator.navigate(event.direction)
                 }
                 is UiEvent.OnLogin -> {
-                    onLogin()
+                    navigator.popBackStack(
+                        direction = LoginScreenDestination,
+                        inclusive = true
+                    )
+                    navigator.navigate(MainFeedScreenDestination, onlyIfResumed = false)
                 }
             }
         }
@@ -139,9 +147,7 @@ fun LoginScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .clickable {
-                    onNavigate(
-                        Screen.RegisterScreen.route
-                    )
+                    navigator.navigate(RegisterScreenDestination)
                 }
         )
     }

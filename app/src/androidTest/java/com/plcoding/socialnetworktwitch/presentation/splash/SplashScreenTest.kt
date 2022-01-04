@@ -7,10 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.plcoding.socialnetworktwitch.feature_auth.presentation.splash.SplashScreen
 import com.plcoding.socialnetworktwitch.core.presentation.MainActivity
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SocialNetworkTwitchTheme
-import com.plcoding.socialnetworktwitch.core.util.Screen
 import com.plcoding.socialnetworktwitch.core.util.Constants
+import com.plcoding.socialnetworktwitch.destinations.LoginScreenDestination
+import com.ramcosta.composedestinations.navigation.DestinationsNavController
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -42,7 +44,7 @@ class SplashScreenTest {
         composeTestRule.setContent {
             SocialNetworkTwitchTheme {
                 SplashScreen(
-                    navController = navController,
+                    destinationsNavigator = DestinationsNavController(navController, mockk(relaxed = true)),
                     dispatcher = testDispatcher
                 )
             }
@@ -56,7 +58,7 @@ class SplashScreenTest {
 
         verify {
             navController.popBackStack()
-            navController.navigate(Screen.LoginScreen.route)
+            navController.navigate(LoginScreenDestination.route)
         }
     }
 }

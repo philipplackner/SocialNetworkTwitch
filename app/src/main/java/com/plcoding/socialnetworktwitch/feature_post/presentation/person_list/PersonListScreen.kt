@@ -15,12 +15,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.plcoding.socialnetworktwitch.R
-import com.plcoding.socialnetworktwitch.core.domain.models.User
-import com.plcoding.socialnetworktwitch.core.domain.models.UserItem
 import com.plcoding.socialnetworktwitch.core.presentation.components.StandardToolbar
 import com.plcoding.socialnetworktwitch.core.presentation.components.UserProfileItem
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.IconSizeMedium
@@ -28,17 +25,22 @@ import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceLarge
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceMedium
 import com.plcoding.socialnetworktwitch.core.presentation.util.UiEvent
 import com.plcoding.socialnetworktwitch.core.presentation.util.asString
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.ProfileScreenDestination
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collectLatest
 
-@ExperimentalCoilApi
-@ExperimentalMaterialApi
+data class PersonListScreenNavArgs(
+    val parentId: String
+)
+
+@OptIn(ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
+@Destination(navArgsDelegate = PersonListScreenNavArgs::class)
 @Composable
 fun PersonListScreen(
     scaffoldState: ScaffoldState,
     imageLoader: ImageLoader,
-    onNavigate: (String) -> Unit = {},
-    onNavigateUp: () -> Unit = {},
+    navigator: DestinationsNavigator,
     viewModel: PersonListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -59,7 +61,7 @@ fun PersonListScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            onNavigateUp = onNavigateUp,
+            onNavigateUp = navigator::navigateUp,
             showBackArrow = true,
             title = {
                 Text(
@@ -91,7 +93,7 @@ fun PersonListScreen(
                             )
                         },
                         onItemClick = {
-                            onNavigate(Screen.ProfileScreen.route + "?userId=${user.userId}")
+                            navigator.navigate(ProfileScreenDestination(userId = user.userId))
                         },
                         onActionItemClick = {
                             viewModel.onEvent(PersonListEvent.ToggleFollowStateForUser(user.userId))

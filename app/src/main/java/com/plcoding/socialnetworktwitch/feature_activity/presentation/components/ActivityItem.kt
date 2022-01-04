@@ -1,6 +1,5 @@
 package com.plcoding.socialnetworktwitch.feature_activity.presentation.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,13 +23,15 @@ import androidx.compose.ui.unit.sp
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.core.domain.models.Activity
 import com.plcoding.socialnetworktwitch.core.presentation.ui.theme.SpaceSmall
-import com.plcoding.socialnetworktwitch.core.util.Screen
+import com.plcoding.socialnetworktwitch.destinations.PostDetailScreenDestination
+import com.plcoding.socialnetworktwitch.destinations.ProfileScreenDestination
 import com.plcoding.socialnetworktwitch.feature_activity.domain.ActivityType
+import com.ramcosta.composedestinations.spec.Direction
 
 @Composable
 fun ActivityItem(
     activity: Activity,
-    onNavigate: (String) -> Unit = {},
+    onNavigate: (Direction) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -100,7 +101,7 @@ fun ActivityItem(
                     ).firstOrNull()?.let { annotation ->
                         // Clicked on user
                         onNavigate(
-                            Screen.ProfileScreen.route + "?userId=${activity.userId}"
+                            ProfileScreenDestination(userId = activity.userId)
                         )
                     }
                     annotatedText.getStringAnnotations(
@@ -110,7 +111,7 @@ fun ActivityItem(
                     ).firstOrNull()?.let { annotation ->
                         // Clicked on parent
                         onNavigate(
-                            Screen.PostDetailScreen.route + "/${activity.parentId}"
+                            PostDetailScreenDestination(postId = activity.parentId)
                         )
                     }
                 }
