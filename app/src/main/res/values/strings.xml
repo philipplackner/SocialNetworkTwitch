@@ -59,4 +59,6 @@
     <string name="not_a_valid_email">This is not a valid email</string>
     <string name="input_too_short">The minimum length is %d</string>
     <string name="invalid_password">The password needs to contain at least one uppercase letter and one number</string>
+	<string name="show_more"> … Show More</string>
+    <string name="show_less"> … Show Less</string>
 </resources>

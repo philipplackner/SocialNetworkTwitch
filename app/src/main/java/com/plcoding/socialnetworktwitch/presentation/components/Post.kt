@@ -19,22 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.plcoding.socialnetworktwitch.R
 import com.plcoding.socialnetworktwitch.domain.models.Post
 import com.plcoding.socialnetworktwitch.presentation.ui.theme.*
-import com.plcoding.socialnetworktwitch.util.Constants
 
 @Composable
 fun Post(
@@ -87,25 +82,26 @@ fun Post(
                     }
                 )
                 Spacer(modifier = Modifier.height(SpaceSmall))
-                Text(
-                    text = buildAnnotatedString {
-                        append(post.description)
-                        withStyle(
-                            SpanStyle(
-                                color = HintGray,
-                            )
-                        ) {
-                            append(
-                                LocalContext.current.getString(
-                                    R.string.read_more
-                                )
-                            )
-                        }
-                    },
-                    style = MaterialTheme.typography.body2,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = Constants.MAX_POST_DESCRIPTION_LINES
-                )
+                StandardExpandingText(modifier = Modifier, text = post.description, align = TextAlign.Justify)
+//                Text(
+//                    text = buildAnnotatedString {
+//                        append(post.description)
+//                        withStyle(
+//                            SpanStyle(
+//                                color = HintGray,
+//                            )
+//                        ) {
+//                            append(
+//                                LocalContext.current.getString(
+//                                    R.string.read_more
+//                                )
+//                            )
+//                        }
+//                    },
+//                    style = MaterialTheme.typography.body2,
+//                    overflow = TextOverflow.Ellipsis,
+//                    maxLines = Constants.MAX_POST_DESCRIPTION_LINES
+//                )
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 Row(
                     modifier = Modifier
